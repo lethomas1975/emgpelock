@@ -7,65 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E95FDFEC28055222006C1960 /* eLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FDFEB28055222006C1960 /* eLockApp.swift */; };
-		E95FDFEE28055222006C1960 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FDFED28055222006C1960 /* ContentView.swift */; };
-		E95FDFF028055223006C1960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95FDFEF28055223006C1960 /* Assets.xcassets */; };
-		E95FDFF328055223006C1960 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95FDFF228055223006C1960 /* Preview Assets.xcassets */; };
-		E95FDFF528055223006C1960 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FDFF428055223006C1960 /* Persistence.swift */; };
-		E95FDFF828055223006C1960 /* eLock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95FDFF628055223006C1960 /* eLock.xcdatamodeld */; };
-		E95FE00228055223006C1960 /* eLockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE00128055223006C1960 /* eLockTests.swift */; };
-		E95FE00C28055223006C1960 /* eLockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE00B28055223006C1960 /* eLockUITests.swift */; };
-		E95FE00E28055223006C1960 /* eLockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE00D28055223006C1960 /* eLockUITestsLaunchTests.swift */; };
+		E95FE063280558C4006C1960 /* eLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE062280558C4006C1960 /* eLockApp.swift */; };
+		E95FE065280558C4006C1960 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE064280558C4006C1960 /* ContentView.swift */; };
+		E95FE067280558C5006C1960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95FE066280558C5006C1960 /* Assets.xcassets */; };
+		E95FE06A280558C5006C1960 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E95FE069280558C5006C1960 /* Preview Assets.xcassets */; };
+		E95FE074280558C5006C1960 /* eLockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE073280558C5006C1960 /* eLockTests.swift */; };
+		E95FE07E280558C5006C1960 /* eLockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE07D280558C5006C1960 /* eLockUITests.swift */; };
+		E95FE080280558C5006C1960 /* eLockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FE07F280558C5006C1960 /* eLockUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E95FDFFE28055223006C1960 /* PBXContainerItemProxy */ = {
+		E95FE070280558C5006C1960 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E95FDFE028055222006C1960 /* Project object */;
+			containerPortal = E95FE057280558C4006C1960 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E95FDFE728055222006C1960;
+			remoteGlobalIDString = E95FE05E280558C4006C1960;
 			remoteInfo = eLock;
 		};
-		E95FE00828055223006C1960 /* PBXContainerItemProxy */ = {
+		E95FE07A280558C5006C1960 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = E95FDFE028055222006C1960 /* Project object */;
+			containerPortal = E95FE057280558C4006C1960 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E95FDFE728055222006C1960;
+			remoteGlobalIDString = E95FE05E280558C4006C1960;
 			remoteInfo = eLock;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E95FDFE828055222006C1960 /* eLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E95FDFEB28055222006C1960 /* eLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockApp.swift; sourceTree = "<group>"; };
-		E95FDFED28055222006C1960 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		E95FDFEF28055223006C1960 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E95FDFF228055223006C1960 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		E95FDFF428055223006C1960 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		E95FDFF728055223006C1960 /* eLock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eLock.xcdatamodel; sourceTree = "<group>"; };
-		E95FDFFD28055223006C1960 /* eLockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E95FE00128055223006C1960 /* eLockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockTests.swift; sourceTree = "<group>"; };
-		E95FE00728055223006C1960 /* eLockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E95FE00B28055223006C1960 /* eLockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITests.swift; sourceTree = "<group>"; };
-		E95FE00D28055223006C1960 /* eLockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E95FE05F280558C4006C1960 /* eLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E95FE062280558C4006C1960 /* eLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockApp.swift; sourceTree = "<group>"; };
+		E95FE064280558C4006C1960 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E95FE066280558C5006C1960 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E95FE069280558C5006C1960 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E95FE06F280558C5006C1960 /* eLockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E95FE073280558C5006C1960 /* eLockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockTests.swift; sourceTree = "<group>"; };
+		E95FE079280558C5006C1960 /* eLockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E95FE07D280558C5006C1960 /* eLockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITests.swift; sourceTree = "<group>"; };
+		E95FE07F280558C5006C1960 /* eLockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E95FDFE528055222006C1960 /* Frameworks */ = {
+		E95FE05C280558C4006C1960 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FDFFA28055223006C1960 /* Frameworks */ = {
+		E95FE06C280558C5006C1960 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FE00428055223006C1960 /* Frameworks */ = {
+		E95FE076280558C5006C1960 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -75,60 +71,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E95FDFDF28055222006C1960 = {
+		E95FE056280558C4006C1960 = {
 			isa = PBXGroup;
 			children = (
-				E95FDFEA28055222006C1960 /* eLock */,
-				E95FE00028055223006C1960 /* eLockTests */,
-				E95FE00A28055223006C1960 /* eLockUITests */,
-				E95FDFE928055222006C1960 /* Products */,
+				E95FE061280558C4006C1960 /* eLock */,
+				E95FE072280558C5006C1960 /* eLockTests */,
+				E95FE07C280558C5006C1960 /* eLockUITests */,
+				E95FE060280558C4006C1960 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E95FDFE928055222006C1960 /* Products */ = {
+		E95FE060280558C4006C1960 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E95FDFE828055222006C1960 /* eLock.app */,
-				E95FDFFD28055223006C1960 /* eLockTests.xctest */,
-				E95FE00728055223006C1960 /* eLockUITests.xctest */,
+				E95FE05F280558C4006C1960 /* eLock.app */,
+				E95FE06F280558C5006C1960 /* eLockTests.xctest */,
+				E95FE079280558C5006C1960 /* eLockUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E95FDFEA28055222006C1960 /* eLock */ = {
+		E95FE061280558C4006C1960 /* eLock */ = {
 			isa = PBXGroup;
 			children = (
-				E95FDFEB28055222006C1960 /* eLockApp.swift */,
-				E95FDFED28055222006C1960 /* ContentView.swift */,
-				E95FDFEF28055223006C1960 /* Assets.xcassets */,
-				E95FDFF428055223006C1960 /* Persistence.swift */,
-				E95FDFF628055223006C1960 /* eLock.xcdatamodeld */,
-				E95FDFF128055223006C1960 /* Preview Content */,
+				E95FE062280558C4006C1960 /* eLockApp.swift */,
+				E95FE064280558C4006C1960 /* ContentView.swift */,
+				E95FE066280558C5006C1960 /* Assets.xcassets */,
+				E95FE068280558C5006C1960 /* Preview Content */,
 			);
 			path = eLock;
 			sourceTree = "<group>";
 		};
-		E95FDFF128055223006C1960 /* Preview Content */ = {
+		E95FE068280558C5006C1960 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				E95FDFF228055223006C1960 /* Preview Assets.xcassets */,
+				E95FE069280558C5006C1960 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E95FE00028055223006C1960 /* eLockTests */ = {
+		E95FE072280558C5006C1960 /* eLockTests */ = {
 			isa = PBXGroup;
 			children = (
-				E95FE00128055223006C1960 /* eLockTests.swift */,
+				E95FE073280558C5006C1960 /* eLockTests.swift */,
 			);
 			path = eLockTests;
 			sourceTree = "<group>";
 		};
-		E95FE00A28055223006C1960 /* eLockUITests */ = {
+		E95FE07C280558C5006C1960 /* eLockUITests */ = {
 			isa = PBXGroup;
 			children = (
-				E95FE00B28055223006C1960 /* eLockUITests.swift */,
-				E95FE00D28055223006C1960 /* eLockUITestsLaunchTests.swift */,
+				E95FE07D280558C5006C1960 /* eLockUITests.swift */,
+				E95FE07F280558C5006C1960 /* eLockUITestsLaunchTests.swift */,
 			);
 			path = eLockUITests;
 			sourceTree = "<group>";
@@ -136,13 +130,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E95FDFE728055222006C1960 /* eLock */ = {
+		E95FE05E280558C4006C1960 /* eLock */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E95FE01128055223006C1960 /* Build configuration list for PBXNativeTarget "eLock" */;
+			buildConfigurationList = E95FE083280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLock" */;
 			buildPhases = (
-				E95FDFE428055222006C1960 /* Sources */,
-				E95FDFE528055222006C1960 /* Frameworks */,
-				E95FDFE628055222006C1960 /* Resources */,
+				E95FE05B280558C4006C1960 /* Sources */,
+				E95FE05C280558C4006C1960 /* Frameworks */,
+				E95FE05D280558C4006C1960 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -150,69 +144,69 @@
 			);
 			name = eLock;
 			productName = eLock;
-			productReference = E95FDFE828055222006C1960 /* eLock.app */;
+			productReference = E95FE05F280558C4006C1960 /* eLock.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E95FDFFC28055223006C1960 /* eLockTests */ = {
+		E95FE06E280558C5006C1960 /* eLockTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E95FE01428055223006C1960 /* Build configuration list for PBXNativeTarget "eLockTests" */;
+			buildConfigurationList = E95FE086280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLockTests" */;
 			buildPhases = (
-				E95FDFF928055223006C1960 /* Sources */,
-				E95FDFFA28055223006C1960 /* Frameworks */,
-				E95FDFFB28055223006C1960 /* Resources */,
+				E95FE06B280558C5006C1960 /* Sources */,
+				E95FE06C280558C5006C1960 /* Frameworks */,
+				E95FE06D280558C5006C1960 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E95FDFFF28055223006C1960 /* PBXTargetDependency */,
+				E95FE071280558C5006C1960 /* PBXTargetDependency */,
 			);
 			name = eLockTests;
 			productName = eLockTests;
-			productReference = E95FDFFD28055223006C1960 /* eLockTests.xctest */;
+			productReference = E95FE06F280558C5006C1960 /* eLockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E95FE00628055223006C1960 /* eLockUITests */ = {
+		E95FE078280558C5006C1960 /* eLockUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E95FE01728055223006C1960 /* Build configuration list for PBXNativeTarget "eLockUITests" */;
+			buildConfigurationList = E95FE089280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLockUITests" */;
 			buildPhases = (
-				E95FE00328055223006C1960 /* Sources */,
-				E95FE00428055223006C1960 /* Frameworks */,
-				E95FE00528055223006C1960 /* Resources */,
+				E95FE075280558C5006C1960 /* Sources */,
+				E95FE076280558C5006C1960 /* Frameworks */,
+				E95FE077280558C5006C1960 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E95FE00928055223006C1960 /* PBXTargetDependency */,
+				E95FE07B280558C5006C1960 /* PBXTargetDependency */,
 			);
 			name = eLockUITests;
 			productName = eLockUITests;
-			productReference = E95FE00728055223006C1960 /* eLockUITests.xctest */;
+			productReference = E95FE079280558C5006C1960 /* eLockUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E95FDFE028055222006C1960 /* Project object */ = {
+		E95FE057280558C4006C1960 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
-					E95FDFE728055222006C1960 = {
+					E95FE05E280558C4006C1960 = {
 						CreatedOnToolsVersion = 13.3;
 					};
-					E95FDFFC28055223006C1960 = {
+					E95FE06E280558C5006C1960 = {
 						CreatedOnToolsVersion = 13.3;
-						TestTargetID = E95FDFE728055222006C1960;
+						TestTargetID = E95FE05E280558C4006C1960;
 					};
-					E95FE00628055223006C1960 = {
+					E95FE078280558C5006C1960 = {
 						CreatedOnToolsVersion = 13.3;
-						TestTargetID = E95FDFE728055222006C1960;
+						TestTargetID = E95FE05E280558C4006C1960;
 					};
 				};
 			};
-			buildConfigurationList = E95FDFE328055222006C1960 /* Build configuration list for PBXProject "eLock" */;
+			buildConfigurationList = E95FE05A280558C4006C1960 /* Build configuration list for PBXProject "eLock" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -220,36 +214,36 @@
 				en,
 				Base,
 			);
-			mainGroup = E95FDFDF28055222006C1960;
-			productRefGroup = E95FDFE928055222006C1960 /* Products */;
+			mainGroup = E95FE056280558C4006C1960;
+			productRefGroup = E95FE060280558C4006C1960 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E95FDFE728055222006C1960 /* eLock */,
-				E95FDFFC28055223006C1960 /* eLockTests */,
-				E95FE00628055223006C1960 /* eLockUITests */,
+				E95FE05E280558C4006C1960 /* eLock */,
+				E95FE06E280558C5006C1960 /* eLockTests */,
+				E95FE078280558C5006C1960 /* eLockUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E95FDFE628055222006C1960 /* Resources */ = {
+		E95FE05D280558C4006C1960 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95FDFF328055223006C1960 /* Preview Assets.xcassets in Resources */,
-				E95FDFF028055223006C1960 /* Assets.xcassets in Resources */,
+				E95FE06A280558C5006C1960 /* Preview Assets.xcassets in Resources */,
+				E95FE067280558C5006C1960 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FDFFB28055223006C1960 /* Resources */ = {
+		E95FE06D280558C5006C1960 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FE00528055223006C1960 /* Resources */ = {
+		E95FE077280558C5006C1960 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,51 +253,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E95FDFE428055222006C1960 /* Sources */ = {
+		E95FE05B280558C4006C1960 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95FDFF828055223006C1960 /* eLock.xcdatamodeld in Sources */,
-				E95FDFF528055223006C1960 /* Persistence.swift in Sources */,
-				E95FDFEE28055222006C1960 /* ContentView.swift in Sources */,
-				E95FDFEC28055222006C1960 /* eLockApp.swift in Sources */,
+				E95FE065280558C4006C1960 /* ContentView.swift in Sources */,
+				E95FE063280558C4006C1960 /* eLockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FDFF928055223006C1960 /* Sources */ = {
+		E95FE06B280558C5006C1960 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95FE00228055223006C1960 /* eLockTests.swift in Sources */,
+				E95FE074280558C5006C1960 /* eLockTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E95FE00328055223006C1960 /* Sources */ = {
+		E95FE075280558C5006C1960 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E95FE00C28055223006C1960 /* eLockUITests.swift in Sources */,
-				E95FE00E28055223006C1960 /* eLockUITestsLaunchTests.swift in Sources */,
+				E95FE07E280558C5006C1960 /* eLockUITests.swift in Sources */,
+				E95FE080280558C5006C1960 /* eLockUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E95FDFFF28055223006C1960 /* PBXTargetDependency */ = {
+		E95FE071280558C5006C1960 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E95FDFE728055222006C1960 /* eLock */;
-			targetProxy = E95FDFFE28055223006C1960 /* PBXContainerItemProxy */;
+			target = E95FE05E280558C4006C1960 /* eLock */;
+			targetProxy = E95FE070280558C5006C1960 /* PBXContainerItemProxy */;
 		};
-		E95FE00928055223006C1960 /* PBXTargetDependency */ = {
+		E95FE07B280558C5006C1960 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E95FDFE728055222006C1960 /* eLock */;
-			targetProxy = E95FE00828055223006C1960 /* PBXContainerItemProxy */;
+			target = E95FE05E280558C4006C1960 /* eLock */;
+			targetProxy = E95FE07A280558C5006C1960 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		E95FE00F28055223006C1960 /* Debug */ = {
+		E95FE081280558C5006C1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -363,7 +355,7 @@
 			};
 			name = Debug;
 		};
-		E95FE01028055223006C1960 /* Release */ = {
+		E95FE082280558C5006C1960 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -417,7 +409,7 @@
 			};
 			name = Release;
 		};
-		E95FE01228055223006C1960 /* Debug */ = {
+		E95FE084280558C5006C1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -445,7 +437,7 @@
 			};
 			name = Debug;
 		};
-		E95FE01328055223006C1960 /* Release */ = {
+		E95FE085280558C5006C1960 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -473,7 +465,7 @@
 			};
 			name = Release;
 		};
-		E95FE01528055223006C1960 /* Debug */ = {
+		E95FE087280558C5006C1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -492,7 +484,7 @@
 			};
 			name = Debug;
 		};
-		E95FE01628055223006C1960 /* Release */ = {
+		E95FE088280558C5006C1960 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -511,7 +503,7 @@
 			};
 			name = Release;
 		};
-		E95FE01828055223006C1960 /* Debug */ = {
+		E95FE08A280558C5006C1960 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -528,7 +520,7 @@
 			};
 			name = Debug;
 		};
-		E95FE01928055223006C1960 /* Release */ = {
+		E95FE08B280558C5006C1960 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -548,56 +540,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E95FDFE328055222006C1960 /* Build configuration list for PBXProject "eLock" */ = {
+		E95FE05A280558C4006C1960 /* Build configuration list for PBXProject "eLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E95FE00F28055223006C1960 /* Debug */,
-				E95FE01028055223006C1960 /* Release */,
+				E95FE081280558C5006C1960 /* Debug */,
+				E95FE082280558C5006C1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E95FE01128055223006C1960 /* Build configuration list for PBXNativeTarget "eLock" */ = {
+		E95FE083280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLock" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E95FE01228055223006C1960 /* Debug */,
-				E95FE01328055223006C1960 /* Release */,
+				E95FE084280558C5006C1960 /* Debug */,
+				E95FE085280558C5006C1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E95FE01428055223006C1960 /* Build configuration list for PBXNativeTarget "eLockTests" */ = {
+		E95FE086280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLockTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E95FE01528055223006C1960 /* Debug */,
-				E95FE01628055223006C1960 /* Release */,
+				E95FE087280558C5006C1960 /* Debug */,
+				E95FE088280558C5006C1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E95FE01728055223006C1960 /* Build configuration list for PBXNativeTarget "eLockUITests" */ = {
+		E95FE089280558C5006C1960 /* Build configuration list for PBXNativeTarget "eLockUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E95FE01828055223006C1960 /* Debug */,
-				E95FE01928055223006C1960 /* Release */,
+				E95FE08A280558C5006C1960 /* Debug */,
+				E95FE08B280558C5006C1960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		E95FDFF628055223006C1960 /* eLock.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				E95FDFF728055223006C1960 /* eLock.xcdatamodel */,
-			);
-			currentVersion = E95FDFF728055223006C1960 /* eLock.xcdatamodel */;
-			path = eLock.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
-	rootObject = E95FDFE028055222006C1960 /* Project object */;
+	rootObject = E95FE057280558C4006C1960 /* Project object */;
 }
