@@ -16,5 +16,5 @@ void savePin(const char* pin) {
 
 char* readPin() {
     // access the EEPROM
-    return  char[0];
+    return "";
 }

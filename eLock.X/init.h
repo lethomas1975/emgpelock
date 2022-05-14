@@ -54,8 +54,8 @@
 #define SolenoidTrisOut TRISAbits.TRISA2
 
 // definition for the RGB LED
-#define RGBLedOut LATCbits.LATC0
-#define RGBLedTrisOut TRISCbits.TRISC0
+#define RGBLedOut PORTAbits.AN0
+#define RGBLedTrisOut TRISAbits.TRISA0
 // definition for the Buzzer
 #define BUZZOut LATCbits.LATC1
 #define BUZZTrisOut TRISCbits.TRISC1

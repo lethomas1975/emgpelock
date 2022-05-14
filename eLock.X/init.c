@@ -24,11 +24,12 @@ void init(void) {
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;
 
-    ADCON1 = 0x0F;
-    CMCON = 0x07;
+    ADCON1 = 0x01; // A0 use Analog
+    ADCON2 = 0b10001001; // right alignment, 2TAD and FOSC/8
+    ADRESH=0;
+    ADRESL=0;
     
     INTCON2 = 0;
-    OSCCON = 0x76;
 
     BUZZOut = 0;
     BUZZTrisOut = 0;
@@ -44,6 +45,9 @@ void init(void) {
     SevenSEGTrisOut1 = 0;
     SevenSEGTrisOut2 = 0;
 
+    RGBLedOut = 0;
+    RGBLedTrisOut = 0;
+    
     // set the LED as output (TRIS to 0)
     LEDPin = 0;
     LEDTris = 0;

@@ -1,8 +1,8 @@
 /*
- * File:   solenoid.c
+ * File:   main.c
  * Author: thomas
  *
- * Created on 14 May 2022, 18:36
+ * Created on 14 May 2022, 21:59
  */
 
 
@@ -12,8 +12,8 @@
 
 void main(void) {
     init();
-    while (1) {
-        SolenoidOut = ~SolenoidOut;
+    while(1) {
+        RGBLedOut = ~RGBLedOut;
         delayInMs(100);
     }
 }
