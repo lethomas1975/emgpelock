@@ -7,7 +7,17 @@
 
 
 #include <xc.h>
+#include <stdlib.h>
+#include "../eLock.X/eeprom.h"
 
 void main(void) {
-    return;
+    while (1) {
+        char* pin = malloc(sizeof(char) * 4);
+        *pin = "123";
+        savePin(pin);
+        char* pin2 = readPin();
+        
+        // check pin and pin2 are equals
+    }
+    
 }

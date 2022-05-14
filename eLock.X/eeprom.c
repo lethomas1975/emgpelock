@@ -9,3 +9,12 @@
 #include <xc.h>
 #include "../eLock.X/eeprom.h"
 
+void savePin(const char* pin) {
+    // search how to access EEPROM
+    // and save pin into eeprom
+}
+
+char* readPin() {
+    // access the EEPROM
+    return  char[0];
+}
