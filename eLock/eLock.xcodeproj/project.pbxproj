@@ -1,0 +1,696 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E9CCBE9C28324FF3000065C7 /* eLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBE9B28324FF3000065C7 /* eLockApp.swift */; };
+		E9CCBEA028324FF4000065C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CCBE9F28324FF4000065C7 /* Assets.xcassets */; };
+		E9CCBEA328324FF4000065C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CCBEA228324FF4000065C7 /* Preview Assets.xcassets */; };
+		E9CCBEA528324FF4000065C7 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEA428324FF4000065C7 /* Persistence.swift */; };
+		E9CCBEA828324FF4000065C7 /* eLock.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEA628324FF4000065C7 /* eLock.xcdatamodeld */; };
+		E9CCBEB228324FF4000065C7 /* eLockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEB128324FF4000065C7 /* eLockTests.swift */; };
+		E9CCBEBC28324FF4000065C7 /* eLockUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEBB28324FF4000065C7 /* eLockUITests.swift */; };
+		E9CCBEBE28324FF4000065C7 /* eLockUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEBD28324FF4000065C7 /* eLockUITestsLaunchTests.swift */; };
+		E9CCBECC283257AB000065C7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBECB283257AB000065C7 /* WelcomeView.swift */; };
+		E9CCBECF28325811000065C7 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = E9CCBECE28325811000065C7 /* Introspect */; };
+		E9CCBED12832587C000065C7 /* BTScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED02832587C000065C7 /* BTScanningView.swift */; };
+		E9CCBED32832593B000065C7 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED22832593B000065C7 /* MenuView.swift */; };
+		E9CCBED528325A30000065C7 /* BTPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED428325A30000065C7 /* BTPeripheral.swift */; };
+		E9CCBED728325B5F000065C7 /* HM10Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */; };
+		E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED82832610D000065C7 /* HM10BTManager.swift */; };
+		E9CCBEDB28326A35000065C7 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDA28326A35000065C7 /* PinView.swift */; };
+		E9CCBEDD28326ADA000065C7 /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDC28326ADA000065C7 /* LockView.swift */; };
+		E9CCBEDF28326AE4000065C7 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDE28326AE4000065C7 /* UnlockView.swift */; };
+		E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE028326B13000065C7 /* PinChangeView.swift */; };
+		E9CCBEE328326B3B000065C7 /* EncryptSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */; };
+		E9CCBEE528326B4D000065C7 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE428326B4D000065C7 /* HelpView.swift */; };
+		E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE628326B64000065C7 /* SettingView.swift */; };
+		E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9CCBEAE28324FF4000065C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9CCBE9028324FF3000065C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9CCBE9728324FF3000065C7;
+			remoteInfo = eLock;
+		};
+		E9CCBEB828324FF4000065C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9CCBE9028324FF3000065C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9CCBE9728324FF3000065C7;
+			remoteInfo = eLock;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E9CCBE9828324FF3000065C7 /* eLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9CCBE9B28324FF3000065C7 /* eLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockApp.swift; sourceTree = "<group>"; };
+		E9CCBE9F28324FF4000065C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9CCBEA228324FF4000065C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E9CCBEA428324FF4000065C7 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		E9CCBEA728324FF4000065C7 /* eLock.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = eLock.xcdatamodel; sourceTree = "<group>"; };
+		E9CCBEAD28324FF4000065C7 /* eLockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9CCBEB128324FF4000065C7 /* eLockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockTests.swift; sourceTree = "<group>"; };
+		E9CCBEB728324FF4000065C7 /* eLockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eLockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9CCBEBB28324FF4000065C7 /* eLockUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITests.swift; sourceTree = "<group>"; };
+		E9CCBEBD28324FF4000065C7 /* eLockUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E9CCBECA283256F6000065C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E9CCBECB283257AB000065C7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		E9CCBED02832587C000065C7 /* BTScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTScanningView.swift; sourceTree = "<group>"; };
+		E9CCBED22832593B000065C7 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		E9CCBED428325A30000065C7 /* BTPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPeripheral.swift; sourceTree = "<group>"; };
+		E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10Bluetooth.swift; sourceTree = "<group>"; };
+		E9CCBED82832610D000065C7 /* HM10BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10BTManager.swift; sourceTree = "<group>"; };
+		E9CCBEDA28326A35000065C7 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		E9CCBEDC28326ADA000065C7 /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
+		E9CCBEDE28326AE4000065C7 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
+		E9CCBEE028326B13000065C7 /* PinChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinChangeView.swift; sourceTree = "<group>"; };
+		E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptSettingView.swift; sourceTree = "<group>"; };
+		E9CCBEE428326B4D000065C7 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		E9CCBEE628326B64000065C7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPeripheralView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9CCBE9528324FF3000065C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9CCBECF28325811000065C7 /* Introspect in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEAA28324FF4000065C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEB428324FF4000065C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9CCBE8F28324FF3000065C7 = {
+			isa = PBXGroup;
+			children = (
+				E9CCBE9A28324FF3000065C7 /* eLock */,
+				E9CCBEB028324FF4000065C7 /* eLockTests */,
+				E9CCBEBA28324FF4000065C7 /* eLockUITests */,
+				E9CCBE9928324FF3000065C7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E9CCBE9928324FF3000065C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9CCBE9828324FF3000065C7 /* eLock.app */,
+				E9CCBEAD28324FF4000065C7 /* eLockTests.xctest */,
+				E9CCBEB728324FF4000065C7 /* eLockUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9CCBE9A28324FF3000065C7 /* eLock */ = {
+			isa = PBXGroup;
+			children = (
+				E9CCBECA283256F6000065C7 /* Info.plist */,
+				E9CCBE9B28324FF3000065C7 /* eLockApp.swift */,
+				E9CCBE9F28324FF4000065C7 /* Assets.xcassets */,
+				E9CCBEA428324FF4000065C7 /* Persistence.swift */,
+				E9CCBEA628324FF4000065C7 /* eLock.xcdatamodeld */,
+				E9CCBEA128324FF4000065C7 /* Preview Content */,
+				E9CCBECB283257AB000065C7 /* WelcomeView.swift */,
+				E9CCBED02832587C000065C7 /* BTScanningView.swift */,
+				E9CCBED22832593B000065C7 /* MenuView.swift */,
+				E9CCBED428325A30000065C7 /* BTPeripheral.swift */,
+				E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */,
+				E9CCBED82832610D000065C7 /* HM10BTManager.swift */,
+				E9CCBEDA28326A35000065C7 /* PinView.swift */,
+				E9CCBEDC28326ADA000065C7 /* LockView.swift */,
+				E9CCBEDE28326AE4000065C7 /* UnlockView.swift */,
+				E9CCBEE028326B13000065C7 /* PinChangeView.swift */,
+				E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */,
+				E9CCBEE428326B4D000065C7 /* HelpView.swift */,
+				E9CCBEE628326B64000065C7 /* SettingView.swift */,
+				E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */,
+			);
+			path = eLock;
+			sourceTree = "<group>";
+		};
+		E9CCBEA128324FF4000065C7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E9CCBEA228324FF4000065C7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E9CCBEB028324FF4000065C7 /* eLockTests */ = {
+			isa = PBXGroup;
+			children = (
+				E9CCBEB128324FF4000065C7 /* eLockTests.swift */,
+			);
+			path = eLockTests;
+			sourceTree = "<group>";
+		};
+		E9CCBEBA28324FF4000065C7 /* eLockUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E9CCBEBB28324FF4000065C7 /* eLockUITests.swift */,
+				E9CCBEBD28324FF4000065C7 /* eLockUITestsLaunchTests.swift */,
+			);
+			path = eLockUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9CCBE9728324FF3000065C7 /* eLock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9CCBEC128324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLock" */;
+			buildPhases = (
+				E9CCBE9428324FF3000065C7 /* Sources */,
+				E9CCBE9528324FF3000065C7 /* Frameworks */,
+				E9CCBE9628324FF3000065C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = eLock;
+			packageProductDependencies = (
+				E9CCBECE28325811000065C7 /* Introspect */,
+			);
+			productName = eLock;
+			productReference = E9CCBE9828324FF3000065C7 /* eLock.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9CCBEAC28324FF4000065C7 /* eLockTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9CCBEC428324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLockTests" */;
+			buildPhases = (
+				E9CCBEA928324FF4000065C7 /* Sources */,
+				E9CCBEAA28324FF4000065C7 /* Frameworks */,
+				E9CCBEAB28324FF4000065C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9CCBEAF28324FF4000065C7 /* PBXTargetDependency */,
+			);
+			name = eLockTests;
+			productName = eLockTests;
+			productReference = E9CCBEAD28324FF4000065C7 /* eLockTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E9CCBEB628324FF4000065C7 /* eLockUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9CCBEC728324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLockUITests" */;
+			buildPhases = (
+				E9CCBEB328324FF4000065C7 /* Sources */,
+				E9CCBEB428324FF4000065C7 /* Frameworks */,
+				E9CCBEB528324FF4000065C7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9CCBEB928324FF4000065C7 /* PBXTargetDependency */,
+			);
+			name = eLockUITests;
+			productName = eLockUITests;
+			productReference = E9CCBEB728324FF4000065C7 /* eLockUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9CCBE9028324FF3000065C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					E9CCBE9728324FF3000065C7 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+					E9CCBEAC28324FF4000065C7 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = E9CCBE9728324FF3000065C7;
+					};
+					E9CCBEB628324FF4000065C7 = {
+						CreatedOnToolsVersion = 13.3.1;
+						TestTargetID = E9CCBE9728324FF3000065C7;
+					};
+				};
+			};
+			buildConfigurationList = E9CCBE9328324FF3000065C7 /* Build configuration list for PBXProject "eLock" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E9CCBE8F28324FF3000065C7;
+			packageReferences = (
+				E9CCBECD28325811000065C7 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+			);
+			productRefGroup = E9CCBE9928324FF3000065C7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E9CCBE9728324FF3000065C7 /* eLock */,
+				E9CCBEAC28324FF4000065C7 /* eLockTests */,
+				E9CCBEB628324FF4000065C7 /* eLockUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E9CCBE9628324FF3000065C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9CCBEA328324FF4000065C7 /* Preview Assets.xcassets in Resources */,
+				E9CCBEA028324FF4000065C7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEAB28324FF4000065C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEB528324FF4000065C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9CCBE9428324FF3000065C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9CCBED32832593B000065C7 /* MenuView.swift in Sources */,
+				E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */,
+				E9CCBEDF28326AE4000065C7 /* UnlockView.swift in Sources */,
+				E9CCBECC283257AB000065C7 /* WelcomeView.swift in Sources */,
+				E9CCBEA828324FF4000065C7 /* eLock.xcdatamodeld in Sources */,
+				E9CCBED728325B5F000065C7 /* HM10Bluetooth.swift in Sources */,
+				E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */,
+				E9CCBEE328326B3B000065C7 /* EncryptSettingView.swift in Sources */,
+				E9CCBEDD28326ADA000065C7 /* LockView.swift in Sources */,
+				E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */,
+				E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */,
+				E9CCBEA528324FF4000065C7 /* Persistence.swift in Sources */,
+				E9CCBE9C28324FF3000065C7 /* eLockApp.swift in Sources */,
+				E9CCBEDB28326A35000065C7 /* PinView.swift in Sources */,
+				E9CCBEE528326B4D000065C7 /* HelpView.swift in Sources */,
+				E9CCBED12832587C000065C7 /* BTScanningView.swift in Sources */,
+				E9CCBED528325A30000065C7 /* BTPeripheral.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEA928324FF4000065C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9CCBEB228324FF4000065C7 /* eLockTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9CCBEB328324FF4000065C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9CCBEBC28324FF4000065C7 /* eLockUITests.swift in Sources */,
+				E9CCBEBE28324FF4000065C7 /* eLockUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9CCBEAF28324FF4000065C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9CCBE9728324FF3000065C7 /* eLock */;
+			targetProxy = E9CCBEAE28324FF4000065C7 /* PBXContainerItemProxy */;
+		};
+		E9CCBEB928324FF4000065C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9CCBE9728324FF3000065C7 /* eLock */;
+			targetProxy = E9CCBEB828324FF4000065C7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E9CCBEBF28324FF4000065C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E9CCBEC028324FF4000065C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E9CCBEC228324FF4000065C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"eLock/Preview Content\"";
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = eLock/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "eLock controls remotely via bluetooh an Electornic Lock System operated by a PIC18F4550";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "eLock controls remotely via bluetooh an Electornic Lock System operated by a PIC18F4550";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLock;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9CCBEC328324FF4000065C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"eLock/Preview Content\"";
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = eLock/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "eLock controls remotely via bluetooh an Electornic Lock System operated by a PIC18F4550";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "eLock controls remotely via bluetooh an Electornic Lock System operated by a PIC18F4550";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLock;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E9CCBEC528324FF4000065C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLockTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eLock.app/eLock";
+			};
+			name = Debug;
+		};
+		E9CCBEC628324FF4000065C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLockTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/eLock.app/eLock";
+			};
+			name = Release;
+		};
+		E9CCBEC828324FF4000065C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLockUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = eLock;
+			};
+			name = Debug;
+		};
+		E9CCBEC928324FF4000065C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HU3P3SQ2TW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.psb.c2.eLockUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = eLock;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9CCBE9328324FF3000065C7 /* Build configuration list for PBXProject "eLock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9CCBEBF28324FF4000065C7 /* Debug */,
+				E9CCBEC028324FF4000065C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9CCBEC128324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9CCBEC228324FF4000065C7 /* Debug */,
+				E9CCBEC328324FF4000065C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9CCBEC428324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLockTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9CCBEC528324FF4000065C7 /* Debug */,
+				E9CCBEC628324FF4000065C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9CCBEC728324FF4000065C7 /* Build configuration list for PBXNativeTarget "eLockUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9CCBEC828324FF4000065C7 /* Debug */,
+				E9CCBEC928324FF4000065C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E9CCBECD28325811000065C7 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E9CCBECE28325811000065C7 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E9CCBECD28325811000065C7 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		E9CCBEA628324FF4000065C7 /* eLock.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E9CCBEA728324FF4000065C7 /* eLock.xcdatamodel */,
+			);
+			currentVersion = E9CCBEA728324FF4000065C7 /* eLock.xcdatamodel */;
+			path = eLock.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E9CCBE9028324FF3000065C7 /* Project object */;
+}
