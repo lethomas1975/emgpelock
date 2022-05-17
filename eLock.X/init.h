@@ -25,17 +25,14 @@
  * Comments:
  * Revision history: 
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <xc.h> // include processor files - each processor file is guarded.  
-#include <pic18f4550.h>
 
 //#pragma config FOSC = INTOSC_HS  	// Internal oscillator, HS used by USB.
 #pragma config FOSC = INTOSCIO_EC   	// Internal oscillator, port function on RA6, EC used by USB. 
 #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor disabled)
 #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
 #pragma config WDT = OFF        // Disable watchdog timer
-
+#pragma config XINST = OFF
+#pragma config LVP = ON
 
 // definition for Keypad
 #define KeypadOut LATB
@@ -54,13 +51,14 @@
 #define SolenoidTrisOut TRISAbits.TRISA2
 
 // definition for the RGB LED
-#define RGBLedOut PORTAbits.AN0
-#define RGBLedTrisOut TRISAbits.TRISA0
+#define RGBLedOut LATCbits.LATC2
+#define RGBLedTrisOut TRISCbits.TRISC2
+
 // definition for the Buzzer
 #define BUZZOut LATCbits.LATC1
 #define BUZZTrisOut TRISCbits.TRISC1
-#define LEDPin LATCbits.LATC2       	// Define LEDPin as PORT C Pin 2 for left turn and other tests
-#define LEDTris TRISCbits.TRISC2    	// Define LEDTris as TRISC Pin 2 as output mode
+#define LEDPin LATCbits.LATC0       	// Define LEDPin as PORT C Pin 2 for left turn and other tests
+#define LEDTris TRISCbits.TRISC0    	// Define LEDTris as TRISC Pin 2 as output mode
 
 // definition for the 7-Segment
 #define SevenSEGOut0 LATEbits.LATE0 // RB1 segment g
@@ -76,10 +74,16 @@
 
 void init(void);
 
+void LCD_Init(void);
+
 // This is a guard condition so that contents of this file are not included
 // more than once.  
 #ifndef XC_HEADER_TEMPLATE_H
 #define	XC_HEADER_TEMPLATE_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <xc.h> // include processor files - each processor file is guarded.  
+#include <pic18f4550.h>
 
 // TODO Insert appropriate #include <>
 

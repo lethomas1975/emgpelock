@@ -23,5 +23,11 @@ void sendString(const char *out) {
 
 char receiveChar() {
     while (RCIF == 0);
+    if(RCSTAbits.OERR)
+    {           
+        CREN = 0;
+        NOP();
+        CREN=1;
+    }
     return RCREG;
 }

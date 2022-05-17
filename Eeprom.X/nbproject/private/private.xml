@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/thomas/git/emgpelock/eLock.X/init.h</file>
-            <file>file:/Users/thomas/git/emgpelock/eLock.X/init.c</file>
+            <file>file:/C:/git/emgpelock/eLock.X/init.h</file>
+            <file>file:/C:/git/emgpelock/eLock.X/common.c</file>
+            <file>file:/C:/git/emgpelock/eLock.X/bluetooth.c</file>
+            <file>file:/C:/git/emgpelock/eLock.X/lcd.c</file>
+            <file>file:/C:/git/emgpelock/eLock.X/lcd.h</file>
+            <file>file:/C:/git/emgpelock/eLock.X/init.c</file>
+            <file>file:/C:/git/emgpelock/eLock.X/bluetooth.h</file>
         </group>
     </open-files>
 </project-private>

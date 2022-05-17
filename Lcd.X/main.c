@@ -12,10 +12,9 @@
 #include "../eLock.X/lcd.h"
 
 void main(void) {
-    int count = 0;
-    while (1) {
-        display("Hello * " + count);
-        delayInMs(50);
-        count ++;
+    LCD_Init();                   
+    while(1) {
+        LCD_String_xy(1,5,"Hello");
+        LCD_String_xy(2,0,"Team C2");        
     }
 }

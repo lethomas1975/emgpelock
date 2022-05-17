@@ -27,6 +27,13 @@
  */
 void display(const char* toDisplay);
 
+void LCD_Init();
+void LCD_Clear();
+void LCD_Command(char cmd );
+void LCD_Char(char dat);
+void LCD_String(const char *msg);
+void LCD_String_xy(char row,char pos,const char *msg);
+
 // This is a guard condition so that contents of this file are not included
 // more than once.  
 #ifndef XC_HEADER_TEMPLATE_H
