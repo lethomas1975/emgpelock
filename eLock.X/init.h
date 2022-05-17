@@ -68,9 +68,8 @@
 #define SevenSEGTrisOut1 TRISEbits.TRISE1
 #define SevenSEGTrisOut2 TRISEbits.TRISE2
 
-#define F_CPU 8000000/64
-#define Baud_value(baud_rate) (((float)(F_CPU)/(float)baud_rate)-1)
-//#define Baud_value (((float)(F_CPU)/(float)baud_rate)-1)
+#define F_CPU 8000000
+#define baudValue(baud_rate) (((float)(F_CPU)/(64.0f*(float)baud_rate))-1)
 
 void init(void);
 
