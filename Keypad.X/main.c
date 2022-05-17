@@ -8,10 +8,13 @@
 #include "../eLock.X/init.h"
 #include "../eLock.X/common.h"
 #include "../eLock.X/keypad.h"
+#include "../eLock.X/lcd.h"
 
 void main(void) {
     init();
-    
+    LCD_Init();
+    LCD_String_xy(1, 0, "Hello: ");
+    LCD_Command(0xC0);
     LEDPin = 1;
     delayInMs(50);
     int i = 1;
@@ -19,6 +22,9 @@ void main(void) {
         LEDPin = 0;
         char c = keyPressed();
         if (c != NULL) {
+            LCD_Char(c);
+        }
+        /*if (c != NULL) {
             if (i >= 10) {
                 switch (i) {
                     case 10:
@@ -47,6 +53,6 @@ void main(void) {
                 i = 1;
             }
             delayInMs(10);
-        }
+        }*/
     }
 }

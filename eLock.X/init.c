@@ -18,10 +18,10 @@ void init_usart(void) {
     SPBRG=(int)Baud_value(9600);                /*baud rate=9600, SPBRG = (F_CPU /(64*9600))-1*/
     TXSTA=0x20;                     /*Transmit Enable(TX) enable*/ 
     RCSTA=0x90;                     /*Receive Enable(RX) enable and serial port enable */    
-    INTCONbits.GIE = 1;	/* Enable Global Interrupt */
-    INTCONbits.PEIE = 1;/* Enable Peripheral Interrupt */
-    PIE1bits.RCIE = 1;	/* Enable Receive Interrupt*/
-    PIE1bits.TXIE = 1;	/* Enable Transmit Interrupt*/
+    //INTCONbits.GIE = 1;	/* Enable Global Interrupt */
+    //INTCONbits.PEIE = 1;/* Enable Peripheral Interrupt */
+    //PIE1bits.RCIE = 1;	/* Enable Receive Interrupt*/
+    //PIE1bits.TXIE = 1;	/* Enable Transmit Interrupt*/
 }
 
 void init(void) {
@@ -66,5 +66,5 @@ void init(void) {
     KeypadOut = 0;
     KeypadTrisOut = 0b00001111;
 
-    init_usart();
+    //init_usart();
 }

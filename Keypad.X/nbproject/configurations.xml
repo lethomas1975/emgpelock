@@ -7,6 +7,7 @@
       <itemPath>../eLock.X/common.h</itemPath>
       <itemPath>../eLock.X/init.h</itemPath>
       <itemPath>../eLock.X/keypad.h</itemPath>
+      <itemPath>../eLock.X/lcd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>../eLock.X/init.c</itemPath>
       <itemPath>../eLock.X/keypad.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>../eLock.X/lcd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -135,6 +137,7 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

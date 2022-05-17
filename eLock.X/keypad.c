@@ -13,7 +13,7 @@ const int COLUMN = 3;
 
 char keyPressed() {
     char mask = 1;
-    for (int row = 0; row< ROW; row--) {
+    for (int row = 0; row < ROW; row++) {
         KeypadOut = 0;
         char tmp = KeypadOut;
         if (row > 0) {
@@ -21,7 +21,7 @@ char keyPressed() {
         }
         KeypadOut |= mask;
         tmp = KeypadOut;
-        delayInMs(10);
+        delayInMs(20);
         char columns = (KeypadOut & 0b01110000) >> 4;
         if (columns == 1) {
             return row < 3 ? (1 + 3 * row) : '*';
