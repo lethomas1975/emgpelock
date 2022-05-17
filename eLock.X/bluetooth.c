@@ -12,22 +12,24 @@
 void sendCharacter(char c) {
     while (TXIF == 0);
     TXREG = c;
+    //while (TRMT == 0);
 }
 
 void sendString(const char *out) {
-    while (*out!='\0') {            
-        sendCharacter(*out);
-        out++;
+    int i = 0;
+    while (out[i] != '\0') {            
+        sendCharacter(out[i]);
+        i++;
     }    
 }
 
 char receiveChar() {
     while (RCIF == 0);
-    if(RCSTAbits.OERR)
-    {           
+    if(RCSTAbits.OERR) {
         CREN = 0;
         NOP();
-        CREN=1;
+        CREN = 1;
     }
-    return RCREG;
+    char c = RCREG;
+    return c;
 }

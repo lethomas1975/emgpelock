@@ -4,19 +4,21 @@
  *
  * Created on 13 April 2022, 00:38
  */
-
-
-#include <xc.h>
 #include "init.h"
 #include "common.h"
 
 void init_usart(void);
 
 void init_usart(void) {
-    TRISC6=0;                       /*Make Tx pin as output*/
-    TRISC7=1;                       /*Make Rx pin as input*/
-    SPBRG=(int)Baud_value(9600);                /*baud rate=9600, SPBRG = (F_CPU /(64*9600))-1*/
-    TXSTA=0x20;                     /*Transmit Enable(TX) enable*/ 
+    TRISC6 = 0;                       /*Make Tx pin as output*/
+    TRISC7 = 1;                       /*Make Rx pin as input*/
+    SPBRG=(int)baudValue(9600);       /*baud rate=9600, SPBRG = (F_CPU /(64*9600))-1*/
+    TXSTAbits.CSRC = 0;
+    TXSTAbits.TX9 = 0;
+    TXSTAbits.TXEN = 1;
+    TXSTAbits.SYNC = 0;
+    TXSTAbits.BRGH = 0;
+    BAUDCONbits.BRG16 = 0;
     RCSTA=0x90;                     /*Receive Enable(RX) enable and serial port enable */    
     //INTCONbits.GIE = 1;	/* Enable Global Interrupt */
     //INTCONbits.PEIE = 1;/* Enable Peripheral Interrupt */
@@ -25,6 +27,7 @@ void init_usart(void) {
 }
 
 void init(void) {
+    OSCCON=0x72;
     // disabling ADC
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;
@@ -66,5 +69,5 @@ void init(void) {
     KeypadOut = 0;
     KeypadTrisOut = 0b00001111;
 
-    //init_usart();
+    init_usart();
 }
