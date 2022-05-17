@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>../eLock.X/common.h</itemPath>
       <itemPath>../eLock.X/init.h</itemPath>
+      <itemPath>../eLock.X/eeprom.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,7 +17,8 @@
                    projectFiles="true">
       <itemPath>../eLock.X/common.c</itemPath>
       <itemPath>../eLock.X/init.c</itemPath>
-      <itemPath>eeprom.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>../eLock.X/eeprom.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

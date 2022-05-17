@@ -11,14 +11,9 @@
 #include "../eLock.X/common.h"
 
 void main(void) {
-    SolenoidOut = 1;
-    delayInMs(2000);
+    init();
     while (1) {
         SolenoidOut = ~SolenoidOut;
-        if (SolenoidOut == 1) {
-            delayInMs(2000);
-        } else {
-            delayInMs(1000);
-        }
+        delayInMs(100);
     }
 }
