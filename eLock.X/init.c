@@ -20,10 +20,10 @@ void init_usart(void) {
     TXSTAbits.BRGH = 0;
     BAUDCONbits.BRG16 = 0;
     RCSTA=0x90;                     /*Receive Enable(RX) enable and serial port enable */    
-    //INTCONbits.GIE = 0;	/* Enable Global Interrupt */
-    //INTCONbits.PEIE = 0;/* Enable Peripheral Interrupt */
-    //PIE1bits.RCIE = 0;	/* Enable Receive Interrupt*/
-    //PIE1bits.TXIE = 0;	/* Enable Transmit Interrupt*/
+    //INTCONbits.GIE = 1;	/* Enable Global Interrupt */
+    //INTCONbits.PEIE = 1;/* Enable Peripheral Interrupt */
+    //PIE1bits.RCIE = 1;	/* Enable Receive Interrupt*/
+    //PIE1bits.TXIE = 1;	/* Enable Transmit Interrupt*/
 }
 
 void init(void) {
@@ -66,5 +66,8 @@ void init(void) {
     LEDPin = 0;
     LEDTris = 0;
     
+    KeypadOut = 0;
+    KeypadTrisOut = 0b00001111;
+
     init_usart();
 }

@@ -25,7 +25,7 @@
  * Comments:
  * Revision history: 
  */
-char* readPin();
+char keyPressed();
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
