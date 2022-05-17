@@ -63,5 +63,8 @@ void init(void) {
     LEDPin = 0;
     LEDTris = 0;
     
+    KeypadOut = 0;
+    KeypadTrisOut = 0b00001111;
+
     init_usart();
 }

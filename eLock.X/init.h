@@ -38,6 +38,7 @@
 #define KeypadOut LATB
 #define KeypadTrisOut TRISB
 
+
 // definition for LCD
 #define LCDOut LATD
 #define LCDTrisOut TRISD
