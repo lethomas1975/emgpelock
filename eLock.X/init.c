@@ -8,6 +8,7 @@
 #include "common.h"
 
 void init_usart(void);
+void init_interrupt(void);
 
 void init_usart(void) {
     TRISC6 = 0;                       /*Make Tx pin as output*/
@@ -22,19 +23,27 @@ void init_usart(void) {
     //PIE1bits.TXIE = 0;              /* Enable Transmit Interrupt*/
 }
 
+void init_interrupt(void) {
+    IPEN = 1;               // enable Interrupt
+    INTCON = 0b11011000;    // enable High and Low Priority (BT and Keypad accordingy) 
+    INTCON2bits.RBIP = 0;   // Keypad Interrupt low priority
+    PIE1 = 0x20;            // enable RX Interrupt
+    IPR1 = 0x20;            // High priority on RX Interrupt
+    
+}
+
 void init(void) {
-    OSCCON=0x76;
+    OSCTUNE = 0b1001111;
+    OSCCON = 0x72;
     // disabling ADC
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;
-
     ADCON1 = 0x0F;
     CMCON = 0x07;
     ADRESH=0;
     ADRESL=0;
     
     INTCON2 = 0;
-    RBPU=0;
 
     BUZZOut = 0;
     BUZZTrisOut = 0;
@@ -50,14 +59,12 @@ void init(void) {
     SevenSEGTrisOut1 = 0;
     SevenSEGTrisOut2 = 0;
 
-    RGBLedOut = 0;
-    RGBLedTrisOut = 0;
-    PR2 = 199;             /* load period value in PR2 register */ 
-    CCPR1L = 1;            /* load duty cycle */
-    T2CON = 0;             /* no pre-scalar,timer2 is off */
-    CCP1CON = 0x0C;        /* set PWM mode and no decimal value for PWM */
-    TMR2 = 0;
-    T2CONbits.TMR2ON = 1;  /* Turn ON Timer2 */
+    RGBLedROut = 0;
+    RGBLedGOut = 0;
+    RGBLedBOut = 0;
+    RGBLedRTrisOut = 0;
+    RGBLedGTrisOut = 0;
+    RGBLedBTrisOut = 0;
     
     // set the LED as output (TRIS to 0)
     LEDPin = 0;
@@ -68,5 +75,5 @@ void init(void) {
     KeypadOut = 0xff;
 
     init_usart();
-
+    //init_interrupt();
 }

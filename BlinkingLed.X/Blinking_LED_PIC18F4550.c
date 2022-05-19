@@ -10,8 +10,8 @@
 #pragma config WDT = OFF            	// Disable watchdog timer
 
 // change the port and its pin number depending on your own design.
-#define LEDPin LATCbits.LATC0       	// Define LEDPin as PORT D Pin 0
-#define LEDTris TRISCbits.TRISC0    	// Define LEDTris as TRISD Pin 0 as output mode
+#define LEDPin LATCbits.LATC2       	// Define LEDPin as PORT D Pin 0
+#define LEDTris TRISCbits.TRISC2    	// Define LEDTris as TRISD Pin 0 as output mode
 
 #define _XTAL_FREQ 8000000              // for __delay_ms() function
 

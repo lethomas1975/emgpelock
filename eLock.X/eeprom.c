@@ -43,7 +43,7 @@ void EEPROM_Write (int address, char data)
     
 }
 
-void EEPROM_WriteString(int address,char *data)
+void EEPROM_WriteString(int address, char *data)
 {
     /*Write Operation for String*/
     while(*data!=0)

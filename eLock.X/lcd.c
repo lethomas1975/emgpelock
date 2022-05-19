@@ -40,7 +40,7 @@ void LCD_Command(char cmd ) {
 	LCDE1Out = 1;                /* High-to-Low pulse on Enable pin to latch data */ 
 	NOP();
 	LCDE1Out = 0;
-	delayInMs(3);	
+	delayInMs(5);	
 }
 
 void LCD_Char(char dat)
@@ -50,7 +50,7 @@ void LCD_Char(char dat)
 	LCDE1Out=1;                  /* High-to-Low pulse on Enable pin to latch data */   
 	NOP();
 	LCDE1Out=0;
-	delayInMs(1);
+	delayInMs(5);
 }
 
 

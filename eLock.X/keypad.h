@@ -25,11 +25,12 @@
  * Comments:
  * Revision history: 
  */
-#ifndef LCD_H
-#define	LCD_H
+#ifndef KEYPAD_H
+#define	KEYPAD_H
 char keyPressed();
 
-#enif
+char* enterPin();
+#endif
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  

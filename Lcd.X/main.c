@@ -21,7 +21,7 @@ void main(void) {
         tmp[9] = c;
         tmp[10] = 0;
         LCD_String_xy(2,(16 - 10)/2, tmp);
-        delayInMs(10);
+        delayInMs(100);
         i = (i + 1) %10;
     }
 }

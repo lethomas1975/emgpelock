@@ -11,10 +11,15 @@
 #include "../eLock.X/lcd.h"
 
 void main(void) {
-    init();
     LCD_Init();
     LCD_String_xy(1, 0, "Hello: ");
     while(1) {
+        if (OSCCONbits.OSTS == 1) {
+            LCD_Char('1');
+        }
+        if (OSCCONbits.IOFS == 0) {
+            LCD_Char('2');
+        }
         LEDPin = 1;
         delayInMs(100);
         LEDPin = 0;

@@ -38,5 +38,6 @@
 
 #ifndef ELOCK_H
 #define ELOCK_H
-char read
+char checkPin(const char * pin);
+char* askForPin(void);
 #endif
