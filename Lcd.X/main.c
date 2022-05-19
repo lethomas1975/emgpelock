@@ -12,9 +12,16 @@
 #include "../eLock.X/lcd.h"
 
 void main(void) {
-    LCD_Init();                   
+    LCD_Init();
+    int i = 0;
     while(1) {
-        LCD_String_xy(1,5,"Hello");
-        LCD_String_xy(2,0,"Team C2");        
+        LCD_String_xy(1,(16 - 5)/2,"Hello");
+        char c = '0' + i;
+        char tmp[11] = "Team C2: ";
+        tmp[9] = c;
+        tmp[10] = 0;
+        LCD_String_xy(2,(16 - 10)/2, tmp);
+        delayInMs(10);
+        i = (i + 1) %10;
     }
 }

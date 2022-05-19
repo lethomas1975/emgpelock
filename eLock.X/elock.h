@@ -25,17 +25,6 @@
  * Comments:
  * Revision history: 
  */
-#ifndef LCD_H
-#define	LCD_H
-void display(const char* toDisplay);
-
-void LCD_Init();
-void LCD_Clear();
-void LCD_Command(char cmd );
-void LCD_Char(char dat);
-void LCD_String(const char *msg);
-void LCD_String_xy(char row,char pos,const char *msg);
-#endif
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
@@ -47,3 +36,7 @@ void LCD_String_xy(char row,char pos,const char *msg);
 #include <pic18f4550.h>
 #endif	/* XC_HEADER_TEMPLATE_H */
 
+#ifndef ELOCK_H
+#define ELOCK_H
+char read
+#endif

@@ -12,32 +12,29 @@ void init_usart(void);
 void init_usart(void) {
     TRISC6 = 0;                       /*Make Tx pin as output*/
     TRISC7 = 1;                       /*Make Rx pin as input*/
-    SPBRG=(int)baudValue(9600);       /*baud rate=9600, SPBRG = (F_CPU /(64*9600))-1*/
-    TXSTAbits.CSRC = 0;
-    TXSTAbits.TX9 = 0;
-    TXSTAbits.TXEN = 1;
-    TXSTAbits.SYNC = 0;
-    TXSTAbits.BRGH = 0;
+    SPBRG = (int) baudValue(9600);    /*baud rate=9600, SPBRG = (F_CPU /(64*9600))-1*/
+    TXSTA = 0x20;
+    RCSTA = 0x90;                     /*Receive Enable(RX) enable and serial port enable */    
     BAUDCONbits.BRG16 = 0;
-    RCSTA=0x90;                     /*Receive Enable(RX) enable and serial port enable */    
-    //INTCONbits.GIE = 1;	/* Enable Global Interrupt */
-    //INTCONbits.PEIE = 1;/* Enable Peripheral Interrupt */
-    //PIE1bits.RCIE = 1;	/* Enable Receive Interrupt*/
-    //PIE1bits.TXIE = 1;	/* Enable Transmit Interrupt*/
+    //INTCONbits.GIE = 0;             /* Enable Global Interrupt */
+    //INTCONbits.PEIE = 0;            /* Enable Peripheral Interrupt */
+    //PIE1bits.RCIE = 0;              /* Enable Receive Interrupt*/
+    //PIE1bits.TXIE = 0;              /* Enable Transmit Interrupt*/
 }
 
 void init(void) {
-    OSCCON=0x72;
+    OSCCON=0x76;
     // disabling ADC
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;
 
-    ADCON1 = 0x01; // A0 use Analog
-    ADCON2 = 0b10001001; // right alignment, 2TAD and FOSC/8
+    ADCON1 = 0x0F;
+    CMCON = 0x07;
     ADRESH=0;
     ADRESL=0;
     
     INTCON2 = 0;
+    RBPU=0;
 
     BUZZOut = 0;
     BUZZTrisOut = 0;
@@ -55,19 +52,21 @@ void init(void) {
 
     RGBLedOut = 0;
     RGBLedTrisOut = 0;
-    PR2=199;             /* load period value in PR2 register */ 
-    CCPR1L=1;            /* load duty cycle */
-    T2CON=0;             /* no pre-scalar,timer2 is off */
-    CCP1CON=0x0C;        /* set PWM mode and no decimal value for PWM */
-    TMR2=0;
-    T2CONbits.TMR2ON=1;  /* Turn ON Timer2 */
+    PR2 = 199;             /* load period value in PR2 register */ 
+    CCPR1L = 1;            /* load duty cycle */
+    T2CON = 0;             /* no pre-scalar,timer2 is off */
+    CCP1CON = 0x0C;        /* set PWM mode and no decimal value for PWM */
+    TMR2 = 0;
+    T2CONbits.TMR2ON = 1;  /* Turn ON Timer2 */
     
     // set the LED as output (TRIS to 0)
     LEDPin = 0;
     LEDTris = 0;
     
-    KeypadOut = 0;
-    KeypadTrisOut = 0b00001111;
+    KeypadTrisOut = 0x70;
+    KeypadIn = 0xf0;
+    KeypadOut = 0xff;
 
     init_usart();
+
 }

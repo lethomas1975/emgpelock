@@ -7,6 +7,7 @@
       <itemPath>../eLock.X/common.h</itemPath>
       <itemPath>../eLock.X/init.h</itemPath>
       <itemPath>../eLock.X/eeprom.h</itemPath>
+      <itemPath>../eLock.X/lcd.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>../eLock.X/init.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>../eLock.X/eeprom.c</itemPath>
+      <itemPath>../eLock.X/lcd.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

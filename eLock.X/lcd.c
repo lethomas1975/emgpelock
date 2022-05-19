@@ -14,9 +14,10 @@ void display(const char* toDisplay) {
     
 }
 
-void LCD_Init()
-{
-    delayInMs(15);           /* 15ms,16x2 LCD Power on delay */
+void LCD_Init() {
+    init();
+    
+    delayInMs(120);           /* 15ms,16x2 LCD Power on delay */
     LCDOut = 0;
     LCDTrisOut = 0;
     LCDE0Out = 0;

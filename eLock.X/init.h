@@ -25,6 +25,8 @@
  * Comments:
  * Revision history: 
  */
+#ifndef INIT_H
+#define INIT_H
 
 //#pragma config FOSC = INTOSC_HS  	// Internal oscillator, HS used by USB.
 #pragma config FOSC = INTOSCIO_EC   	// Internal oscillator, port function on RA6, EC used by USB. 
@@ -32,12 +34,11 @@
 #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
 #pragma config WDT = OFF        // Disable watchdog timer
 #pragma config XINST = OFF
-#pragma config LVP = ON
 
 // definition for Keypad
 #define KeypadOut LATB
+#define KeypadIn PORTB
 #define KeypadTrisOut TRISB
-
 
 // definition for LCD
 #define LCDOut LATD
@@ -73,8 +74,7 @@
 #define baudValue(baud_rate) (((float)(F_CPU)/(64.0f*(float)baud_rate))-1)
 
 void init(void);
-
-void LCD_Init(void);
+#endif
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
@@ -82,49 +82,8 @@ void LCD_Init(void);
 #define	XC_HEADER_TEMPLATE_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <pic18f4550.h>
-
-// TODO Insert appropriate #include <>
-
-// TODO Insert C++ class definitions if appropriate
-
-// TODO Insert declarations
-
-// Comment a function and leverage automatic documentation with slash star star
-/**
-    <p><b>Function prototype:</b></p>
-  
-    <p><b>Summary:</b></p>
-
-    <p><b>Description:</b></p>
-
-    <p><b>Precondition:</b></p>
-
-    <p><b>Parameters:</b></p>
-
-    <p><b>Returns:</b></p>
-
-    <p><b>Example:</b></p>
-    <code>
- 
-    </code>
-
-    <p><b>Remarks:</b></p>
- */
-// TODO Insert declarations or function prototypes (right here) to leverage 
-// live documentation
-
-#ifdef	__cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-    // TODO If C++ is being used, regular C code needs function names to have C 
-    // linkage so the functions can be used by the c code. 
-
-#ifdef	__cplusplus
-}
-#endif /* __cplusplus */
-
 #endif	/* XC_HEADER_TEMPLATE_H */
 

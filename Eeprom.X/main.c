@@ -6,18 +6,22 @@
  */
 
 
-#include <xc.h>
-#include <stdlib.h>
+#include <string.h>
+
 #include "../eLock.X/eeprom.h"
+#include "../eLock.X/lcd.h"
 
 void main(void) {
+    LCD_Init();
     while (1) {
-        char* pin = malloc(sizeof(char) * 4);
-        *pin = "123";
+        char pin[] = "123";
         savePin(pin);
-        char* pin2 = readPin();
-        
-        // check pin and pin2 are equals
+        const char* pin2 = readPin();
+        if (strcmp(pin, pin2) == 0) {
+            LCD_String_xy(1, 0, "W/R is good");
+        } else {
+            LCD_String_xy(1, 0, "W/R is not good");
+        }
     }
     
 }

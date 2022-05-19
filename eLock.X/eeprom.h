@@ -25,56 +25,27 @@
  * Comments:
  * Revision history: 
  */
+const int MAX_PIN_SIZE = 4;
+#ifndef EEPROM_H
+#define	EEPROM_H
+const int PIN_START_ADDRESS = 0;
+
 void savePin(const char* pin);
-char* readPin();
+const char* readPin();
+
+void EEPROM_Write(int,char);		/* Write byte to EEPROM */
+char EEPROM_Read(int);			/* Read byte From EEPROM */
+void EEPROM_WriteString(int,char*);	/* Write String to EEPROM */
+
+#endif
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
 #ifndef XC_HEADER_TEMPLATE_H
 #define	XC_HEADER_TEMPLATE_H
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <xc.h> // include processor files - each processor file is guarded.  
-
-// TODO Insert appropriate #include <>
-
-// TODO Insert C++ class definitions if appropriate
-
-// TODO Insert declarations
-
-// Comment a function and leverage automatic documentation with slash star star
-/**
-    <p><b>Function prototype:</b></p>
-  
-    <p><b>Summary:</b></p>
-
-    <p><b>Description:</b></p>
-
-    <p><b>Precondition:</b></p>
-
-    <p><b>Parameters:</b></p>
-
-    <p><b>Returns:</b></p>
-
-    <p><b>Example:</b></p>
-    <code>
- 
-    </code>
-
-    <p><b>Remarks:</b></p>
- */
-// TODO Insert declarations or function prototypes (right here) to leverage 
-// live documentation
-
-#ifdef	__cplusplus
-extern "C" {
-#endif /* __cplusplus */
-
-    // TODO If C++ is being used, regular C code needs function names to have C 
-    // linkage so the functions can be used by the c code. 
-
-#ifdef	__cplusplus
-}
-#endif /* __cplusplus */
-
+#include <pic18f4550.h>
 #endif	/* XC_HEADER_TEMPLATE_H */
 

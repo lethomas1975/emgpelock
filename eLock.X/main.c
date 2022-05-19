@@ -6,8 +6,12 @@
  */
 
 
-#include <xc.h>
+#include "../eLock.X/init.h"
+#include "../eLock.X/lcd.h"
 
 void main(void) {
-    return;
+    LCD_Init();
+    while (1) {
+        
+    }
 }

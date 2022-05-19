@@ -12,27 +12,45 @@ const int ROW = 4;
 const int COLUMN = 3;
 
 char keyPressed() {
-    char mask = 1;
+    char mask = 0xfe;
+    char result = NULL;
+    char found = 0;
     for (int row = 0; row < ROW; row++) {
-        KeypadOut = 0;
+        KeypadOut = 0xff;
         char tmp = KeypadOut;
         if (row > 0) {
-            mask = mask << 1;
+            mask = (mask << 1) + 1;
         }
-        KeypadOut |= mask;
-        tmp = KeypadOut;
+        char rCol = KeypadIn & 0xf0;
+        char rRow = (KeypadOut &= mask);
+        char newRCol1 = KeypadIn & 0xf0;
         delayInMs(20);
-        char columns = (KeypadOut & 0b01110000) >> 4;
-        if (columns == 1) {
-            return row < 3 ? (1 + 3 * row) : '*';
+        char newRCol2 = KeypadIn & 0xf0;
+        if (rCol != newRCol1 || rCol != newRCol2) {
+            char newR;
+            if (rCol != newRCol1) {
+                newR = newRCol1;
+            } else {
+                newR = newRCol2;
+            }
+            char columns = ~((newR & 0b01110000) >> 4);
+            if ((columns & 0b00000001) == 1) {
+                result = row < 3 ? '0' + (1 + 3 * row) : '*';
+                found = 1;
+            } else if ((columns & 0b00000010) == 2) {
+                result = row < 3 ? '0' + (2 + 3 * row) : '0';
+                found = 1;
+            } else  if ((columns & 0b00000100) == 4) {
+                result = row < 3 ? '0' + (3 + 3 * row) : '#';
+                found = 1;
+            } else {
+                found = 0;
+            }
         }
-        if (columns == 2) {
-            return row < 3 ? (2 + 3 * row) : 0;
-        }
-        if (columns == 4) {
-            return row < 3 ? (3 + 3 * row) : '#';
+        if (found == 1) {
+            break;
         }
     }
-    KeypadOut = 0;    
-    return NULL; // for scenario when nothing was pressed
+    KeypadOut = 1;
+    return result;
 }

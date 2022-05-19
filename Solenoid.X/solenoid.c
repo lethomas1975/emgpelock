@@ -14,6 +14,6 @@ void main(void) {
     init();
     while (1) {
         SolenoidOut = ~SolenoidOut;
-        delayInMs(100);
+        delayInMs(2000);
     }
 }

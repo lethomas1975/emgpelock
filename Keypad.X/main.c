@@ -14,45 +14,13 @@ void main(void) {
     init();
     LCD_Init();
     LCD_String_xy(1, 0, "Hello: ");
-    LCD_Command(0xC0);
-    LEDPin = 1;
-    delayInMs(50);
-    int i = 1;
     while(1) {
+        LEDPin = 1;
+        delayInMs(100);
         LEDPin = 0;
         char c = keyPressed();
         if (c != NULL) {
             LCD_Char(c);
         }
-        /*if (c != NULL) {
-            if (i >= 10) {
-                switch (i) {
-                    case 10:
-                        if (c == '*') {
-                            LEDPin = 1;
-                            i++;
-                        }
-                        break;
-                    case 11:
-                        if (c == 0) {
-                            LEDPin = 1;
-                            i++;
-                        }
-                        break;
-                    case 12:
-                        if (c == '#') {
-                            LEDPin = 1;
-                            i++;
-                        }
-                        break;
-                }
-            } else if (i < 10 && c == i) {
-                LEDPin = 1;
-                i++;
-            } else if (i > 12) {
-                i = 1;
-            }
-            delayInMs(10);
-        }*/
     }
 }
