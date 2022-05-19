@@ -14,7 +14,7 @@ struct PinView: View {
     @State var start = false
     @State var pin = ""
     @State var disabled = false
-    
+        
     var digits: Int = 3
 
     var dots: some View {
@@ -42,6 +42,7 @@ struct PinView: View {
                     textField.tintColor = .systemBackground
                     textField.textColor = .systemBackground
                     textField.keyboardType = .numberPad
+                    textField.keyboardAppearance = .default
                     textField.becomeFirstResponder()
                     textField.isEnabled = !self.disabled
                     textField.isHidden = true
@@ -53,15 +54,9 @@ struct PinView: View {
             return
         }
         
-        if pin.count == digits {
+        if pin.count == digits && !disabled {
             disabled = true
-            start = pin == "345"
-            if !start {
-                pin = ""
-                disabled = false
-            } else {
-                appContext.appState = .LOGGEDIN
-            }
+            appContext.btManager.sendMessage("1")
         }
     }
     
@@ -79,7 +74,19 @@ struct PinView: View {
                 dots.padding()
                 pinField
             }
-        }
+        }/*.onReceive(appContext.btManager.$message) { message in
+            if message.starts(with: "RXPIN:") {
+                if message.hasSuffix("false") {
+                    pin = ""
+                    disabled = false
+                } else if message.hasSuffix("true") {
+                    appContext.appState = .LOGGEDIN
+                }
+            } else {
+                pin = ""
+                disabled = false
+            }
+        }*/
     }
 }
 

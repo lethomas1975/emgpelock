@@ -17,8 +17,13 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     
     var centralManager: CBCentralManager!
     @Published var connectedPeripheral: CBPeripheral!
+    @Published var characteristic: CBCharacteristic!
     @Published var peripherals: [BTPeripheral] = []
     var cbPeripherals: [CBPeripheral] = []
+    
+    @Published var message: String = ""
+    
+    private var writeType: CBCharacteristicWriteType = .withoutResponse
     
     override init() {
         super.init()
@@ -43,6 +48,17 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
             hm10Bluetooth.stopScanning()
             hm10Bluetooth.connect(cbPeripheral!)
         }
+    }
+
+    func disconnect(peripheral: BTPeripheral) {
+        let cbPeripheral = retriveCBPeripheral(peripheral);
+        if cbPeripheral != nil {
+            hm10Bluetooth.disconnect(cbPeripheral!)
+        }
+    }
+    
+    func readValue() {
+        hm10Bluetooth.readValue()
     }
     
     // MARK: BluetoothListener functions
@@ -76,6 +92,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     }
     
     func disconnected(_ peripheral: CBPeripheral) {
+        connectedPeripheral = nil
         do {
             let result = fetch(peripheral.identifier)
             if result != nil {
@@ -103,6 +120,19 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         return true
     }
 
+    func characteristic(_ characteristic: CBCharacteristic) {
+        self.characteristic = characteristic
+        writeType = characteristic.properties.contains(.write) ? .withResponse : .withoutResponse
+        print("charateristic write type is \(writeType)")
+    }
+    
+    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            self.message = message
+            print("receiving: \(self.message)")
+        }
+    }
+    
     // MARK: Persistence
     private func fetch(_ identifier: UUID) -> Peripheral? {
         let request: NSFetchRequest<Peripheral> = Peripheral.fetchRequest()
@@ -154,4 +184,12 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         }
     }
 
+    // MARK: transmission functions
+    // Send a string to the device
+    func sendMessage(_ message: String) {
+        print("sending: \(message)")
+        if let data = message.data(using: String.Encoding.ascii) {
+            hm10Bluetooth.write(value: data)
+        }
+    }
 }

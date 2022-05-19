@@ -14,6 +14,89 @@ protocol BluetoothListener: AnyObject  {
     func connected(_ peripheral: CBPeripheral)
     func disconnected(_ peripheral: CBPeripheral)
     func connectToLastConnectedPeripheral() -> Bool
+    func characteristic(_ characteristic: CBCharacteristic)
+    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String)
+}
+
+extension BluetoothListener {
+    func discoveredPeripheral(_ peripheral: CBPeripheral) {
+    }
+    
+    func connected(_ peripheral: CBPeripheral) {
+    }
+    
+    func disconnected(_ peripheral: CBPeripheral) {
+    }
+    
+    func connectToLastConnectedPeripheral() -> Bool {
+        return false
+    }
+    
+    func characteristic(_ characteristic: CBCharacteristic) {
+    }
+    
+    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+    }
+}
+
+class ConfigDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
+    private var state = 0
+    
+    var mainDelegate: CBPeripheralDelegate?
+    
+    func startConfig(peripheral: CBPeripheral, characteristic: CBCharacteristic) {
+        peripheral.delegate = self
+        var command: String = ""
+        switch (state) {
+        case 0:
+            command = "AT"
+        case 1:
+            command = "AT+NAME?"
+        case 2:
+            command = "AT+VERR?"
+        case 3:
+            command = "AT+BAUD0"
+        default:
+            peripheral.delegate = mainDelegate
+            break
+        }
+        if !command.isEmpty, let data = command.data(using: String.Encoding.ascii) {
+            print("config Sending: \(command)")
+            write(peripheral: peripheral, characteristic: characteristic, value: data)
+        }
+    }
+    
+    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("config Receiving: \(message)")
+            state += 1
+            startConfig(peripheral: peripheral, characteristic: characteristic)
+        }
+    }
+
+    func write(peripheral: CBPeripheral, characteristic: CBCharacteristic, value: Data) {
+        peripheral.writeValue(value, for: characteristic, type: .withResponse)
+        /*if peripheral.canSendWriteWithoutResponse {
+            peripheral.writeValue(value, for: characteristic, type: .withoutResponse)
+        } else {
+            peripheral.writeValue(value, for: characteristic, type: .withResponse)
+        }*/
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        // notify the delegate in different ways
+        // if you don't use one of these, just comment it (for optimum efficiency :])
+        let data = characteristic.value
+        guard data != nil else { return }
+        
+        // then the string
+        if let str = String(data: data!, encoding: String.Encoding.ascii) {
+            receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
+        } else {
+            print("Received an invalid string!")
+        }
+    }
+
 }
 
 class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate {
@@ -25,9 +108,13 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     private var characteristic: CBCharacteristic!
     
     var listener: BluetoothListener
+    
+    var configDelegate: ConfigDelegate = ConfigDelegate()
 
     init(_ listener: BluetoothListener) {
         self.listener = listener;
+        super.init()
+        configDelegate.mainDelegate = self
     }
     
     func startScanning() -> Void {
@@ -43,6 +130,26 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
         centralManager?.connect(peripheral)
     }
 
+    func disconnect(_ peripheral: CBPeripheral) {
+        centralManager.delegate = self
+        centralManager?.cancelPeripheralConnection(peripheral)
+    }
+
+    func readValue() {
+        connectedPeripheral.delegate = self
+        connectedPeripheral.readValue(for: characteristic)
+    }
+    
+    func write(value: Data) {
+        connectedPeripheral.delegate = self
+        connectedPeripheral.writeValue(value, for: characteristic, type: .withResponse)
+        /*if connectedPeripheral.canSendWriteWithoutResponse {
+            connectedPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
+        } else {
+            connectedPeripheral.writeValue(value, for: characteristic, type: .withResponse)
+        }*/
+    }
+    
     // MARK: CBCentralManagerDelegate functions
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if centralManager != central {
@@ -74,11 +181,15 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         listener.connected(peripheral)
         connectedPeripheral = peripheral
-        peripheral.delegate = self
-        peripheral.discoverServices([HM10Bluetooth.HM_10_SERVICE_UUID])
+        connectedPeripheral.delegate = self
+        connectedPeripheral.discoverServices([HM10Bluetooth.HM_10_SERVICE_UUID])
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        listener.disconnected(peripheral)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         listener.disconnected(peripheral)
     }
     
@@ -106,24 +217,33 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
         print("Found \(characteristics.count) characteristics.")
         for characteristic in characteristics {
             if characteristic.uuid.isEqual(HM10Bluetooth.HM_10_CHARACTERISTIC_UUID)  {
-                self.characteristic = characteristic
                 print("Characteristic: \(characteristic.uuid)")
+                self.characteristic = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+                configDelegate.startConfig(peripheral: peripheral, characteristic: characteristic)
+                listener.characteristic(characteristic)
+                break;
             }
         }
     }
     
+    private func configureBT() {
+        if let data = "AT".data(using: String.Encoding.ascii) {
+            print("Sedning: AT")
+            write(value: data)
+        }
+    }
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-
-          /*var characteristicASCIIValue = NSString()
-
-          guard characteristic == self.characteristic,
-          let characteristicValue = characteristic.value,
-          let ASCIIstring = NSString(data: characteristicValue, encoding: String.Encoding.utf8.rawValue) else { return }
-
-          characteristicASCIIValue = ASCIIstring
-
-          print("Value Recieved: \((characteristicASCIIValue as String))")
-           */
+        let data = characteristic.value
+        guard data != nil else { return }
+        
+        // then the string
+        if let str = String(data: data!, encoding: String.Encoding.ascii) {
+            listener.receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
+        } else {
+            print("Received an invalid string!")
+        }
     }
 
     // MARK: CBPeripheralManagerDelegate functions
