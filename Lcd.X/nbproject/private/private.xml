@@ -3,24 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/git/emgpelock/eLock.X/buzzer.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/eeprom.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/main.c</file>
             <file>file:/C:/git/emgpelock/Lcd.X/main.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/elock.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/init.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/init.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/common.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/7seg.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/keypad.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/common.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/keypad.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/bluetooth.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/eeprom.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/lcd.c</file>
-            <file>file:/C:/git/emgpelock/eLock.X/lcd.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/common_adc.h</file>
-            <file>file:/C:/git/emgpelock/eLock.X/bluetooth.h</file>
         </group>
     </open-files>
 </project-private>

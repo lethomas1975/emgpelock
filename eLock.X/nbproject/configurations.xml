@@ -13,6 +13,7 @@
       <itemPath>keypad.h</itemPath>
       <itemPath>common_adc.h</itemPath>
       <itemPath>elock.h</itemPath>
+      <itemPath>eeprom.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

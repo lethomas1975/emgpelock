@@ -26,6 +26,7 @@ void main(void) {
         char c = keyPressed();
         if (c != NULL) {
             LCD_Char(c);
+            delayInMs(100);
         }
     }
 }

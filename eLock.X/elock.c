@@ -9,14 +9,35 @@
 #include "elock.h"
 #include "keypad.h"
 #include "lcd.h"
+#include "eeprom.h"
 
 char checkPin(const char * pin) {
     
 }
 
-char* askForPin(void) {
-    LCD_Clear();
+void askForPin(void) {
     LCD_String_xy(1, 0, "Enter PIN: ");
     LCD_Command(0xC0);
-    return enterPin();
 }
+
+char* enterPin() {
+    char *pin = 0;
+    int count = 0;
+    while (count < 3) {
+        char c = keyPressed();
+        if (c != NULL) {
+            LCD_Char(c);
+            *pin = c;
+            *pin++;
+            count++;
+        }
+    }
+    *pin = 0;
+    return pin;
+}
+
+char checkPin(const char * pin) {
+    char* savedPin = EEPROM_Read(PIN_START_ADDRESS);
+    return strcmp(savedPin, pin) == 0;
+}
+

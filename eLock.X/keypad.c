@@ -54,19 +54,3 @@ char keyPressed() {
     KeypadOut = 1;
     return result;
 }
-
-char* enterPin() {
-    char *pin = 0;
-    int count = 0;
-    char c = NULL;
-    while (count < 3 || c == NULL) {
-        c = keyPressed();
-        if (c != NULL) {
-            *pin = c;
-            *pin++;
-            count++;
-        }
-    }
-    *pin = 0;
-    return pin;
-}
