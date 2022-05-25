@@ -6,7 +6,6 @@
  */
 
 
-#include <xc.h>
 #include "../eLock.X/init.h"
 #include "../eLock.X/common.h"
 #include "../eLock.X/lcd.h"

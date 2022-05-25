@@ -90,6 +90,8 @@
 // CONFIG7H
 #pragma config EBTRB = OFF      // Boot Block Table Read Protection bit (Boot block (000000-0007FFh) is not protected from table reads executed in other blocks)
 
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
 
 // definition for Keypad
 #define KeypadOut LATB

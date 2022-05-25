@@ -4,25 +4,13 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Eeprom</name>
-            <creation-uuid>d1b3fd6e-4015-4bb2-9c16-d73248019020</creation-uuid>
+            <creation-uuid>336017dd-5f99-46a3-92ab-1781c285271c</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <sourceRootList>
-                <sourceRootElem>../eLock.X</sourceRootElem>
-            </sourceRootList>
-            <confList>
-                <confElem>
-                    <name>default</name>
-                    <type>2</type>
-                </confElem>
-            </confList>
-            <formatting>
-                <project-formatting-style>false</project-formatting-style>
-            </formatting>
             <make-dep-projects/>
         </data>
     </configuration>

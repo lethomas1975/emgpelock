@@ -4,25 +4,13 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Solenoid</name>
-            <creation-uuid>b882cecd-a241-4f0f-8c26-6823089977ea</creation-uuid>
+            <creation-uuid>45abffd6-a187-4ff1-8fae-86eae9ba28f3</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <sourceRootList>
-                <sourceRootElem>../eLock.X</sourceRootElem>
-            </sourceRootList>
-            <confList>
-                <confElem>
-                    <name>default</name>
-                    <type>2</type>
-                </confElem>
-            </confList>
-            <formatting>
-                <project-formatting-style>false</project-formatting-style>
-            </formatting>
             <make-dep-projects/>
         </data>
     </configuration>

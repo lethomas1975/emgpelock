@@ -5,9 +5,7 @@
  * Created on 14 May 2022, 20:02
  */
 
-
-#include <string.h>
-
+#include "../eLock.X/init.h"
 #include "../eLock.X/eeprom.h"
 #include "../eLock.X/lcd.h"
 
@@ -16,7 +14,8 @@ void main(void) {
     while (1) {
         char pin[] = "123";
         savePin(pin);
-        const char* pin2 = readPin();
+        char pin2[4] = ""; 
+        readPin(pin2);
         if (strcmp(pin, pin2) == 0) {
             LCD_String_xy(1, 0, "W/R is good");
         } else {

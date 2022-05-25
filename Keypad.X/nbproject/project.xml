@@ -4,25 +4,13 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Keypad</name>
-            <creation-uuid>69201362-8b8f-4e4a-ad83-df02a9341854</creation-uuid>
+            <creation-uuid>3fa19a96-8ff4-4707-b50c-e4969332dab7</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <sourceRootList>
-                <sourceRootElem>../eLock.X</sourceRootElem>
-            </sourceRootList>
-            <confList>
-                <confElem>
-                    <name>default</name>
-                    <type>2</type>
-                </confElem>
-            </confList>
-            <formatting>
-                <project-formatting-style>false</project-formatting-style>
-            </formatting>
             <make-dep-projects/>
         </data>
     </configuration>
