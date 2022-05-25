@@ -24,12 +24,14 @@ void init_interrupt(void) {
     INTCON = 0b11001000;    // enable High and Low Priority (BT and Keypad accordingy) and enable RB interrupt
     INTCON2bits.RBIP = 0;   // Keypad Interrupt low priority
     PIE1 = 0x20;            // enable RX Interrupt
-    IPR1 = 0x20;            // High priority on RX Interrupt   
+    IPR1 = 0x20;            // High priority on RX Interrupt
+    RBIF = 0;
+    RCIF = 0;
 }
 
 void init(void) {
-    //OSCTUNE = 0b1001111;
-    OSCCON = 0x72;
+    delayInMs(150);
+
     // disabling ADC
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;
@@ -67,10 +69,17 @@ void init(void) {
     
     KeypadTrisOut = 0x70;
     KeypadIn = 0xf0;
+#ifndef INTEGRATED
+    KeypadOut = 0xff;
+#else
     KeypadOut = 0xf0;
+#endif
+
+    BTResetOut = 1;
+    BTResetTrisOut = 0;
 
     init_usart();
-    #ifdef INTEGRATED
+#ifdef INTEGRATED
     init_interrupt();
-    #endif
+#endif
 }

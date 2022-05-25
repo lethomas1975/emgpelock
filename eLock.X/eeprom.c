@@ -6,18 +6,56 @@
  */
 #include "../eLock.X/eeprom.h"
 
-void savePin(const char* pin) {
-    EEPROM_WriteString(PIN_START_ADDRESS, pin);
+const char CHECK_PIN[] = "P=";
+const char ENCRYPT[] = "E=";
+
+void saveEncrypt(const char encrypt) {
+    char toSave[4] = "";
+    strcpy(toSave, ENCRYPT);
+    strcat(toSave, &encrypt);
+    EEPROM_WriteString(ENCRYPT_START_ADDRESS, toSave);
 }
 
-const char* readPin() {
-    char pin[4] = "";
+char readEncrypt(void) {
     int i = 0;
-    while (i < MAX_PIN_SIZE - 1) {
-        pin[i] = EEPROM_Read(PIN_START_ADDRESS + i);
+    char checkEncrypt[3] = "";
+    
+    while (i < 2) {
+        checkEncrypt[i] = EEPROM_Read(ENCRYPT_START_ADDRESS + i);
         i++;
     }
-    return (const char *)pin;
+    checkEncrypt[2] = 0;    
+    if (strcmp(ENCRYPT, checkEncrypt) == 0) {
+        return EEPROM_Read(ENCRYPT_START_ADDRESS + i);
+    }
+    return NULL;
+}
+
+void savePin(const char* pin) {
+    char toSave[6] = ""; 
+    strcpy(toSave, CHECK_PIN);
+    strcat(toSave, pin);
+    EEPROM_WriteString(PIN_START_ADDRESS, toSave);
+}
+
+void readPin(char* pin) {
+    int i = 0;
+    char checkPin[3] = "";
+    
+    while (i < 2) {
+        checkPin[i] = EEPROM_Read(PIN_START_ADDRESS + i);
+        i++;
+    }
+    checkPin[2] = 0;
+    if (strcmp(CHECK_PIN, checkPin) == 0) { 
+        i = 0;
+        while (i < MAX_PIN_SIZE - 1) {
+            *pin = EEPROM_Read(PIN_START_ADDRESS + i + 2);
+            *pin++;
+            i++;
+        }
+        *pin = 0;
+    }
 }
 
 void EEPROM_Write (int address, char data)

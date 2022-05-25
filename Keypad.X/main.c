@@ -12,14 +12,15 @@
 
 void main(void) {
     LCD_Init();
+    OSCCON = 0x72;
     LCD_String_xy(1, 0, "Hello: ");
     while(1) {
-        if (OSCCONbits.OSTS == 1) {
+        /*if (OSCCONbits.OSTS == 1) {
             LCD_Char('1');
         }
         if (OSCCONbits.IOFS == 0) {
             LCD_Char('2');
-        }
+        }*/
         LEDPin = 1;
         delayInMs(100);
         LEDPin = 0;

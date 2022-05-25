@@ -10,34 +10,142 @@
 #include "keypad.h"
 #include "lcd.h"
 #include "eeprom.h"
+#include "common.h"
+#include "buzzer.h"
+#include "7seg.h"
+#include "init.h"
 
-char checkPin(const char * pin) {
-    
+char askForPin(void) {
+    LCD_Clear();
+    char confirmed = 0;
+    int count = 0;
+    char sPin[4] = "";
+    readPin(sPin);
+    while (count < 3) {
+        LCD_String_xy(1, 0, "PIN: ");
+        char pin[4] = "";
+        enterPin(pin);
+        confirmed = confirmPin(sPin, pin);
+        if (!confirmed) {
+            buzz();
+            delayInMs(50);
+            buzzOff();
+            switch (count) {
+                case 0:
+                    RGBLedROut = 0;
+                    RGBLedGOut = 1;
+                    RGBLedBOut = 0;
+                    break;
+                case 1:
+                    RGBLedROut = 0;
+                    RGBLedGOut = 0;
+                    RGBLedBOut = 1;
+                    break;
+                case 2:
+                    RGBLedROut = 1;
+                    RGBLedGOut = 0;
+                    RGBLedBOut = 0;
+                    break;
+            }
+            RGBLedROut = 1;
+            setSevenSegment(count);
+            LCD_Clear();
+            count++;
+        } else {
+            RGBLedROut = 0;
+            RGBLedGOut = 0;
+            RGBLedBOut = 0;
+            setSevenSegment(3);
+            count = 4;
+        }
+    }
+    if (count == 3) {
+        BTResetOut = 0;
+        delayInMs(5000);
+        RGBLedROut = 0;
+        RGBLedGOut = 0;
+        RGBLedBOut = 0;
+        BTResetOut = 1;
+        return 0;
+    }
+    return 1;
 }
 
-void askForPin(void) {
-    LCD_String_xy(1, 0, "Enter PIN: ");
-    LCD_Command(0xC0);
-}
-
-char* enterPin() {
-    char *pin = 0;
+void enterPin(char *pin) {
     int count = 0;
     while (count < 3) {
         char c = keyPressed();
         if (c != NULL) {
-            LCD_Char(c);
+            LCD_Char('*');
             *pin = c;
             *pin++;
             count++;
+            delayInMs(500);
         }
     }
     *pin = 0;
-    return pin;
 }
 
 char checkPin(const char * pin) {
-    char* savedPin = EEPROM_Read(PIN_START_ADDRESS);
+    char savedPin[4] = "";
+    readPin(savedPin);
     return strcmp(savedPin, pin) == 0;
 }
 
+char confirmPin(const char* pin1, const char* pin2) {
+    return strcmp(pin1, pin2) == 0;
+}
+
+void setupPin(void) {
+    char sPin[4] = ""; 
+    readPin(sPin);
+    if (sPin[0] == 0) {
+        savePin("000");
+    }
+}
+
+void changePin(void) {
+    char confirmed = askForPin();
+    if (!confirmed) {
+        return;
+    }
+    confirmed = 0;
+    while (!confirmed) {
+        LCD_String_xy(1, 0, "New PIN: ");
+        char pin[4] = "";
+        enterPin(pin);
+        LCD_String_xy(1, 0, "Confirm PIN: ");
+        char confPin[4] = "";
+        enterPin(confPin);
+        confirmed = confirmPin(pin, confPin);
+        if (confirmed) {
+           savePin(pin); 
+        } else {
+            buzz();
+            delayInMs(50);
+            buzzOff();
+        }
+    }
+}
+
+void setupEncrypt(void) {
+    char sEncrypt = readEncrypt();
+    if (sEncrypt == NULL) {
+        saveEncrypt('0');
+    }
+}
+
+void toggleEncrypt(void) {
+    char sEncrypt = readEncrypt();
+    if (!sEncrypt) {
+        saveEncrypt('1');
+    } else {
+        saveEncrypt('0');        
+    }
+}
+
+void resetBT(void) {
+    BTResetOut = 0;
+    delayInMs(5000);
+    BTResetOut = 1;
+}

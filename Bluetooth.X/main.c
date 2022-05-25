@@ -19,7 +19,12 @@ void main(void) {
     LCD_Clear();
     LCD_String_xy(1,0,"Receive: ");
     LCD_Command(0xC0);
-    char received[256] = "";
+    while(1) {
+        sendCharacter('a');
+        LCD_Char('a');
+        delayInMs(10);
+    }
+    /*char received[256] = "";
     int i = 0;
     char connected = 0;
     const char OK_CONN[] = "OK+CONN";
@@ -39,6 +44,6 @@ void main(void) {
             i = i % 256;
             c = NULL;
         }
-    }
+    }*/
     
 }

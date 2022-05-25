@@ -13,6 +13,8 @@
 
 void main(void) {
     LCD_Init();
+    OSCCON = 0x72;
+    
     int i = 0;
     while(1) {
         LCD_String_xy(1,(16 - 5)/2,"Hello");

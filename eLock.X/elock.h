@@ -40,6 +40,12 @@
 #ifndef ELOCK_H
 #define ELOCK_H
 char checkPin(const char * pin);
-void askForPin(void);
-char* enterPin();
+char askForPin(void);
+void enterPin(char* pin);
+char confirmPin(const char* pin1, const char* pin2);
+void setupPin(void);
+void changePin(void);
+void setupEncrypt(void);
+void toggleEncrypt(void);
+void resetBT(void);
 #endif

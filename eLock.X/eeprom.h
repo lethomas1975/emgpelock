@@ -29,9 +29,13 @@
 #define	EEPROM_H
 const int MAX_PIN_SIZE = 4;
 const int PIN_START_ADDRESS = 0;
+const int ENCRYPT_START_ADDRESS = 6;
 
 void savePin(const char* pin);
-const char* readPin();
+void readPin(char* pin);
+
+void saveEncrypt(const char encrypt);
+char readEncrypt(void);
 
 void EEPROM_Write(int,char);		/* Write byte to EEPROM */
 char EEPROM_Read(int);			/* Read byte From EEPROM */

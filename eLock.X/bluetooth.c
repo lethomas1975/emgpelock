@@ -6,7 +6,7 @@
  */
 
 
-#include <xc.h>
+#include "init.h"
 #include "bluetooth.h"
 
 void sendCharacter(char c) {
@@ -24,7 +24,9 @@ void sendString(const char *out) {
 }
 
 char receiveChar() {
+#ifndef INTEGRATED
     while (RCIF == 0);
+#endif
     if(RCSTAbits.OERR) {
         CREN = 0;
         NOP();

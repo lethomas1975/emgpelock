@@ -19,7 +19,7 @@ endif
 endif
 
 # Environment
-MKDIR=mkdir -p
+MKDIR=gnumkdir -p
 RM=rm -f 
 MV=mv 
 CP=cp 
@@ -30,24 +30,12 @@ ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
 DEBUGGABLE_SUFFIX=elf
-FINAL_IMAGE=${DISTDIR}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-endif
-
-ifeq ($(COMPARE_BUILD), true)
-COMPARISON_BUILD=-mafrlcsj
-else
-COMPARISON_BUILD=
-endif
-
-ifdef SUB_IMAGE_ADDRESS
-
-else
-SUB_IMAGE_ADDRESS_COMMAND=
+FINAL_IMAGE=dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
 # Object Directory
@@ -70,7 +58,6 @@ OBJECTFILES=${OBJECTDIR}/_ext/44432331/init.p1 ${OBJECTDIR}/_ext/44432331/common
 SOURCEFILES=../eLock.X/init.c ../eLock.X/common.c main.c ../eLock.X/bluetooth.c ../eLock.X/lcd.c
 
 
-
 CFLAGS=
 ASFLAGS=
 LDLIBSOPTIONS=
@@ -88,13 +75,13 @@ FIXDEPS=fixDeps
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
-	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
 MP_PROCESSOR_OPTION=18F4550
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/init.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/init.p1 
@@ -102,7 +89,7 @@ ${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_
 	@-${MV} ${OBJECTDIR}/_ext/44432331/init.d ${OBJECTDIR}/_ext/44432331/init.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/44432331/init.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/common.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/common.p1 
@@ -110,7 +97,7 @@ ${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${
 	@-${MV} ${OBJECTDIR}/_ext/44432331/common.d ${OBJECTDIR}/_ext/44432331/common.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/44432331/common.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.p1.d 
 	@${RM} ${OBJECTDIR}/main.p1 
@@ -118,7 +105,7 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/_ext/44432331/bluetooth.p1: ../eLock.X/bluetooth.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/bluetooth.p1: ../eLock.X/bluetooth.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/bluetooth.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/bluetooth.p1 
@@ -135,7 +122,7 @@ ${OBJECTDIR}/_ext/44432331/lcd.p1: ../eLock.X/lcd.c  nbproject/Makefile-${CND_CO
 	@${FIXDEPS} ${OBJECTDIR}/_ext/44432331/lcd.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 else
-${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/init.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/init.p1 
@@ -143,7 +130,7 @@ ${OBJECTDIR}/_ext/44432331/init.p1: ../eLock.X/init.c  nbproject/Makefile-${CND_
 	@-${MV} ${OBJECTDIR}/_ext/44432331/init.d ${OBJECTDIR}/_ext/44432331/init.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/44432331/init.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/common.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/common.p1 
@@ -151,7 +138,7 @@ ${OBJECTDIR}/_ext/44432331/common.p1: ../eLock.X/common.c  nbproject/Makefile-${
 	@-${MV} ${OBJECTDIR}/_ext/44432331/common.d ${OBJECTDIR}/_ext/44432331/common.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/44432331/common.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.p1.d 
 	@${RM} ${OBJECTDIR}/main.p1 
@@ -159,7 +146,7 @@ ${OBJECTDIR}/main.p1: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/main.d ${OBJECTDIR}/main.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/_ext/44432331/bluetooth.p1: ../eLock.X/bluetooth.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/_ext/44432331/bluetooth.p1: ../eLock.X/bluetooth.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/44432331" 
 	@${RM} ${OBJECTDIR}/_ext/44432331/bluetooth.p1.d 
 	@${RM} ${OBJECTDIR}/_ext/44432331/bluetooth.p1 
@@ -184,12 +171,6 @@ else
 endif
 
 # ------------------------------------------------------------------------------------
-# Rules for buildStep: assembleWithPreprocess
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-else
-endif
-
-# ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
@@ -200,7 +181,8 @@ dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJ
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.map  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     	
+	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G -mdist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.map  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=0 --asmlist --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    --memorysummary dist/${CND_CONF}/${IMAGE_TYPE}/memoryfile.xml -odist/${CND_CONF}/${IMAGE_TYPE}/Bluetooth.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
+	
 endif
 
 
@@ -213,13 +195,13 @@ endif
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
-	${RM} -r ${OBJECTDIR}
-	${RM} -r ${DISTDIR}
+	${RM} -r build/default
+	${RM} -r dist/default
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
 
-DEPFILES=$(shell "${PATH_TO_IDE_BIN}"mplabwildcard ${POSSIBLE_DEPFILES})
+DEPFILES=$(shell mplabwildcard ${POSSIBLE_DEPFILES})
 ifneq (${DEPFILES},)
 include ${DEPFILES}
 endif

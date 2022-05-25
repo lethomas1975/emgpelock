@@ -116,6 +116,10 @@
 #define RGBLedGTrisOut TRISAbits.TRISA3
 #define RGBLedBTrisOut TRISAbits.TRISA4
 
+// Bluetooth reset
+#define BTResetOut LATAbits.LATA5
+#define BTResetTrisOut TRISAbits.TRISA5
+
 // definition for the Buzzer
 #define BUZZOut LATCbits.LATC1
 #define BUZZTrisOut TRISCbits.TRISC1
@@ -134,6 +138,10 @@
 #define baudValue(baud_rate) (((float)(F_CPU)/(64.0f*(float)baud_rate))-1)
 
 void init(void);
+#endif
+
+#ifndef INTEGRATED
+#define INTEGRATED
 #endif
 
 // This is a guard condition so that contents of this file are not included

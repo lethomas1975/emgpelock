@@ -27,6 +27,8 @@ void LCD_Init() {
     LCD_Command(0x38);     /* uses 2 line and initialize 5*8 matrix of LCD */
     LCD_Command(0x01);     /* clear display screen */
     LCD_Command(0x0c);     /* display on cursor off */
+    LCD_Command(0x02);     /* display on cursor off */
+    LCD_Command(0x80);
     LCD_Command(0x06);     /* increment cursor (shift cursor to right) */
 }
 
@@ -34,18 +36,18 @@ void LCD_Clear() {
     LCD_Command(0x01); /* clear display screen */
 }
 
-void LCD_Command(char cmd ) {
-	LCDOut= cmd;            /* Send data to PORT as a command for LCD */   
+void LCD_Command(char cmd) {
+	LCDOut = cmd;            /* Send data to PORT as a command for LCD */   
 	LCDE0Out = 0;                /* Command Register is selected */
 	LCDE1Out = 1;                /* High-to-Low pulse on Enable pin to latch data */ 
 	NOP();
 	LCDE1Out = 0;
-	delayInMs(5);	
+	delayInMs(5);
 }
 
 void LCD_Char(char dat)
 {
-	LCDOut= dat;            /* Send data to LCD */  
+	LCDOut = dat;            /* Send data to LCD */  
 	LCDE0Out = 1;                /* Data Register is selected */
 	LCDE1Out=1;                  /* High-to-Low pulse on Enable pin to latch data */   
 	NOP();
@@ -61,7 +63,7 @@ void LCD_String(const char *msg) {
     }
 }
 
-void LCD_String_xy(char row,char pos,const char *msg) {
+void LCD_String_xy(char row, char pos, const char *msg) {
     char location=0;
     if(row<=1) {
         location=(0x80) | ((pos) & 0x0f); /*Print message on 1st row and desired location*/
