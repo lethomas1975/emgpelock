@@ -14,16 +14,28 @@ void main(void) {
 
     while(1) {
         RGBLedROut = 1;
+        RGBLedGOut = 0;
+        RGBLedBOut = 0;
         delayInMs(500);
         RGBLedROut = 0;
         RGBLedGOut = 1;
+        RGBLedBOut = 0;
         delayInMs(500);
+        RGBLedROut = 0;
         RGBLedGOut = 0;
         RGBLedBOut = 1;
         delayInMs(500);
-        RGBLedBOut = 0;
         RGBLedROut = 1;
         RGBLedGOut = 1;
+        RGBLedBOut = 0;
+        delayInMs(500);
+        RGBLedROut = 1;
+        RGBLedGOut = 0;
         RGBLedBOut = 1;
+        delayInMs(500);
+        RGBLedROut = 0;
+        RGBLedGOut = 1;
+        RGBLedBOut = 1;
+        delayInMs(500);
     }
 }
