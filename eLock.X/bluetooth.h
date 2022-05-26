@@ -31,6 +31,28 @@ void sendCharacter(char);
 void sendString(const char *);
 char receiveChar();
 
+char isOkConn(const char *);
+char isOkLost(const char *);
+char isConnected(void);
+void setConnected(void);
+void setDisconnected(void);
+
+char isC2Command(const char *);
+char isC2Pin(const char *);
+
+const char OKCONN[] = "OK+CONN";
+const char OKLOST[] = "OK+LOST";
+const char C2COMMAND[4] = "C2+";
+const char C2PIN[7] = "C2PIN+";
+
+const char C2OKSL[] = "C2OK+SL";
+const char C2OKSU[] = "C2OK+SU";
+const char C2OKE[] = "C2OK+E";
+const char C2OKCP[] = "C2OK+CP";
+const char C2OKRBT[] = "C2OK+RBT";
+
+const char C2OKPIN[] = "C2+OK+PIN";
+const char C2NOKPIN[] = "C2+NOK+PIN";
 #endif
 
 // This is a guard condition so that contents of this file are not included
