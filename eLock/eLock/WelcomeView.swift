@@ -15,13 +15,21 @@ struct WelcomeView: View {
             Text("Electronic Lock System").font(.title)
             Text("EMGP18PT122 Team C2").font(.subheadline)
             Text("June 2022").font(.subheadline)
-        }.onReceive(appContext.btManager.$peripherals) { newValue in
+        }/*.onReceive(appContext.btManager.$peripherals) { newValue in
             if !newValue.isEmpty && appContext.appState != .CONNECTED {
                 appContext.appState = .DISCONNECTED
             }
-        }.onReceive(appContext.btManager.$connectedPeripheral) { connected in
+        }*/.onReceive(appContext.btManager.$connectedPeripheral) { connected in
             if connected != nil {
-                appContext.appState = .CONNECTED
+                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                    appContext.appState = .CONNECTED
+                }
+            }
+        }.onAppear() {
+            if appContext.appState != .CONNECTED {
+                Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
+                    appContext.appState = .DISCONNECTED
+                }
             }
         }
     }

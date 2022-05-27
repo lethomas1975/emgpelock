@@ -17,7 +17,7 @@ struct BTPeripheralView: View {
                 Spacer()
             }
             HStack {
-                Text("Identifier: \(peripheral.identifier)")
+                Text("Identifier: \(peripheral.id)")
                 Spacer()
             }
         }
@@ -26,6 +26,6 @@ struct BTPeripheralView: View {
 
 struct BTPeripheralView_Previews: PreviewProvider {
     static var previews: some View {
-        BTPeripheralView(peripheral: BTPeripheral(identifier: UUID(uuidString: "1234")!, name: "Hello"))
+        BTPeripheralView(peripheral: BTPeripheral(id: UUID(uuidString: "1234")!, name: "Hello"))
     }
 }

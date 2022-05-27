@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PinChangeView: View {
+    @EnvironmentObject var appContext: AppContext
+
     var body: some View {
         Text("Pin Change View")
     }

@@ -25,16 +25,25 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     
+    private let pinDelegate: PinDelegate = PinDelegate();
+    private let lockDelegate: LockDelegate = LockDelegate();
+    private let unlockDelegate: UnlockDelegate = UnlockDelegate();
+    private let pinChangeDelegate: PinChangeDelegate = PinChangeDelegate();
+    private let encryptDelegate: EncryptDelegate = EncryptDelegate();
+    private let ecryptStatusDelegate: EncryptStatusDelegate = EncryptStatusDelegate();
+    private let resetBluetoothDelegate: ResetBluetoothDelegate = ResetBluetoothDelegate();
+    
     override init() {
         super.init()
         hm10Bluetooth = HM10Bluetooth(self)
         centralManager = CBCentralManager(delegate: hm10Bluetooth, queue: nil)
+        pinDelegate.mainDelegate = self.hm10Bluetooth
     }
     
     func retriveCBPeripheral(_ btPeripheral: BTPeripheral) -> CBPeripheral? {
         var found: CBPeripheral?
         for cbPeripheral in cbPeripherals {
-            if cbPeripheral.identifier == btPeripheral.identifier {
+            if cbPeripheral.identifier == btPeripheral.id {
                 found = cbPeripheral
                 break
             }
@@ -64,17 +73,23 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     // MARK: BluetoothListener functions
     func discoveredPeripheral(_ peripheral: CBPeripheral) {
         let name: String = (peripheral.name != nil) ? peripheral.name! : "Unknown"
-        peripherals.append(BTPeripheral(identifier: UUID(uuidString: peripheral.identifier.uuidString)!, name: name))
-        cbPeripherals.append(peripheral)
-        print("found \(name) with identifier \(peripheral.identifier.uuidString)")
+        if !peripherals.contains(where: { $0.id.uuidString == peripheral.identifier.uuidString}) {
+            peripherals.append(BTPeripheral(id: UUID(uuidString: peripheral.identifier.uuidString)!, name: name))
+            cbPeripherals.append(peripheral)
+            print("found \(name) with identifier \(peripheral.identifier.uuidString)")
+            if let last = self.fetchLastConnected() {
+                if last.identifier?.uuidString == peripheral.identifier.uuidString {
+                    hm10Bluetooth.connect(peripheral)
+                }
+            }
+        }
     }
 
     func connected(_ peripheral: CBPeripheral) {
         connectedPeripheral = peripheral
         do {
-            let result = fetch(peripheral.identifier)
-            if result != nil {
-                result?.lastConnected = Date()
+            if let result = fetch(peripheral.identifier) {
+                result.lastConnected = Date()
                 try viewContext.save()
             } else {
                 let saved = savePeripheral(peripheral)
@@ -112,7 +127,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         if last == nil {
             return false
         }
-        let peripheral = retriveCBPeripheral(BTPeripheral(identifier: last!.identifier!, name: last!.name!))
+        let peripheral = retriveCBPeripheral(BTPeripheral(id: last!.identifier!, name: last!.name!))
         if peripheral == nil {
             return false
         }
@@ -191,5 +206,42 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         if let data = message.data(using: String.Encoding.ascii) {
             hm10Bluetooth.write(value: data)
         }
+    }
+    
+    func sendPin(_ pin: String, observer: CommandResponse) {
+        print("sending pin: \(pin)")
+        pinDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, pin: pin, observer: observer)
+    }
+    
+    func sendLock(observer: CommandResponse) {
+        print("sending lock command")
+        lockDelegate.lock(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+        
+    }
+
+    func sendUnlock(observer: CommandResponse) {
+        print("sending unlock command")
+        unlockDelegate.unlock(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+        
+    }
+
+    func sendChangePin(oldPin: String, newPin: String, confirmPin: String, observer: CommandResponse) {
+        print("sending change pin command")
+        pinChangeDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, oldPin: oldPin, newPin: newPin, confirmPin: confirmPin, observer: observer)
+    }
+
+    func sendEncrypt(observer: CommandResponse) {
+        print("sending encrypt/decrypt command")
+        encryptDelegate.encrypt(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+    }
+
+    func sendEncryptStatus(observer: CommandResponse) {
+        print("sending encrypt status command")
+        ecryptStatusDelegate.status(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+    }
+    
+    func sendResetBluetooth(observer: CommandResponse) {
+        print("sending reset command")
+        resetBluetoothDelegate.reset(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
     }
 }

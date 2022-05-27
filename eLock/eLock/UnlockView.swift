@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct UnlockView: View {
+    @EnvironmentObject var appContext: AppContext
+
     var body: some View {
         Text("Unlock View")
     }

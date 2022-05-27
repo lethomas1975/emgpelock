@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BTPeripheral: Hashable, Codable {
-    var identifier: UUID
+struct BTPeripheral: Hashable, Codable, Identifiable {
+    var id: UUID
     var name: String
 }

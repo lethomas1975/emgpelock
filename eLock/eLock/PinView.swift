@@ -8,10 +8,10 @@
 import SwiftUI
 import Introspect
 
-struct PinView: View {
+struct PinView: View, CommandResponse {
     @EnvironmentObject var appContext: AppContext
 
-    @State var start = false
+    @State var pinFailed = false
     @State var pin = ""
     @State var disabled = false
         
@@ -21,7 +21,8 @@ struct PinView: View {
         HStack {
             ForEach(0..<digits, id:\.self) { index in
                 Spacer()
-                Image(systemName: imageName(index)).font(.system(size: 15, weight: .thin, design: .default))
+                Image(systemName: imageName(index)).font(.system(size: 15, weight: .thin, design: .default)).offset(x: pinFailed ? -10 : 0)
+                    .animation(Animation.default.repeatCount(5), value: pinFailed)
             }
             Spacer()
         }
@@ -33,6 +34,7 @@ struct PinView: View {
                 self.pin
             },
             set: { newValue in
+                pinFailed = false
                 self.pin = newValue
                 self.checkPin()
             }
@@ -56,7 +58,7 @@ struct PinView: View {
         
         if pin.count == digits && !disabled {
             disabled = true
-            appContext.btManager.sendMessage("1")
+            appContext.btManager.sendPin(pin, observer: self)
         }
     }
     
@@ -74,20 +76,26 @@ struct PinView: View {
                 dots.padding()
                 pinField
             }
-        }/*.onReceive(appContext.btManager.$message) { message in
-            if message.starts(with: "RXPIN:") {
-                if message.hasSuffix("false") {
-                    pin = ""
-                    disabled = false
-                } else if message.hasSuffix("true") {
-                    appContext.appState = .LOGGEDIN
-                }
-            } else {
-                pin = ""
-                disabled = false
-            }
-        }*/
+        }
     }
+    
+    func id() -> String {
+        return "pinView"
+    }
+    
+    func successful() {
+        pin = ""
+        disabled = false;
+        appContext.appState = .LOGGEDIN
+        pinFailed = false
+    }
+    
+    func failed() {
+        pin = ""
+        disabled = false;
+        pinFailed = true
+    }
+
 }
 
 struct PinView_Previews: PreviewProvider {

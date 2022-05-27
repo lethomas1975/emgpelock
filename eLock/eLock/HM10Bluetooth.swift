@@ -107,7 +107,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     private var connectedPeripheral: CBPeripheral!
     private var characteristic: CBCharacteristic!
     
-    var listener: BluetoothListener
+    private var listener: BluetoothListener
     
     var configDelegate: ConfigDelegate = ConfigDelegate()
 
@@ -220,17 +220,14 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
                 print("Characteristic: \(characteristic.uuid)")
                 self.characteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
-                configDelegate.startConfig(peripheral: peripheral, characteristic: characteristic)
+                //configDelegate.startConfig(peripheral: peripheral, characteristic: characteristic)
                 listener.characteristic(characteristic)
+                if let data = "C2+0".data(using: String.Encoding.ascii) {
+                    print("sending: C2+0")
+                    write(value: data)
+                }
                 break;
             }
-        }
-    }
-    
-    private func configureBT() {
-        if let data = "AT".data(using: String.Encoding.ascii) {
-            print("Sedning: AT")
-            write(value: data)
         }
     }
     

@@ -9,22 +9,32 @@ import SwiftUI
 
 struct BTScanningView: View {
     @EnvironmentObject var appContext: AppContext
-
+    @State var peripheralList: [BTPeripheral] = []
+    
     var body: some View {
-        NavigationView {
-            List(appContext.btManager.peripherals, id: \.identifier) { peripheral in
-                NavigationLink {
-                    PinView()
+        VStack {
+            Text("Bluetooth scanning...").fontWeight(Font.Weight.bold).font(Font.title)
+            Spacer()
+            List(peripheralList) { peripheral in
+                Button {
+                    appContext.btManager.connect(peripheral: peripheral)
                 } label: {
                     BTPeripheralView(peripheral: peripheral)
-                }.onTapGesture() {
-                    appContext.btManager.connect(peripheral: peripheral)
                 }
             }
-        }.onAppear {
-            let connected = appContext.btManager.connectToLastConnectedPeripheral()
-            if connected {
-                appContext.appState = .CONNECTED
+            .onReceive(appContext.btManager.$peripherals) { peripherals in
+                peripheralList.removeAll(keepingCapacity: false)
+                peripherals.forEach { peripheral in
+                    peripheralList.append(peripheral)
+                }
+            }.onReceive(appContext.btManager.$connectedPeripheral) { connected in
+                if connected != nil {
+                    Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+                        appContext.appState = .CONNECTED
+                    }
+                } else {
+                    appContext.appState = .DISCONNECTED
+                }
             }
         }
     }

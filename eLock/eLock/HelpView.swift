@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HelpView: View {
+    @EnvironmentObject var appContext: AppContext
+
     var body: some View {
         Text("HelpView")
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum AppState: Int, CaseIterable {
-    case START = 0, DISCONNECTED, CONNECTED, LOGGEDIN, MENU, LOCK, UNLOCK, PINCHANGE, ENCRYPT, HELP, SETTINGS
+    case START = 0, DISCONNECTED, CONNECTED, LOGGEDIN, MENU, LOCK, UNLOCK, PINCHANGE, ENCRYPT, RESET, HELP, SETTINGS
 }
 
 class AppContext: ObservableObject {
@@ -46,6 +46,8 @@ struct eLockApp: App {
                     PinChangeView().environmentObject(appContext)
                 case .ENCRYPT:
                     EncryptSettingView().environmentObject(appContext)
+                case .RESET:
+                    ResetBluetoothView().environmentObject(appContext)
                 case .HELP:
                     HelpView().environmentObject(appContext)
                 case .SETTINGS:
