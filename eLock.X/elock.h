@@ -48,4 +48,7 @@ void changePin(void);
 void setupEncrypt(void);
 void toggleEncrypt(void);
 void resetBT(void);
+
+void sendEncryptStatus(void);
+void sendAppStatus(void);
 #endif

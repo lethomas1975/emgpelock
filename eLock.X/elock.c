@@ -14,6 +14,7 @@
 #include "buzzer.h"
 #include "7seg.h"
 #include "init.h"
+#include "bluetooth.h"
 
 char askForPin(void) {
     LCD_Clear();
@@ -148,4 +149,22 @@ void resetBT(void) {
     BTResetOut = 0;
     delayInMs(5000);
     BTResetOut = 1;
+}
+
+void sendEncryptStatus(void) {
+    char encrp = readEncrypt();
+    char enc_status[8] = "";
+    strcpy(enc_status, C2OKE);
+    enc_status[6] = encrp;
+    sendString(enc_status);
+}
+
+void sendAppStatus(void) {
+    char encrp = readEncrypt();
+    char app_status[10] = "";
+    strcpy(app_status, C2OKE);
+    app_status[6] = encrp;
+    app_status[7] = '+';
+    app_status[8] = SolenoidOut == 1 ? 'L' : 'U';
+    sendString(app_status);    
 }
