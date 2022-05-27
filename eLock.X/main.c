@@ -22,7 +22,14 @@ char oldP[4] = "";
 char newP[4] = "";
 char conP[4] = "";
 
+char commandBT[17] = "";
+char index = 0;
+char data = 0;
+char stop = 0;
+
 int parseCommand(const char * recv);
+void handleCommand(void);
+void clearCommandString(void);
 
 void main(void) {
     LCD_Init();
@@ -31,8 +38,11 @@ void main(void) {
     setupPin();
     setupEncrypt();
     LCD_Clear();
+    clearCommandString();
+    
     while (1) {
         char e = 0;
+        handleCommand();
         switch (command) {
             case '0':
                 LCD_String_xy(1, 0, "eLock by Team C2");
@@ -54,16 +64,8 @@ void main(void) {
                 }
                 break;
             case '2':
-                e = readEncrypt();
-                char LINE2[16] = "4-";
-                if (e == 0) {
-                    strcat(LINE2, "D");
-                } else {
-                    strcat(LINE2, "E");
-                }
-                strcat(LINE2, " Enc 5-Rst BT");                
-                LCD_String_xy(1, 0, "1-L 2-U 3-Ch PIN");
-                LCD_String_xy(2, 0, LINE2);
+                LCD_String_xy(1, 0, "1-Lock 2-Unlock ");
+                LCD_String_xy(2, 0, "3- New PIN 4-Rst");
                 break;
             case '3':
                 GIE = 0;
@@ -107,7 +109,7 @@ void main(void) {
                 RCIF = 0;
                 command = '0';
                 break;
-            case '6':
+            /*case '7':
                 GIE = 0;
                 toggleEncrypt();
                 sendEncryptStatus();
@@ -121,8 +123,8 @@ void main(void) {
                 RBIF = 0;
                 RCIF = 0;
                 command = '0';
-                break;
-            case '7':
+                break;*/
+            case '6':
                 GIE = 0;
                 resetBT();
                 LCD_Clear();
@@ -150,7 +152,7 @@ void interrupt low_priority keypad(void) {
             char c = keyPressed();
             if (c != NULL && c != '#' && c != '*') {
                 command = c + 2;
-                if (command < '3' || command > '7') {
+                if (command < '3' || command > '6') {
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Wrong choice!");
                     buzz();
@@ -172,72 +174,9 @@ void interrupt low_priority keypad(void) {
 void interrupt usart(void) {
     if (RCIF == 1) {
         RCIP = 0;
-        char commandBT[10] = "";
-        int i = 0;
-        char data = 0;
-        char stop = 0;
-        while (!stop) {
-            char c = receiveChar();
-            if (c == 0 || c == NULL) {
-                RGBLedROut = 1;
-            } else if (data == 0) {
-                commandBT[i] = c;
-                int cmd = parseCommand(commandBT);
-                switch (cmd) {
-                    case 1:
-                        sendAppStatus();
-                        stop = 1;
-                        break;
-                    case 2:
-                        stop = 1;
-                        break;
-                    case 3:
-                        data = 1;
-                        i = -1;
-                        break;
-                    case 4:
-                        data = 2;
-                        i = -1;
-                        break;
-                }
-            } else if (data == 1) {
-                if (c == '0') {
-                    sendAppStatus();
-                    stop = 1;
-                } else if (c == '3') {
-                    command = '9';
-                } else {
-                    if (command == '9') {
-                        if (c != '+') {
-                            if (i < 3) {
-                                oldP[i] = c;
-                            } else if (i < 7) {
-                                newP[i - 4] = c;
-                            } else {
-                                conP[i - 8] = c;
-                            }
-                            if (i == 11) {
-                                stop = 1;
-                            }
-                        }
-                    } else {
-                        command = c + 2;
-                        stop = 1;
-                    }
-                }
-            } else if (data == 2) {
-                oldP[i] = c;
-                if (i == 3) {
-                    if (checkPin(oldP)) {
-                        sendString(C2OKPIN);
-                    } else {
-                        sendString(C2NOKPIN);
-                    }
-                    stop = 1;
-                }
-            }
-            i++;
-        }
+        char c = receiveChar();
+        commandBT[index] = c;
+        index = (index + 1) % 16;
     }
     RCIF = 0;
     RCIP = 1;
@@ -258,4 +197,61 @@ int parseCommand(const char * recv) {
         return 4;
     }
     return 0;
+}
+
+void handleCommand(void) {
+    if (commandBT[0] == 0) {
+        return;
+    }
+    //LCD_String(commandBT);
+    int cmd = parseCommand(commandBT);
+    switch (cmd) {
+        case 1:
+            sendAppStatus();
+            clearCommandString();
+            break;
+        case 2:
+            clearCommandString();
+            break;
+        case 3:
+            command = commandBT[3];
+            if (command == '3') {
+                for (int i = 0; i < 3; i++) {
+                    oldP[i] = commandBT[5 + i];
+                    newP[i] = commandBT[9 + i];
+                    conP[i] = commandBT[13 + i];
+                }
+                oldP[3] = 0;
+                newP[3] = 0;
+                conP[3] = 0;
+                changePinBT(oldP, newP, conP);
+            } else if (command >= '1' && command <= '5') {
+                command = command + 2;
+            } else if (command == '0') {
+                sendAppStatus();
+            } else {
+                sendString("C2NOK");
+            }
+            clearCommandString();
+            break;
+        case 4:
+            for (int i = 0; i < 3; i++) {
+                oldP[i] = commandBT[6 + i];
+            }
+            oldP[3] = 0;
+            if (checkPin(oldP)) {
+                sendString(C2OKPIN);
+            } else {
+                sendString(C2NOKPIN);
+            }
+            clearCommandString();
+            break;
+    }
+}
+
+void clearCommandString(void) {
+    for (int i = 0; i < 17; i++) {
+        commandBT[i] = 0;
+    }
+    index = 0;
 }

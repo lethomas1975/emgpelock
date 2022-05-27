@@ -45,6 +45,7 @@ void enterPin(char* pin);
 char confirmPin(const char* pin1, const char* pin2);
 void setupPin(void);
 void changePin(void);
+char changePinBT(const char* oldP, const char* newP, const char* conP);
 void setupEncrypt(void);
 void toggleEncrypt(void);
 void resetBT(void);
