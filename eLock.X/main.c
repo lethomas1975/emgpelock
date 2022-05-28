@@ -126,9 +126,9 @@ void main(void) {
                 break;*/
             case '6':
                 GIE = 0;
+                sendString(C2OKRBT);
                 resetBT();
                 LCD_Clear();
-                sendString(C2OKRBT);
             default:
                 LATB = 0xf0;
                 GIE = 1;
@@ -164,10 +164,10 @@ void interrupt low_priority keypad(void) {
             }
         }
         buzzOff();
+        RBIF = 0;
+        LATB = 0xf0;
+        RBIE = 1;
     }
-    RBIF = 0;
-    LATB = 0xf0;
-    RBIE = 1;
     RBIF = 0;        
 }
 
@@ -177,9 +177,9 @@ void interrupt usart(void) {
         char c = receiveChar();
         commandBT[index] = c;
         index = (index + 1) % 16;
+        RCIF = 0;
+        RCIP = 1;
     }
-    RCIF = 0;
-    RCIP = 1;
     RCIF = 0;
 }
 
