@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     @EnvironmentObject var appContext: AppContext
+    @State var appeared = false
     
     var body: some View {
         VStack(alignment: .center) {
@@ -20,18 +21,24 @@ struct WelcomeView: View {
                 appContext.appState = .DISCONNECTED
             }
         }*/.onReceive(appContext.btManager.$connectedPeripheral) { connected in
-            if connected != nil {
-                Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
+            if connected != nil && appeared {
+                //Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
                     appContext.appState = .CONNECTED
-                }
+                //}
             }
         }.onAppear() {
-            if appContext.appState != .CONNECTED {
+            appeared = true
+            if appContext.appState != .CONNECTED  && appeared {
                 Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
-                    appContext.appState = .DISCONNECTED
+                    if appContext.appState != .CONNECTED && appContext.appState != .LOGGEDIN && appContext.appState != .MENU && appeared {
+                        appContext.appState = .DISCONNECTED
+                    }
                 }
             }
+        }.onDisappear {
+            appeared = false
         }
+        
     }
 }
 

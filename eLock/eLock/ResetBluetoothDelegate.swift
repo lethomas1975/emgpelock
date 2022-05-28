@@ -17,4 +17,16 @@ class ResetBluetoothDelegate: BaseCommandDelegate {
         let command = getCommand()
         sendCommand(peripheral: peripheral, characteristic: characteristic, command: command, observer: observer)
     }
+    
+    override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("reset bluetooth response: \(message)")
+            if message == "C2OK+RBT" {
+                resetToMainDelegate(peripheral)
+                notifySuccess(message: "rbt:ok")
+            } else {
+                notifyFailure(message: "rbt:nok")
+            }
+        }
+    }
 }

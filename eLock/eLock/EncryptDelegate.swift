@@ -23,11 +23,11 @@ class EncryptDelegate: BaseCommandDelegate {
         case 1:
             command = "AT+TYPE3"
         case 2:
-            command = "AT+TYPE0"
+            command = "AT+ERASE"
         case 3:
-            command = "AT+RESET"
+            command = "AT+TYPE0"
         case 4:
-            command = "AT+CONNL"
+            command = "AT+RESET"
         default:
             command = getCommand()
         }
@@ -45,35 +45,35 @@ class EncryptDelegate: BaseCommandDelegate {
                     state = 2
                     encrypt(peripheral: peripheral, characteristic: characteristic, observer: nil)
                 } else {
-                    notifyFailure(message: "Can't get Pairing status!")
+                    notifyFailure(message: "encrypt:Can't get Pairing status!")
                 }
             } else if state == 1 {
                 if "OK+Set:3" == message {
-                    state = 3
+                    state = 4
                     encrypt(peripheral: peripheral, characteristic: characteristic, observer: nil)
                 } else {
-                    notifyFailure(message: "Can't set Auth and Bond!")
+                    notifyFailure(message: "encrypt:Can't set Auth and Bond!")
                 }
             } else if state == 2 {
-                if "OK+Set:0" == message {
+                if "OK+ERASE" == message {
                     state = 3
                     encrypt(peripheral: peripheral, characteristic: characteristic, observer: nil)
                 } else {
-                    notifyFailure(message: "Can't set to No Code")
+                    notifyFailure(message: "encrypt:Can't set Auth and Bond!")
                 }
             } else if state == 3 {
-                if "OK+RESET" == message {
-                    state = 4;
+                if "OK+Set:0" == message {
+                    state = 4
                     encrypt(peripheral: peripheral, characteristic: characteristic, observer: nil)
                 } else {
-                    notifyFailure(message: "Can't reset module")
+                    notifyFailure(message: "encrypt:Can't set to No Code")
                 }
             } else if state == 4 {
-                if "OK+CONNL" == message {
-                    resetToMainDelegate(peripheral)
-                    notifySuccess(message: "Reconnecting...")
+                if "OK+RESET" == message {
+                    state = 0;
+                    notifySuccess(message: "encrypt:ok")
                 } else {
-                    notifyFailure(message: "Can't reconnect")
+                    notifyFailure(message: "encrypt:Can't reset module")
                 }
             }
         }

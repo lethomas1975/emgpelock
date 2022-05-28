@@ -83,14 +83,14 @@ struct PinView: View, CommandResponse {
         return "pinView"
     }
     
-    func successful() {
+    func successful(_ message: String) {
         pin = ""
         disabled = false;
-        appContext.appState = .LOGGEDIN
         pinFailed = false
+        appContext.appState = .LOGGEDIN
     }
     
-    func failed() {
+    func failed(_ message: String) {
         pin = ""
         disabled = false;
         pinFailed = true

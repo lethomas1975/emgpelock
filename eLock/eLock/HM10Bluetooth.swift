@@ -190,6 +190,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        central.cancelPeripheralConnection(peripheral)
         listener.disconnected(peripheral)
     }
     
@@ -222,6 +223,14 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
                 peripheral.setNotifyValue(true, for: characteristic)
                 //configDelegate.startConfig(peripheral: peripheral, characteristic: characteristic)
                 listener.characteristic(characteristic)
+                if let data = "AT+VERR?".data(using: String.Encoding.ascii) {
+                    print("sending: AT+VERR?")
+                    write(value: data)
+                }
+                if let data = "AT+ANCS1".data(using: String.Encoding.ascii) {
+                    print("sending: AT+ANCS1")
+                    write(value: data)
+                }
                 if let data = "C2+0".data(using: String.Encoding.ascii) {
                     print("sending: C2+0")
                     write(value: data)

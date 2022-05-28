@@ -17,4 +17,16 @@ class UnlockDelegate: BaseCommandDelegate {
         let command = getCommand()
         sendCommand(peripheral: peripheral, characteristic: characteristic, command: command, observer: observer)
     }
+
+    override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("unlock status response: \(message)")
+            if message.starts(with: "C2OK+SU") {
+                resetToMainDelegate(peripheral)
+                notifySuccess(message: "unlock:ok")
+            } else {
+                notifyFailure(message: "unlock:nok")
+            }
+        }
+    }
 }

@@ -17,4 +17,16 @@ class LockDelegate: BaseCommandDelegate {
         let command = getCommand()
         sendCommand(peripheral: peripheral, characteristic: characteristic, command: command, observer: observer)
     }
+    
+    override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("lock status response: \(message)")
+            if message.starts(with: "C2OK+SL") {
+                resetToMainDelegate(peripheral)
+                notifySuccess(message: "lock:ok")
+            } else {
+                notifyFailure(message: "lock:nok")
+            }
+        }
+    }
 }

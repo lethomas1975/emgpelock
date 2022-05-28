@@ -10,6 +10,7 @@ import SwiftUI
 struct BTScanningView: View {
     @EnvironmentObject var appContext: AppContext
     @State var peripheralList: [BTPeripheral] = []
+    @State var appeared = false
     
     var body: some View {
         VStack {
@@ -28,13 +29,20 @@ struct BTScanningView: View {
                     peripheralList.append(peripheral)
                 }
             }.onReceive(appContext.btManager.$connectedPeripheral) { connected in
-                if connected != nil {
+                if connected != nil && appeared {
                     Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { timer in
                         appContext.appState = .CONNECTED
                     }
-                } else {
+                } else if appContext.appState != .CONNECTED && appContext.appState != .LOGGEDIN && appContext.appState != .MENU && appeared {
                     appContext.appState = .DISCONNECTED
                 }
+            }.onAppear {
+                appeared = true
+                if appContext.appState != .CONNECTED {
+                    let _ = appContext.btManager.connectToLastConnectedPeripheral()
+                }
+            }.onDisappear {
+                appeared = false
             }
         }
     }
