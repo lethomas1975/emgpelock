@@ -31,3 +31,20 @@ void delayInUs(int us) {
         __delay_us(1);
     }
 }
+
+char strstartwith(const char* source, const char* startwith) {
+    if (*startwith == 0 && *source == 0) {
+        return 0;
+    }
+    while (*startwith != 0) {
+        if (*startwith != *source) {
+            return 0;
+        }
+        *startwith++;
+        *source++;
+        if (*startwith != 0 && *source == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}

@@ -51,8 +51,8 @@ const char C2OKE[] = "C2OK+E";
 const char C2OKCP[] = "C2OK+CP";
 const char C2OKRBT[] = "C2OK+RBT";
 
-const char C2OKPIN[] = "C2+OK+PIN";
-const char C2NOKPIN[] = "C2+NOK+PIN";
+const char C2OKPIN[] = "C2OK+PIN";
+const char C2NOKPIN[] = "C2NOK+PIN";
 #endif
 
 // This is a guard condition so that contents of this file are not included

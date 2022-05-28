@@ -120,13 +120,27 @@ void changePin(void) {
         enterPin(confPin);
         confirmed = confirmPin(pin, confPin);
         if (confirmed) {
-           savePin(pin); 
+           savePin(pin);
         } else {
             buzz();
             delayInMs(50);
             buzzOff();
         }
     }
+}
+
+char changePinBT(const char* oldP, const char* newP, const char* conP) {
+    char sPin[4] = "";
+    readPin(sPin);
+    char confirmed = confirmPin(sPin, oldP);
+    if (confirmed) {
+        confirmed = confirmPin(newP, conP);
+        if (confirmed) {
+            savePin(newP);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void setupEncrypt(void) {
@@ -166,5 +180,6 @@ void sendAppStatus(void) {
     app_status[6] = encrp;
     app_status[7] = '+';
     app_status[8] = SolenoidOut == 1 ? 'L' : 'U';
+    app_status[9] = 0;
     sendString(app_status);    
 }

@@ -8,6 +8,8 @@
 
 #include "init.h"
 #include "bluetooth.h"
+#include "lcd.h"
+#include "common.h"
 
 char connected = 0;
 void sendCharacter(char c) {
@@ -18,7 +20,8 @@ void sendCharacter(char c) {
 
 void sendString(const char *out) {
     int i = 0;
-    while (out[i] != '\0') {            
+    while (out[i] != '\0') {        
+        LCD_Char(out[i]);
         sendCharacter(out[i]);
         i++;
     }    
@@ -38,7 +41,7 @@ char receiveChar() {
 }
 
 char isOkConn(const char * recv) {
-    if (strcmp(OKCONN, recv) == 0) {
+    if (strstartwith(recv, OKCONN) == 1) {
         setConnected();
         return 1;
     }
@@ -46,7 +49,7 @@ char isOkConn(const char * recv) {
 }
 
 char isOkLost(const char * recv) {
-    if (strcmp(OKLOST, recv) == 0) {
+    if (strstartwith(recv, OKLOST) == 1) {
         setDisconnected();
         return 1;
     }
@@ -59,14 +62,15 @@ char isConnected(void) {
 void setConnected(void) {
     connected = 1;
 }
+
 void setDisconnected(void) {
     connected = 0;
 }
 
 char isC2Command(const char * recv) {
-    return strcmp(C2COMMAND, recv) == 0;
+    return strstartwith(recv, C2COMMAND) == 1;
 }
 
 char isC2Pin(const char * recv) {
-    return (strcmp(C2PIN, recv));
+    return strstartwith(recv, C2PIN) == 1;
 }

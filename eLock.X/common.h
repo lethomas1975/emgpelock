@@ -32,6 +32,8 @@
 
 void delayInMs(int ms);
 void delayInUs(int us);
+
+char strstartwith(const char* source, const char* startwith);
 #endif
 
 // This is a guard condition so that contents of this file are not included
