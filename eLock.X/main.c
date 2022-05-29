@@ -224,7 +224,12 @@ void handleCommand(void) {
                 oldP[3] = 0;
                 newP[3] = 0;
                 conP[3] = 0;
-                changePinBT(oldP, newP, conP);
+                if (changePinBT(oldP, newP, conP)) {
+                    sendString(C2OKCP);
+                } else {
+                    sendString(C2NOKCP);
+                }
+                command = '0';
             } else if (command >= '1' && command <= '5') {
                 command = command + 2;
             } else if (command == '0') {

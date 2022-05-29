@@ -49,6 +49,7 @@ const char C2OKSL[] = "C2OK+SL";
 const char C2OKSU[] = "C2OK+SU";
 const char C2OKE[] = "C2OK+E";
 const char C2OKCP[] = "C2OK+CP";
+const char C2NOKCP[] = "C2NOK+CP";
 const char C2OKRBT[] = "C2OK+RBT";
 
 const char C2OKPIN[] = "C2OK+PIN";
