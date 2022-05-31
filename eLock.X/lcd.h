@@ -27,8 +27,6 @@
  */
 #ifndef LCD_H
 #define	LCD_H
-void display(const char* toDisplay);
-
 void LCD_Init();
 void LCD_Clear();
 void LCD_Command(char cmd );

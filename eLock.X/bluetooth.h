@@ -27,6 +27,7 @@
  */
 #ifndef BLUETOOTH_H
 #define	BLUETOOTH_H
+
 void sendCharacter(char);
 void sendString(const char *);
 char receiveChar();
@@ -54,6 +55,9 @@ const char C2OKRBT[] = "C2OK+RBT";
 
 const char C2OKPIN[] = "C2OK+PIN";
 const char C2NOKPIN[] = "C2NOK+PIN";
+
+const char C2SYSTLOCK[] = "C2SYST+LOCK";
+const char C2NOK[] = "C2NOK";
 #endif
 
 // This is a guard condition so that contents of this file are not included

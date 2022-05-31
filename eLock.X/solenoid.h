@@ -2,6 +2,7 @@
 #define	SOLENOID_H
 void lock(void);
 void unlock(void);
+char isLocked(void);
 #endif
 
 // This is a guard condition so that contents of this file are not included

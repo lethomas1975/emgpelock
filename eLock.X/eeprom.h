@@ -31,15 +31,10 @@ const int MAX_PIN_SIZE = 4;
 const int PIN_START_ADDRESS = 0;
 const int ENCRYPT_START_ADDRESS = 6;
 
-void savePin(const char* pin);
-void readPin(char* pin);
-
-void saveEncrypt(const char encrypt);
-char readEncrypt(void);
-
-void EEPROM_Write(int,char);		/* Write byte to EEPROM */
-char EEPROM_Read(int);			/* Read byte From EEPROM */
-void EEPROM_WriteString(int,char*);	/* Write String to EEPROM */
+void readPinFromEeprom(char pin[4]);
+void savePinToEeprom(const char pin[4]);
+char readEncryptFromEeprom(void);
+void saveEncryptToEeprom(const char encrypt);
 
 #endif
 

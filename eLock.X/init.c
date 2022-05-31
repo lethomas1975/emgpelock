@@ -30,8 +30,6 @@ void init_interrupt(void) {
 }
 
 void init(void) {
-    delayInMs(150);
-
     // disabling ADC
     ADCON0bits.GO = 0;
     ADCON0bits.ADON = 0;

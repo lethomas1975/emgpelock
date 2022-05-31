@@ -8,6 +8,10 @@
 #include "common.h"
 #include "solenoid.h"
 
+char isLocked(void) {
+    return SolenoidOut == 1;
+}
+
 void lock(void) {
     SolenoidOut = 1;
 }

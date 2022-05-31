@@ -25,6 +25,13 @@
  * Comments:
  * Revision history: 
  */
+#ifndef RGB_H
+#define	RGB_H
+void redOn(void);
+void greenOn(void);
+void blueOn(void);
+void rgbOff(void);
+#endif
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
@@ -37,27 +44,3 @@
 #include <pic18f4550.h>
 #endif	/* XC_HEADER_TEMPLATE_H */
 
-#ifndef ELOCK_H
-#define ELOCK_H
-void askPin(const char* message, char pin[4]);
-char checkPin(const char * pin);
-char login(void);
-
-void askForChangePin(char currPin[4], char newPin[4], char confPin[4]);
-char changePin(const char* oldP, const char* newP, const char* conP);
-char confirmPin(const char* pin1, const char* pin2);
-void handleConfirmPin(char confirmed, int *count);
-
-void systemLocked(void);
-
-void disableInterrupt(void);
-void enableInterrupt(void);
-
-void setupPin(void);
-void setupEncrypt(void);
-void toggleEncrypt(void);
-void resetBT(void);
-
-void sendEncryptStatus(void);
-void sendAppStatus(void);
-#endif

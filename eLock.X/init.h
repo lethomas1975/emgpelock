@@ -101,37 +101,37 @@
 // definition for LCD
 #define LCDOut LATD
 #define LCDTrisOut TRISD
-#define LCDE0Out LATAbits.LATA0
-#define LCDE0TrisOut TRISAbits.TRISA0
-#define LCDE1Out LATAbits.LATA1
-#define LCDE1TrisOut TRISAbits.TRISA1
-
-// definition for the Solenoid
-#define SolenoidOut LATCbits.LATC0
-#define SolenoidTrisOut TRISCbits.TRISC0
+#define LCDA0Out LATAbits.LATA0
+#define LCDA0TrisOut TRISAbits.TRISA0
+#define LCDA1Out LATAbits.LATA1
+#define LCDA1TrisOut TRISAbits.TRISA1
 
 // definition for the RGB LED
-#define RGBLedROut LATAbits.LATA2
-#define RGBLedGOut LATAbits.LATA3
-#define RGBLedBOut LATAbits.LATA4
+#define RGBLedROut LATAbits.LATA2       // Red led
+#define RGBLedGOut LATAbits.LATA3       // Green led
+#define RGBLedBOut LATAbits.LATA4       // Blue led
 #define RGBLedRTrisOut TRISAbits.TRISA2
 #define RGBLedGTrisOut TRISAbits.TRISA3
 #define RGBLedBTrisOut TRISAbits.TRISA4
 
 // Bluetooth reset
-#define BTResetOut LATAbits.LATA5
+#define BTResetOut LATAbits.LATA5       // BT reset pin
 #define BTResetTrisOut TRISAbits.TRISA5
+
+// definition for the Solenoid
+#define SolenoidOut LATCbits.LATC0
+#define SolenoidTrisOut TRISCbits.TRISC0
 
 // definition for the Buzzer
 #define BUZZOut LATCbits.LATC1
 #define BUZZTrisOut TRISCbits.TRISC1
-#define LEDPin LATCbits.LATC2       	// Define LEDPin as PORT C Pin 2 for left turn and other tests
-#define LEDTris TRISCbits.TRISC2    	// Define LEDTris as TRISC Pin 2 as output mode
+#define LEDPin LATCbits.LATC2       	// Define LEDPin as PORT C2 for left turn and other tests
+#define LEDTris TRISCbits.TRISC2    	// Define LEDTris as TRISC 2 as output mode
 
 // definition for the 7-Segment
-#define SevenSEGOut0 LATEbits.LATE0 // RB1 segment g
-#define SevenSEGOut1 LATEbits.LATE1 // RB4 segment a
-#define SevenSEGOut2 LATEbits.LATE2 // RB2 segment d
+#define SevenSEGOut0 LATEbits.LATE0     // RE0 segment d
+#define SevenSEGOut1 LATEbits.LATE1     // RE1 segment g
+#define SevenSEGOut2 LATEbits.LATE2     // RE2 segment a
 #define SevenSEGTrisOut0 TRISEbits.TRISE0
 #define SevenSEGTrisOut1 TRISEbits.TRISE1
 #define SevenSEGTrisOut2 TRISEbits.TRISE2

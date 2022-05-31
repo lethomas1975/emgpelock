@@ -12,6 +12,7 @@
 #include "common.h"
 
 char connected = 0;
+
 void sendCharacter(char c) {
     while (TXIF == 0);
     TXREG = c;
@@ -21,7 +22,6 @@ void sendCharacter(char c) {
 void sendString(const char *out) {
     int i = 0;
     while (out[i] != '\0') {        
-        LCD_Char(out[i]);
         sendCharacter(out[i]);
         i++;
     }    

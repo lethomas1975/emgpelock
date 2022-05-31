@@ -10,6 +10,7 @@
 #define BUZZER_H
 void buzz(void);
 void buzzOff(void);
+void buzzOnAndOff(int delay);
 #endif
 
 // This is a guard condition so that contents of this file are not included

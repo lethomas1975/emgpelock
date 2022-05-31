@@ -25,9 +25,9 @@ void setSegmentByBit(unsigned char a, unsigned char d, unsigned char g);
  * 
  * Author: Lili Zhang 27/03/2022
  */
-void setSegmentByBit(unsigned char a, unsigned char d,unsigned char g) {
-    SevenSEGOut1 = g;
+void setSegmentByBit(unsigned char a, unsigned char d, unsigned char g) {
     SevenSEGOut0 = d;
+    SevenSEGOut1 = g;
     SevenSEGOut2 = a;
 }
 
@@ -56,8 +56,11 @@ void setSevenSegment(int display) {
             setSegmentByBit(1, 1, 1);
             break;
         default:
-            setSegmentByBit(0, 0, 0);
+            clearSevenSegment();
             break;
     }
 }
 
+void clearSevenSegment(void) {
+    setSegmentByBit(0, 0, 0);    
+}

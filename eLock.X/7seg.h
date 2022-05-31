@@ -1,9 +1,7 @@
 #ifndef SEVEN_SEG_H
 #define	SEVEN_SEG_H
-
-// functions for 7-Segment
-void setSevenSegment(int count);    // display the 7-Segment on the LED
-
+void setSevenSegment(int count);
+void clearSevenSegment(void);
 #endif
 
 // This is a guard condition so that contents of this file are not included

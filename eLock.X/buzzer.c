@@ -27,3 +27,9 @@ void buzz(void) {
 void buzzOff(void) {
     BUZZOut = 0;
 }
+
+void buzzOnAndOff(int delay) {
+    buzz();
+    delayInMs(delay);
+    buzzOff();
+}
