@@ -133,7 +133,7 @@ struct MenuView: View, CommandResponse {
         // TODO: show error message to user
     }
     
-    func toggleProgressViewWithTimer(_ message: String) {
+    private func toggleProgressViewWithTimer(_ message: String) {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
             progressMessage = message
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer2 in

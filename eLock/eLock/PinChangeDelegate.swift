@@ -17,4 +17,16 @@ class PinChangeDelegate: BaseCommandDelegate {
         let command = "\(getCommand())+\(oldPin)+\(newPin)+\(confirmPin)"
         sendCommand(peripheral: peripheral, characteristic: characteristic, command: command, observer: observer)
     }
+    
+    override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("pin response: \(message)")
+            if "C2OK+CP" == message {
+                resetToMainDelegate(peripheral)
+                notifySuccess()
+            } else {
+                notifyFailure()
+            }
+        }
+    }
 }

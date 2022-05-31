@@ -32,10 +32,7 @@
 		E9CCBED728325B5F000065C7 /* HM10Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */; };
 		E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED82832610D000065C7 /* HM10BTManager.swift */; };
 		E9CCBEDB28326A35000065C7 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDA28326A35000065C7 /* PinView.swift */; };
-		E9CCBEDD28326ADA000065C7 /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDC28326ADA000065C7 /* LockView.swift */; };
-		E9CCBEDF28326AE4000065C7 /* UnlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDE28326AE4000065C7 /* UnlockView.swift */; };
 		E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE028326B13000065C7 /* PinChangeView.swift */; };
-		E9CCBEE328326B3B000065C7 /* EncryptSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */; };
 		E9CCBEE528326B4D000065C7 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE428326B4D000065C7 /* HelpView.swift */; };
 		E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE628326B64000065C7 /* SettingView.swift */; };
 		E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */; };
@@ -87,10 +84,7 @@
 		E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10Bluetooth.swift; sourceTree = "<group>"; };
 		E9CCBED82832610D000065C7 /* HM10BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10BTManager.swift; sourceTree = "<group>"; };
 		E9CCBEDA28326A35000065C7 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
-		E9CCBEDC28326ADA000065C7 /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
-		E9CCBEDE28326AE4000065C7 /* UnlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockView.swift; sourceTree = "<group>"; };
 		E9CCBEE028326B13000065C7 /* PinChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinChangeView.swift; sourceTree = "<group>"; };
-		E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptSettingView.swift; sourceTree = "<group>"; };
 		E9CCBEE428326B4D000065C7 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		E9CCBEE628326B64000065C7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPeripheralView.swift; sourceTree = "<group>"; };
@@ -158,10 +152,7 @@
 				E9CCBED628325B5F000065C7 /* HM10Bluetooth.swift */,
 				E9CCBED82832610D000065C7 /* HM10BTManager.swift */,
 				E9CCBEDA28326A35000065C7 /* PinView.swift */,
-				E9CCBEDC28326ADA000065C7 /* LockView.swift */,
-				E9CCBEDE28326AE4000065C7 /* UnlockView.swift */,
 				E9CCBEE028326B13000065C7 /* PinChangeView.swift */,
-				E9CCBEE228326B3B000065C7 /* EncryptSettingView.swift */,
 				E9CCBEE428326B4D000065C7 /* HelpView.swift */,
 				E9CCBEE628326B64000065C7 /* SettingView.swift */,
 				E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */,
@@ -342,7 +333,6 @@
 				E9CCBED32832593B000065C7 /* MenuView.swift in Sources */,
 				E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */,
 				E9BA237B2840812300AB91DA /* PinChangeDelegate.swift in Sources */,
-				E9CCBEDF28326AE4000065C7 /* UnlockView.swift in Sources */,
 				E9CCBECC283257AB000065C7 /* WelcomeView.swift in Sources */,
 				E9BA238328411D3F00AB91DA /* ResetBluetoothView.swift in Sources */,
 				E9BA23812840826200AB91DA /* ResetBluetoothDelegate.swift in Sources */,
@@ -351,8 +341,6 @@
 				E9BA2379284080BC00AB91DA /* PinDelegate.swift in Sources */,
 				E9CCBED728325B5F000065C7 /* HM10Bluetooth.swift in Sources */,
 				E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */,
-				E9CCBEE328326B3B000065C7 /* EncryptSettingView.swift in Sources */,
-				E9CCBEDD28326ADA000065C7 /* LockView.swift in Sources */,
 				E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */,
 				E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */,
 				E9CCBEA528324FF4000065C7 /* Persistence.swift in Sources */,
