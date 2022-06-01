@@ -41,6 +41,7 @@ void setDisconnected(void);
 char isC2Command(const char *);
 char isC2Pin(const char *);
 
+const char OK[] = "OK";
 const char OKCONN[] = "OK+CONN";
 const char OKLOST[] = "OK+LOST";
 const char C2COMMAND[4] = "C2+";

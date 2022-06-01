@@ -40,7 +40,7 @@
 #ifndef ELOCK_H
 #define ELOCK_H
 void askPin(const char* message, char pin[4]);
-char checkPin(const char pin[4]);
+char checkPin(char pin[4]);
 char login(void);
 
 void askForChangePin(char currPin[4], char newPin[4], char confPin[4]);

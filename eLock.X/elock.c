@@ -33,7 +33,7 @@ void askPin(const char* message, char pin[4]) {
     pin[3] = 0;
 }
 
-char checkPin(const char pin[4]) {
+char checkPin(char pin[4]) {
     char savedPin[4] = "";
     readPinFromEeprom(savedPin);
     return strcmp(savedPin, pin) == 0;
@@ -149,7 +149,7 @@ void setupEncrypt(void) {
 }
 
 void toggleEncrypt(void) {
-    char sEncrypt = readEncryptFromEeprom();
+    char sEncrypt = readEncryptFromEeprom() == '1';
     if (!sEncrypt) {
         saveEncryptToEeprom('1');
     } else {

@@ -14,12 +14,18 @@
 char connected = 0;
 
 void sendCharacter(char c) {
+    if (!isConnected()) {
+        return;
+    }
     while (TXIF == 0);
     TXREG = c;
     //while (TRMT == 0);
 }
 
 void sendString(const char *out) {
+    if (!isConnected()) {
+        return;
+    }
     while (*out != '\0') {        
         sendCharacter(*out);
         out++;
@@ -40,7 +46,7 @@ char receiveChar() {
 }
 
 char isOkConn(const char * recv) {
-    if (strstartwith(recv, OKCONN) == 1) {
+    if (strstartwith(recv, OKCONN) == 1 || strcmp(recv, OK) == 0) {
         setConnected();
         return 1;
     }

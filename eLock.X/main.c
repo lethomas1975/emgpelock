@@ -76,6 +76,7 @@ void main(void) {
     LCD_Init();
     OSCCON = 0x72;
 
+    savePinToEeprom("000");
     setupPin();
     setupEncrypt();
     LCD_Clear();
@@ -91,6 +92,7 @@ void main(void) {
                 break;
             case '1':
                 disableInterrupt();
+                clearCommandString();
                 char confirmed = login();
                 LCD_Clear();
                 enableInterrupt();
@@ -105,6 +107,7 @@ void main(void) {
                 break;
             case '3':
                 disableInterrupt();
+                clearCommandString();
                 if (isLocked()) {
                     unlock();
                     sendString(C2OKSU);
@@ -123,6 +126,7 @@ void main(void) {
                 break;
             case '4':
                 disableInterrupt();
+                clearCommandString();
                 toggleEncrypt();
                 sendEncryptStatus();
                 LCD_Clear();
@@ -139,6 +143,7 @@ void main(void) {
                 askForChangePin(currP, newP, confP);
             case '6':
                 disableInterrupt();
+                clearCommandString();
                 if (changePin(currP, newP, confP)) {
                     sendString(C2OKCP);
                     LCD_Clear();
@@ -157,6 +162,7 @@ void main(void) {
                 break;
             case '7':
                 disableInterrupt();
+                clearCommandString();
                 sendString(C2OKRBT);
                 delayInMs(50);
                 systemLocked();
@@ -253,6 +259,8 @@ void handleCommand(void) {
             if (command == '3') {
                 parseChangePin();
                 command = '6';
+            } else if (command == '4') {
+                command = '7';
             } else if (command >= '1' && command <= '5') {
                 command = command + 2;
             } else if (command == '0') {
@@ -277,7 +285,7 @@ void handleCommand(void) {
 
 void parsePin(void) {
     resetPinHolders();
-    char encrypted = readEncryptFromEeprom() == 1;
+    char encrypted = readEncryptFromEeprom() == '1';
     for (int i = 0; i < 3; i++) {
         currP[i] = commandBT[6 + i];
     }
@@ -289,7 +297,7 @@ void parsePin(void) {
 
 void parseChangePin(void) {
     resetPinHolders();
-    char encrypted = readEncryptFromEeprom() == 1;
+    char encrypted = readEncryptFromEeprom() == '1';
     for (int i = 0; i < 3; i++) {
         currP[i] = commandBT[5 + i];
         newP[i] = commandBT[9 + i];
@@ -314,7 +322,7 @@ void decrypt(char toDecrypt[4]) {
     LCD_String(toDecrypt);
     char tmp[4] = "";
     for (int i = 0; i < 3; i++) {
-        tmp[i] = toDecrypt[i] - 'a';
+        tmp[i] = toDecrypt[i] - 1 - i;
     }
     tmp[3] = 0;
     strcpy(toDecrypt, tmp);

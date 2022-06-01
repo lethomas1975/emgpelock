@@ -58,7 +58,9 @@ char readEncryptFromEeprom(void) {
 void saveEncryptToEeprom(const char encrypt) {
     char toSave[4] = "";
     strcpy(toSave, ENCRYPT);
-    strcat(toSave, &encrypt);
+    char toEncrp[2] = "";
+    toEncrp[0] = encrypt;
+    strcat(toSave, toEncrp);
     EEPROM_WriteString(ENCRYPT_START_ADDRESS, toSave);
 }
 
