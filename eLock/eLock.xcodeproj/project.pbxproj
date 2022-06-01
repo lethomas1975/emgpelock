@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E9BA23712840782800AB91DA /* LockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA23702840782800AB91DA /* LockDelegate.swift */; };
-		E9BA237528407B2C00AB91DA /* UnlockDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA237428407B2C00AB91DA /* UnlockDelegate.swift */; };
 		E9BA237728407B7B00AB91DA /* BaseCommandDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA237628407B7B00AB91DA /* BaseCommandDelegate.swift */; };
 		E9BA2379284080BC00AB91DA /* PinDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA2378284080BC00AB91DA /* PinDelegate.swift */; };
 		E9BA237B2840812300AB91DA /* PinChangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA237A2840812300AB91DA /* PinChangeDelegate.swift */; };
 		E9BA237D284081D500AB91DA /* EncryptDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA237C284081D500AB91DA /* EncryptDelegate.swift */; };
 		E9BA23812840826200AB91DA /* ResetBluetoothDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA23802840826200AB91DA /* ResetBluetoothDelegate.swift */; };
-		E9BA238328411D3F00AB91DA /* ResetBluetoothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA238228411D3F00AB91DA /* ResetBluetoothView.swift */; };
-		E9BA238528412A0800AB91DA /* EncryptStatusDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA238428412A0800AB91DA /* EncryptStatusDelegate.swift */; };
+		E9BA238B2847512F00AB91DA /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BA238A2847512F00AB91DA /* ResponseHandler.swift */; };
 		E9CCBE9C28324FF3000065C7 /* eLockApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBE9B28324FF3000065C7 /* eLockApp.swift */; };
 		E9CCBEA028324FF4000065C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CCBE9F28324FF4000065C7 /* Assets.xcassets */; };
 		E9CCBEA328324FF4000065C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9CCBEA228324FF4000065C7 /* Preview Assets.xcassets */; };
@@ -33,8 +31,6 @@
 		E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBED82832610D000065C7 /* HM10BTManager.swift */; };
 		E9CCBEDB28326A35000065C7 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEDA28326A35000065C7 /* PinView.swift */; };
 		E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE028326B13000065C7 /* PinChangeView.swift */; };
-		E9CCBEE528326B4D000065C7 /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE428326B4D000065C7 /* HelpView.swift */; };
-		E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE628326B64000065C7 /* SettingView.swift */; };
 		E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,14 +53,12 @@
 
 /* Begin PBXFileReference section */
 		E9BA23702840782800AB91DA /* LockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockDelegate.swift; sourceTree = "<group>"; };
-		E9BA237428407B2C00AB91DA /* UnlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockDelegate.swift; sourceTree = "<group>"; };
 		E9BA237628407B7B00AB91DA /* BaseCommandDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCommandDelegate.swift; sourceTree = "<group>"; };
 		E9BA2378284080BC00AB91DA /* PinDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDelegate.swift; sourceTree = "<group>"; };
 		E9BA237A2840812300AB91DA /* PinChangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinChangeDelegate.swift; sourceTree = "<group>"; };
 		E9BA237C284081D500AB91DA /* EncryptDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptDelegate.swift; sourceTree = "<group>"; };
 		E9BA23802840826200AB91DA /* ResetBluetoothDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetBluetoothDelegate.swift; sourceTree = "<group>"; };
-		E9BA238228411D3F00AB91DA /* ResetBluetoothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetBluetoothView.swift; sourceTree = "<group>"; };
-		E9BA238428412A0800AB91DA /* EncryptStatusDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptStatusDelegate.swift; sourceTree = "<group>"; };
+		E9BA238A2847512F00AB91DA /* ResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
 		E9CCBE9828324FF3000065C7 /* eLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9CCBE9B28324FF3000065C7 /* eLockApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eLockApp.swift; sourceTree = "<group>"; };
 		E9CCBE9F28324FF4000065C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -85,8 +79,6 @@
 		E9CCBED82832610D000065C7 /* HM10BTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HM10BTManager.swift; sourceTree = "<group>"; };
 		E9CCBEDA28326A35000065C7 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		E9CCBEE028326B13000065C7 /* PinChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinChangeView.swift; sourceTree = "<group>"; };
-		E9CCBEE428326B4D000065C7 /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		E9CCBEE628326B64000065C7 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPeripheralView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,18 +145,14 @@
 				E9CCBED82832610D000065C7 /* HM10BTManager.swift */,
 				E9CCBEDA28326A35000065C7 /* PinView.swift */,
 				E9CCBEE028326B13000065C7 /* PinChangeView.swift */,
-				E9CCBEE428326B4D000065C7 /* HelpView.swift */,
-				E9CCBEE628326B64000065C7 /* SettingView.swift */,
 				E9CCBEE828327EFC000065C7 /* BTPeripheralView.swift */,
 				E9BA23702840782800AB91DA /* LockDelegate.swift */,
-				E9BA237428407B2C00AB91DA /* UnlockDelegate.swift */,
 				E9BA237628407B7B00AB91DA /* BaseCommandDelegate.swift */,
 				E9BA2378284080BC00AB91DA /* PinDelegate.swift */,
 				E9BA237A2840812300AB91DA /* PinChangeDelegate.swift */,
 				E9BA237C284081D500AB91DA /* EncryptDelegate.swift */,
-				E9BA238428412A0800AB91DA /* EncryptStatusDelegate.swift */,
 				E9BA23802840826200AB91DA /* ResetBluetoothDelegate.swift */,
-				E9BA238228411D3F00AB91DA /* ResetBluetoothView.swift */,
+				E9BA238A2847512F00AB91DA /* ResponseHandler.swift */,
 			);
 			path = eLock;
 			sourceTree = "<group>";
@@ -331,27 +319,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9CCBED32832593B000065C7 /* MenuView.swift in Sources */,
+				E9BA238B2847512F00AB91DA /* ResponseHandler.swift in Sources */,
 				E9CCBED92832610D000065C7 /* HM10BTManager.swift in Sources */,
 				E9BA237B2840812300AB91DA /* PinChangeDelegate.swift in Sources */,
 				E9CCBECC283257AB000065C7 /* WelcomeView.swift in Sources */,
-				E9BA238328411D3F00AB91DA /* ResetBluetoothView.swift in Sources */,
 				E9BA23812840826200AB91DA /* ResetBluetoothDelegate.swift in Sources */,
 				E9CCBEA828324FF4000065C7 /* eLock.xcdatamodeld in Sources */,
 				E9BA23712840782800AB91DA /* LockDelegate.swift in Sources */,
 				E9BA2379284080BC00AB91DA /* PinDelegate.swift in Sources */,
 				E9CCBED728325B5F000065C7 /* HM10Bluetooth.swift in Sources */,
 				E9CCBEE128326B13000065C7 /* PinChangeView.swift in Sources */,
-				E9CCBEE728326B64000065C7 /* SettingView.swift in Sources */,
 				E9CCBEE928327EFC000065C7 /* BTPeripheralView.swift in Sources */,
 				E9CCBEA528324FF4000065C7 /* Persistence.swift in Sources */,
 				E9BA237728407B7B00AB91DA /* BaseCommandDelegate.swift in Sources */,
 				E9CCBE9C28324FF3000065C7 /* eLockApp.swift in Sources */,
 				E9CCBEDB28326A35000065C7 /* PinView.swift in Sources */,
-				E9CCBEE528326B4D000065C7 /* HelpView.swift in Sources */,
 				E9CCBED12832587C000065C7 /* BTScanningView.swift in Sources */,
-				E9BA238528412A0800AB91DA /* EncryptStatusDelegate.swift in Sources */,
 				E9CCBED528325A30000065C7 /* BTPeripheral.swift in Sources */,
-				E9BA237528407B2C00AB91DA /* UnlockDelegate.swift in Sources */,
 				E9BA237D284081D500AB91DA /* EncryptDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

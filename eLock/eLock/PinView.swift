@@ -15,6 +15,8 @@ struct PinView: View, CommandResponse {
     @State var pin = ""
     @State var disabled = false
         
+    @State var appeared = false
+    
     var digits: Int = 3
 
     var dots: some View {
@@ -76,6 +78,15 @@ struct PinView: View, CommandResponse {
                 dots.padding()
                 pinField
             }
+        }.onReceive(appContext.btManager.$connectedPeripheral) { connected in
+            if connected == nil && appeared {
+                appContext.appState = .DISCONNECTED
+            }
+        }
+        .onAppear {
+            appeared = true
+        }.onDisappear {
+            appeared = false
         }
     }
     

@@ -10,6 +10,15 @@ import CoreBluetooth
 import CoreData
 import SwiftUI
 
+extension String {
+    static func ~= (lhs: String, rhs: String) -> Bool {
+        guard let regex = try? NSRegularExpression(pattern: rhs) else { return false }
+        let range = NSRange(location: 0, length: lhs.utf8.count)
+        return regex.firstMatch(in: lhs, options: [], range: range) != nil
+    }
+
+}
+
 class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     private let viewContext = PersistenceController.shared.container.viewContext
     
@@ -25,13 +34,13 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     
-    private let pinDelegate: PinDelegate = PinDelegate();
-    private let lockDelegate: LockDelegate = LockDelegate();
-    private let unlockDelegate: UnlockDelegate = UnlockDelegate();
-    private let pinChangeDelegate: PinChangeDelegate = PinChangeDelegate();
-    private let encryptDelegate: EncryptDelegate = EncryptDelegate();
-    private let ecryptStatusDelegate: EncryptStatusDelegate = EncryptStatusDelegate();
-    private let resetBluetoothDelegate: ResetBluetoothDelegate = ResetBluetoothDelegate();
+    private let pinDelegate: PinDelegate = PinDelegate()
+    private let lockDelegate: LockDelegate = LockDelegate()
+    private let pinChangeDelegate: PinChangeDelegate = PinChangeDelegate()
+    private let encryptDelegate: EncryptDelegate = EncryptDelegate()
+    private let resetBluetoothDelegate: ResetBluetoothDelegate = ResetBluetoothDelegate()
+    
+    private let responseHandler: ResponseHandler = ResponseHandler.shared
     
     override init() {
         super.init()
@@ -66,6 +75,15 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         }
     }
     
+    func disconnectCurrentConnect(_ forget: Bool = true) {
+        if connectedPeripheral != nil {
+            if forget {
+                deletePeripheal(connectedPeripheral)
+            }
+            hm10Bluetooth.disconnect(connectedPeripheral)
+        }
+    }
+    
     func readValue() {
         hm10Bluetooth.readValue()
     }
@@ -86,6 +104,9 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     }
 
     func connected(_ peripheral: CBPeripheral) {
+        if peripherals.contains(where: { $0.id.uuidString == peripheral.identifier.uuidString}) {
+            peripherals.removeAll(where: { $0.id.uuidString == peripheral.identifier.uuidString})
+        }
         connectedPeripheral = peripheral
         do {
             if let result = fetch(peripheral.identifier) {
@@ -142,10 +163,8 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     }
     
     func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
-        if !message.isEmpty {
-            self.message = message
-            print("receiving: \(self.message)")
-        }
+        print("receiving: \(message)")
+        responseHandler.handleMessage(message)
     }
     
     // MARK: Persistence
@@ -198,6 +217,12 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
+    func deletePeripheal(_ peripheral: CBPeripheral) -> Void {
+        if let per = fetch(peripheral.identifier) {
+            viewContext.delete(per)
+        }
+    }
 
     // MARK: transmission functions
     // Send a string to the device
@@ -210,7 +235,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     
     func sendPin(_ pin: String, observer: CommandResponse) {
         print("sending pin: \(pin)")
-        pinDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, pin: pin, observer: observer)
+        pinDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, pin: encrypt(pin), observer: observer)
     }
     
     func sendLock(observer: CommandResponse) {
@@ -219,15 +244,9 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         
     }
 
-    func sendUnlock(observer: CommandResponse) {
-        print("sending unlock command")
-        unlockDelegate.unlock(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
-        
-    }
-
     func sendChangePin(oldPin: String, newPin: String, confirmPin: String, observer: CommandResponse) {
         print("sending change pin command")
-        pinChangeDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, oldPin: oldPin, newPin: newPin, confirmPin: confirmPin, observer: observer)
+        pinChangeDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, oldPin: encrypt(oldPin), newPin: encrypt(newPin), confirmPin: encrypt(confirmPin), observer: observer)
     }
 
     func sendEncrypt(observer: CommandResponse) {
@@ -235,13 +254,21 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         encryptDelegate.encrypt(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
     }
 
-    func sendEncryptStatus(observer: CommandResponse) {
-        print("sending encrypt status command")
-        ecryptStatusDelegate.status(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
-    }
-    
     func sendResetBluetooth(observer: CommandResponse) {
         print("sending reset command")
         resetBluetoothDelegate.reset(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+    }
+    
+    private func encrypt(_ message: String) -> String {
+        var encrypted = ""
+        if AppContext.shared.encrypted {
+            for (index, c) in message.enumerated() {
+                encrypted += String(Character(UnicodeScalar(UInt8(Int(c.asciiValue!) + 1 + index))))
+            }
+        } else {
+            encrypted = message
+        }
+        print("encrypted: \(encrypted)")
+        return encrypted
     }
 }

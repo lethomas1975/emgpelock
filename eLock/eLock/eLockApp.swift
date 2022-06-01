@@ -8,12 +8,16 @@
 import SwiftUI
 
 enum AppState: Int, CaseIterable {
-    case START = 0, DISCONNECTED, CONNECTED, LOGGEDIN, MENU, PINCHANGE, HELP, SETTINGS
+    case START = 0, DISCONNECTED, CONNECTED, LOGGEDIN, MENU, PINCHANGE
 }
 
 class AppContext: ObservableObject {
+    static let shared = AppContext()
+    
     @Published var appState: AppState = .START
     @ObservedObject var btManager = HM10BTManager()
+    @Published var locked: Bool = false
+    @Published var encrypted: Bool = false
     
     func next() {
         if appState.rawValue < AppState.MENU.rawValue {
@@ -25,7 +29,7 @@ class AppContext: ObservableObject {
 @main
 struct eLockApp: App {
     let persistenceController = PersistenceController.shared
-    @ObservedObject var appContext = AppContext()
+    @ObservedObject var appContext = AppContext.shared
     
     var body: some Scene {
         return WindowGroup {
@@ -40,10 +44,6 @@ struct eLockApp: App {
                     MenuView().environmentObject(appContext)
                 case .PINCHANGE:
                     PinChangeView().environmentObject(appContext)
-                case .HELP:
-                    HelpView().environmentObject(appContext)
-                case .SETTINGS:
-                    SettingView().environmentObject(appContext)
             }
         }
     }

@@ -39,66 +39,6 @@ extension BluetoothListener {
     }
 }
 
-class ConfigDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
-    private var state = 0
-    
-    var mainDelegate: CBPeripheralDelegate?
-    
-    func startConfig(peripheral: CBPeripheral, characteristic: CBCharacteristic) {
-        peripheral.delegate = self
-        var command: String = ""
-        switch (state) {
-        case 0:
-            command = "AT"
-        case 1:
-            command = "AT+NAME?"
-        case 2:
-            command = "AT+VERR?"
-        case 3:
-            command = "AT+BAUD0"
-        default:
-            peripheral.delegate = mainDelegate
-            break
-        }
-        if !command.isEmpty, let data = command.data(using: String.Encoding.ascii) {
-            print("config Sending: \(command)")
-            write(peripheral: peripheral, characteristic: characteristic, value: data)
-        }
-    }
-    
-    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
-        if !message.isEmpty {
-            print("config Receiving: \(message)")
-            state += 1
-            startConfig(peripheral: peripheral, characteristic: characteristic)
-        }
-    }
-
-    func write(peripheral: CBPeripheral, characteristic: CBCharacteristic, value: Data) {
-        peripheral.writeValue(value, for: characteristic, type: .withResponse)
-        /*if peripheral.canSendWriteWithoutResponse {
-            peripheral.writeValue(value, for: characteristic, type: .withoutResponse)
-        } else {
-            peripheral.writeValue(value, for: characteristic, type: .withResponse)
-        }*/
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        // notify the delegate in different ways
-        // if you don't use one of these, just comment it (for optimum efficiency :])
-        let data = characteristic.value
-        guard data != nil else { return }
-        
-        // then the string
-        if let str = String(data: data!, encoding: String.Encoding.ascii) {
-            receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
-        } else {
-            print("Received an invalid string!")
-        }
-    }
-
-}
-
 class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDelegate, CBPeripheralDelegate {
     static let HM_10_SERVICE_UUID = CBUUID(string: "FFE0")
     static let HM_10_CHARACTERISTIC_UUID = CBUUID(string: "FFE1")
@@ -108,13 +48,10 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     private var characteristic: CBCharacteristic!
     
     private var listener: BluetoothListener
-    
-    var configDelegate: ConfigDelegate = ConfigDelegate()
 
     init(_ listener: BluetoothListener) {
         self.listener = listener;
         super.init()
-        configDelegate.mainDelegate = self
     }
     
     func startScanning() -> Void {
@@ -142,12 +79,12 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     
     func write(value: Data) {
         connectedPeripheral.delegate = self
-        connectedPeripheral.writeValue(value, for: characteristic, type: .withResponse)
-        /*if connectedPeripheral.canSendWriteWithoutResponse {
+        //connectedPeripheral.writeValue(value, for: characteristic, type: .withResponse)
+        if connectedPeripheral.canSendWriteWithoutResponse {
             connectedPeripheral.writeValue(value, for: characteristic, type: .withoutResponse)
         } else {
             connectedPeripheral.writeValue(value, for: characteristic, type: .withResponse)
-        }*/
+        }
     }
     
     // MARK: CBCentralManagerDelegate functions
@@ -179,6 +116,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     }
 
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        stopScanning()
         listener.connected(peripheral)
         connectedPeripheral = peripheral
         connectedPeripheral.delegate = self
@@ -186,7 +124,9 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        connectedPeripheral = nil
         listener.disconnected(peripheral)
+        startScanning()
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
@@ -197,10 +137,12 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
     // MARK: CBPeripheralDelegate functions
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         if ((error) != nil) {
+            disconnect(peripheral)
             print("Error discovering services: \(error!.localizedDescription)")
             return
         }
         guard let services = peripheral.services else {
+            disconnect(peripheral)
             return
         }
         //We need to discover the all characteristic
@@ -221,18 +163,10 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
                 print("Characteristic: \(characteristic.uuid)")
                 self.characteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
-                //configDelegate.startConfig(peripheral: peripheral, characteristic: characteristic)
                 listener.characteristic(characteristic)
-                if let data = "AT+VERR?".data(using: String.Encoding.ascii) {
-                    print("sending: AT+VERR?")
-                    write(value: data)
-                }
-                if let data = "AT+ANCS1".data(using: String.Encoding.ascii) {
-                    print("sending: AT+ANCS1")
-                    write(value: data)
-                }
                 if let data = "C2+0".data(using: String.Encoding.ascii) {
                     print("sending: C2+0")
+                    ResponseHandler.shared.notify("sending: C2+0")
                     write(value: data)
                 }
                 break;
@@ -246,6 +180,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
         
         // then the string
         if let str = String(data: data!, encoding: String.Encoding.ascii) {
+            ResponseHandler.shared.notify("receiving: \(str)")
             listener.receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
         } else {
             print("Received an invalid string!")

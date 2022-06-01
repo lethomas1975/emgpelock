@@ -28,6 +28,8 @@ class BaseCommandDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
 
     var mainDelegate: CBPeripheralDelegate?
     
+    var timer: Timer?
+    
     func getCommand() -> String {
         fatalError("No Implementation")
     }
@@ -37,11 +39,20 @@ class BaseCommandDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
         peripheral.delegate = self
         if let data = command.data(using: String.Encoding.ascii) {
             print("sending command: \(command)")
+            ResponseHandler.shared.notify("sending: \(command)")
             write(peripheral: peripheral, characteristic: characteristic, value: data)
+            timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { timer in
+                if timer.isValid {
+                    if AppContext.shared.btManager.connectedPeripheral != nil {
+                        AppContext.shared.btManager.disconnectCurrentConnect(false)
+                    }
+                }
+            }
         }
     }
     
     func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        stopTimer()
         if !message.isEmpty {
             print("Receiving response: \(message)")
             resetToMainDelegate(peripheral)
@@ -49,6 +60,10 @@ class BaseCommandDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
         } else {
             notifyFailure()
         }
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
     }
 
     func write(peripheral: CBPeripheral, characteristic: CBCharacteristic, value: Data) {
@@ -63,6 +78,7 @@ class BaseCommandDelegate: NSObject, BluetoothListener, CBPeripheralDelegate {
         
         // then the string
         if let str = String(data: data!, encoding: String.Encoding.ascii) {
+            ResponseHandler.shared.notify("receiving: \(str)")
             receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
         } else {
             print("Received an invalid string!")

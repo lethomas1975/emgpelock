@@ -19,11 +19,17 @@ class LockDelegate: BaseCommandDelegate {
     }
     
     override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        stopTimer()
         if !message.isEmpty {
             print("lock status response: \(message)")
             if message.starts(with: "C2OK+SL") {
+                AppContext.shared.locked = true
                 resetToMainDelegate(peripheral)
-                notifySuccess(message: "lock:ok")
+                notifySuccess(message: "lock:lock")
+            } else if message.starts(with: "C2OK+SU") {
+                AppContext.shared.locked = false
+                resetToMainDelegate(peripheral)
+                notifySuccess(message: "lock:unlock")
             } else {
                 notifyFailure(message: "lock:nok")
             }

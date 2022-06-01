@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct MenuView: View, CommandResponse {
+struct MenuView: View, CommandResponse, MessageObserver {
     @EnvironmentObject var appContext: AppContext
 
-    @State var encrypted: Bool = false
+    @State var encrypted: Bool = AppContext.shared.encrypted
+    @State var locked: Bool = AppContext.shared.locked
     @State var showView: Bool = false
     @State var progressMessage: String = ""
     @State var appeared = false
+    @State var logText = ""
     
     var xOffset: CGFloat {
         showView ? 0 : -UIScreen.main.bounds.width/2
@@ -28,28 +30,22 @@ struct MenuView: View, CommandResponse {
     }
     
     var body: some View {
+        if logText == "" {
+            ResponseHandler.shared.addListener(self)
+        }
         return ZStack {
             VStack {
                 Text("Team C2: eLock Options").fontWeight(Font.Weight.bold).font(Font.title)
                 Spacer()
                 List {
-                    Button {
+                    Toggle(isOn: $locked, label: {
+                        Text("Lock")
+                    }).onTapGesture {
                         withAnimation {
                             showView.toggle()
-                            progressMessage = "Locking..."
+                            progressMessage = "Toggling lock..."
                         }
                         appContext.btManager.sendLock(observer: self)
-                    } label: {
-                        Text("Lock")
-                    }
-                    Button {
-                        withAnimation {
-                            showView.toggle()
-                            progressMessage = "Unlocking..."
-                        }
-                        appContext.btManager.sendUnlock(observer: self)
-                    } label: {
-                        Text("Unlock")
                     }
                     Button {
                         appContext.appState = .PINCHANGE
@@ -58,7 +54,7 @@ struct MenuView: View, CommandResponse {
                     }
                     Toggle(isOn: $encrypted, label: {
                         Text("Encrypt")
-                    }).onChange(of: encrypted) { newValue in
+                    }).onTapGesture {
                         withAnimation {
                             showView.toggle()
                             progressMessage = "Toggling encryption..."
@@ -74,12 +70,29 @@ struct MenuView: View, CommandResponse {
                     } label: {
                         Text("Reset Bluetooth")
                     }
+                    Button {
+                        appContext.btManager.disconnectCurrentConnect()
+                        appContext.appState = .DISCONNECTED
+                    } label: {
+                        Text("Exit")
+                    }
                 }
             }.blur(radius: blurRadius)
-            ProgressView{
-                Text(progressMessage).font(.title).fontWeight(.bold).colorInvert()
-            }.brightness(1)
-                .padding(100)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text(logText).frame(alignment: .leading).lineLimit(nil).multilineTextAlignment(.leading).font(.body.bold()).frame(maxWidth: .infinity, maxHeight: .infinity)
+                }.frame(maxWidth: .infinity).padding(10).border(.foreground, width: 1)
+            }.background(.black).foregroundColor(.white).offset(x: 0, y: 300).blur(radius: blurRadius)
+            ScrollView {
+                Spacer(minLength: 300)
+                VStack(alignment: .center) {
+                    ProgressView{
+                        Text(progressMessage).font(.title).fontWeight(.bold).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                }
+            }.background(.black)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.spring(response: 0.75,
                                 dampingFraction: 0.7,
                                 blendDuration: 1), value: showView)
@@ -91,7 +104,6 @@ struct MenuView: View, CommandResponse {
         }
         .onAppear {
             appeared = true
-            appContext.btManager.sendEncryptStatus(observer: self)
         }.onDisappear {
             appeared = false
         }
@@ -110,27 +122,26 @@ struct MenuView: View, CommandResponse {
             } else {
                 encrypted = true
             }
-        } else if message == "lock:ok" {
+        } else if message == "lock:lock" {
             toggleProgressViewWithTimer("Locked!")
         } else if message == "lock:nok" {
-            toggleProgressViewWithTimer("Lock failed!")
-        } else if message == "unlock:ok" {
+            toggleProgressViewWithTimer("Lock toggle failed!")
+        } else if message == "lock:unlock" {
             toggleProgressViewWithTimer("Unlocked!")
-        } else if message == "unlock:nok" {
-            toggleProgressViewWithTimer("Unlock failed!")
         } else if message == "rbt:ok" {
             toggleProgressViewWithTimer("Bluetooth reset!")
         } else if message == "rbt:nok" {
             toggleProgressViewWithTimer("Bluetooth reset failed!")
-        } else if message == "encrypt:ok" {
-            toggleProgressViewWithTimer("Encryption toogled!")
-        } else {
-            appContext.btManager.sendEncryptStatus(observer: self)
+        } else if message == "encrypt:decrypt" {
+            toggleProgressViewWithTimer("Encryption disabled!")
+        } else if message == "encrypt:encrypt" {
+            toggleProgressViewWithTimer("Encryption enabled!")
         }
     }
     
     func failed(_ message: String = "") {
         // TODO: show error message to user
+        toggleProgressViewWithTimer("Command failed!")
     }
     
     private func toggleProgressViewWithTimer(_ message: String) {
@@ -139,6 +150,15 @@ struct MenuView: View, CommandResponse {
             Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer2 in
                 showView.toggle()
             }
+        }
+    }
+    
+    func notify(_ message: String) {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+            if !logText.isEmpty {
+                self.logText.append("\n")
+            }
+            self.logText.append("\(message)")
         }
     }
 }

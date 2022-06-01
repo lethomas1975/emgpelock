@@ -29,37 +29,64 @@ struct PinChangeView: View, CommandResponse  {
     @State var oldPin: String = ""
     @State var newPin: String = ""
     @State var conPin: String = ""
+    
+    @State var appeared = false
 
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 10) {
                 SecureField("Current PIN", text: $oldPin).keyboardType(.numberPad).onChange(of: oldPin) { newValue in
                     self.oldPin = String(newValue.prefix(MAX_DIGITS))
-                }.padding(10)
+                }.padding(10).border(.foreground, width: 1)
                 SecureField("New PIN", text: $newPin).keyboardType(.numberPad).onChange(of: newPin) { newValue in
                     self.newPin = String(newValue.prefix(MAX_DIGITS))
-                }.padding(10)
+                }.padding(10).border(.foreground, width: 1)
                 SecureField("Confirm PIN", text: $conPin).keyboardType(.numberPad).onChange(of: conPin) { newValue in
                     self.conPin = String(newValue.prefix(MAX_DIGITS))
-                }.padding(10)
-                Button {
-                    withAnimation {
-                        showView.toggle()
-                        progressMessage = "Changing PIN..."
-                    }
-                    appContext.btManager.sendChangePin(oldPin: oldPin, newPin: newPin, confirmPin: conPin, observer: self)
-                } label: {
-                    Text("Change PIN")
+                }.padding(10).border(.foreground, width: 1)
+                HStack {
+                    Spacer()
+                    Button {
+                        withAnimation {
+                            showView.toggle()
+                            progressMessage = "Changing PIN..."
+                        }
+                        appContext.btManager.sendChangePin(oldPin: oldPin, newPin: newPin, confirmPin: conPin, observer: self)
+                    } label: {
+                        Text("Change PIN")
+                    }.padding().border(.blue, width: 1)
+                    Spacer()
+                    Button {
+                        appContext.appState = .MENU
+                    } label: {
+                        Text("Cancel")
+                    }.padding().border(.blue, width: 1)
+                    Spacer()
                 }
             }
-            ProgressView{
-                Text(progressMessage).font(.title).fontWeight(.bold).colorInvert()
-            }.brightness(1)
-                .padding(100)
+            ScrollView {
+                Spacer(minLength: 300)
+                VStack(alignment: .center) {
+                    ProgressView{
+                        Text(progressMessage).font(.title).fontWeight(.bold).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                }
+            }.background(.black)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.spring(response: 0.75,
                                 dampingFraction: 0.7,
                                 blendDuration: 1), value: showView)
                 .offset(x: xOffset, y: yOffset)
+        }.onReceive(appContext.btManager.$connectedPeripheral) { connected in
+            if connected == nil && appeared {
+                appContext.appState = .DISCONNECTED
+            }
+        }
+        .onAppear {
+            appeared = true
+        }.onDisappear {
+            appeared = false
         }
     }
     

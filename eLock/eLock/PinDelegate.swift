@@ -20,6 +20,7 @@ class PinDelegate: BaseCommandDelegate {
     }
 
     override func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        stopTimer()
         if !message.isEmpty {
             print("pin response: \(message)")
             if "C2OK+PIN" == message {
