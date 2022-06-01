@@ -20,10 +20,9 @@ void sendCharacter(char c) {
 }
 
 void sendString(const char *out) {
-    int i = 0;
-    while (out[i] != '\0') {        
-        sendCharacter(out[i]);
-        i++;
+    while (*out != '\0') {        
+        sendCharacter(*out);
+        out++;
     }    
 }
 

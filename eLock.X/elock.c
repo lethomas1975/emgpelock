@@ -33,7 +33,7 @@ void askPin(const char* message, char pin[4]) {
     pin[3] = 0;
 }
 
-char checkPin(const char * pin) {
+char checkPin(const char pin[4]) {
     char savedPin[4] = "";
     readPinFromEeprom(savedPin);
     return strcmp(savedPin, pin) == 0;
@@ -114,7 +114,7 @@ void enableInterrupt(void) {
     RCIF = 0;
 }
 
-char confirmPin(const char* pin1, const char* pin2) {
+char confirmPin(const char pin1[4], const char pin2[4]) {
     return strcmp(pin1, pin2) == 0;
 }
 
@@ -126,7 +126,7 @@ void setupPin(void) {
     }
 }
 
-char changePin(const char* oldP, const char* newP, const char* conP) {
+char changePin(const char oldP[4], const char newP[4], const char conP[4]) {
     char sPin[4] = "";
     readPinFromEeprom(sPin);
     char confirmed = confirmPin(sPin, oldP);
@@ -160,7 +160,7 @@ void toggleEncrypt(void) {
 void sendEncryptStatus(void) {
     char encrp = readEncryptFromEeprom();
     char enc_status[8] = "";
-    strcat(enc_status, C2OKE);
+    strcpy(enc_status, C2OKE);
     enc_status[6] = encrp;
     sendString(enc_status);
 }
@@ -168,7 +168,7 @@ void sendEncryptStatus(void) {
 void sendAppStatus(void) {
     char encrp = readEncryptFromEeprom();
     char app_status[10] = "";
-    strcat(app_status, C2OKE);
+    strcpy(app_status, C2OKE);
     app_status[6] = encrp;
     app_status[7] = '+';
     app_status[8] = isLocked() ? 'L' : 'U';

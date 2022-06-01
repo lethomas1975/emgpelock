@@ -69,6 +69,7 @@ void clearCommandString(void) {
     for (int i = 0; i < 17; i++) {
         commandBT[i] = 0;
     }
+    index = 0;
 }
 
 void main(void) {
@@ -214,8 +215,8 @@ void interrupt usart(void) {
         commandBT[index] = c;
         index = (index + 1) % 16;
         RCIF = 0;
-        RCIP = 1;
         enableInterrupt();
+        RCIP = 1;
     }
     RCIF = 0;
 }
@@ -266,6 +267,9 @@ void handleCommand(void) {
             if (pinCount == 3) {
                 systemLocked();
             }
+            break;
+        default:
+            command = '0';
             break;
     }
     clearCommandString();

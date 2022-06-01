@@ -40,12 +40,12 @@
 #ifndef ELOCK_H
 #define ELOCK_H
 void askPin(const char* message, char pin[4]);
-char checkPin(const char * pin);
+char checkPin(const char pin[4]);
 char login(void);
 
 void askForChangePin(char currPin[4], char newPin[4], char confPin[4]);
-char changePin(const char* oldP, const char* newP, const char* conP);
-char confirmPin(const char* pin1, const char* pin2);
+char changePin(const char oldP[4], const char newP[4], const char conP[4]);
+char confirmPin(const char pin1[4], const char pin2[4]);
 void handleConfirmPin(char confirmed, int *count);
 
 void systemLocked(void);
