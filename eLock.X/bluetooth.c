@@ -10,23 +10,19 @@
 #include "bluetooth.h"
 #include "lcd.h"
 #include "common.h"
+#include "7seg.h"
 
 char connected = 0;
 
 void sendCharacter(char c) {
-    if (!isConnected()) {
-        return;
-    }
     while (TXIF == 0);
     TXREG = c;
-    //while (TRMT == 0);
+    while (TRMT == 0);
+    //TXIF = 0;
 }
 
 void sendString(const char *out) {
-    if (!isConnected()) {
-        return;
-    }
-    while (*out != '\0') {        
+    while (*out != '\0') {
         sendCharacter(*out);
         out++;
     }    

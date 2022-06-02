@@ -58,22 +58,18 @@ void displayMenu(void) {
 }
 
 void resetPinHolders(void) {
-    disableInterrupt();
     for (int i = 0; i < 4; i++) {
         currP[i] = 0;
         newP[i] = 0;
         confP[i] = 0;
     }
-    enableInterrupt();
 }
 
 void clearCommandString(void) {
-    disableInterrupt();
     for (int i = 0; i < 17; i++) {
         commandBT[i] = 0;
     }
     index = 0;
-    enableInterrupt();
 }
 
 void main(void) {
@@ -123,7 +119,7 @@ void main(void) {
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Locked!");
                 }
-                delayInMs(1000);
+                delayInMs(500);
                 LCD_Clear();
                 enableInterrupt();
                 command = '0';
@@ -135,7 +131,7 @@ void main(void) {
                 sendEncryptStatus();
                 LCD_Clear();
                 LCD_String_xy(1, 0, readEncryptFromEeprom() == 0 ? "Encrypt disabled" : "Encrypt enabled");
-                delayInMs(1000);
+                delayInMs(500);
                 LCD_Clear();
                 enableInterrupt();
                 command = '0';
@@ -152,7 +148,7 @@ void main(void) {
                     sendString(C2OKCP);
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Pin changed!");
-                    delayInMs(1000);
+                    delayInMs(500);
                     LCD_Clear();
                 } else {
                     sendString(C2NOKCP);
@@ -276,8 +272,10 @@ void handleCommand(void) {
         case 4:
             parsePin();
             handleConfirmPin(checkPin(currP), &pinCount);
-            if (pinCount >= 3) {
+            if (pinCount == 3) {
                 systemLocked();
+                pinCount = 0;
+            } else if (pinCount >= 4) {
                 pinCount = 0;
             }
             break;
