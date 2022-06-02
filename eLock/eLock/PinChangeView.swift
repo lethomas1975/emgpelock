@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Introspect
+
 struct PinChangeView: View, CommandResponse  {
     @EnvironmentObject var appContext: AppContext
 
@@ -33,7 +33,8 @@ struct PinChangeView: View, CommandResponse  {
     @State var appeared = false
 
     var body: some View {
-        ZStack {
+        appContext.btManager.addListener(self)
+        return ZStack {
             VStack(alignment: .center, spacing: 10) {
                 SecureField("Current PIN", text: $oldPin).keyboardType(.numberPad).onChange(of: oldPin) { newValue in
                     self.oldPin = String(newValue.prefix(MAX_DIGITS))
@@ -71,8 +72,8 @@ struct PinChangeView: View, CommandResponse  {
                         Text(progressMessage).font(.title).fontWeight(.bold).frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-            }.background(.black)
-                .foregroundColor(.white)
+            }.background(.background)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.spring(response: 0.75,
                                 dampingFraction: 0.7,
@@ -95,23 +96,39 @@ struct PinChangeView: View, CommandResponse  {
     }
     
     func successful(_ message: String) {
-        toggleProgressViewWithTimer("Pin Changed!")
+        if appContext.appState == .PINCHANGE {
+            oldPin = ""
+            newPin = ""
+            conPin = ""
+            toggleViewIfFalse("Pin Changed!")
+            toggleProgressViewWithTimer("Pin Changed!")
+        }
     }
     
     func failed(_ message: String) {
-        oldPin = ""
-        newPin = ""
-        conPin = ""
-        toggleProgressViewWithTimer("Pin change failed!", success: false)
+        if appContext.appState == .PINCHANGE {
+            oldPin = ""
+            newPin = ""
+            conPin = ""
+            toggleViewIfFalse("Pin change failed!")
+            toggleProgressViewWithTimer("Pin change failed!", success: false)
+        }
     }
     
-    private func toggleProgressViewWithTimer(_ message: String, success: Bool = true) {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+    private func toggleViewIfFalse(_ message: String = "") {
+        if showView == false {
+            showView.toggle()
             progressMessage = message
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer2 in
+        }
+    }
+
+    private func toggleProgressViewWithTimer(_ message: String, success: Bool = true) {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer in
+            progressMessage = message
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { timer2 in
                 showView.toggle()
                 if success {
-                    appContext.appState = .LOGGEDIN
+                    appContext.appState = .CONNECTED
                 }
             }
         }

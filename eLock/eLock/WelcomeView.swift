@@ -32,7 +32,6 @@ struct WelcomeView: View {
         }.onDisappear {
             appeared = false
         }
-        
     }
 }
 

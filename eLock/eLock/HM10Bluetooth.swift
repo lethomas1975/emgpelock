@@ -16,6 +16,7 @@ protocol BluetoothListener: AnyObject  {
     func connectToLastConnectedPeripheral() -> Bool
     func characteristic(_ characteristic: CBCharacteristic)
     func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String)
+    func sendStatusRequest()
 }
 
 extension BluetoothListener {
@@ -36,6 +37,9 @@ extension BluetoothListener {
     }
     
     func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+    }
+    
+    func sendStatusRequest() {
     }
 }
 
@@ -164,11 +168,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
                 self.characteristic = characteristic
                 peripheral.setNotifyValue(true, for: characteristic)
                 listener.characteristic(characteristic)
-                if let data = "C2+0".data(using: String.Encoding.ascii) {
-                    print("sending: C2+0")
-                    ResponseHandler.shared.notify("sending: C2+0")
-                    write(value: data)
-                }
+                listener.sendStatusRequest()
                 break;
             }
         }
@@ -180,6 +180,7 @@ class HM10Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralManagerDele
         
         // then the string
         if let str = String(data: data!, encoding: String.Encoding.ascii) {
+            print("hm10bluetooth: receiving: \(str)")
             ResponseHandler.shared.notify("receiving: \(str)")
             listener.receiveMessage(peripheral: peripheral, characteristic: characteristic, message: str)
         } else {

@@ -19,7 +19,7 @@ struct BTScanningView: View {
     }
     
     var yOffset: CGFloat {
-        showView ? 50 : UIScreen.main.bounds.height
+        showView ? 40 : UIScreen.main.bounds.height
     }
     
     var body: some View {
@@ -68,8 +68,8 @@ struct BTScanningView: View {
                         Text("").font(.title).fontWeight(.bold).frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-            }.background(.black)
-                .foregroundColor(.white)
+            }.background(.background)
+                .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .animation(.spring(response: 0.75,
                                 dampingFraction: 0.7,

@@ -33,18 +33,4 @@ class ResponseHandler {
             }
         }
     }
-    
-    func handleMessage(_ message: String) -> Void {
-        if !message.isEmpty {
-            if message ~= "^C2OK\\+E[01]\\+[LU]$" {
-                AppContext.shared.encrypted = message[message.index(message.startIndex, offsetBy: 6)] == "1"
-                AppContext.shared.locked = message[message.index(message.startIndex, offsetBy: 8)] == "L"
-            } else if message ~= "^C2OK\\+E[01]$" {
-                AppContext.shared.encrypted = message.last == "1"
-            } else if message ~= "^C2OK\\+S[LU]$" {
-                AppContext.shared.locked = message.last == "L"
-            }
-        }
-
-    }
 }

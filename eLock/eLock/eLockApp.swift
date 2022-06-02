@@ -31,19 +31,25 @@ struct eLockApp: App {
     let persistenceController = PersistenceController.shared
     @ObservedObject var appContext = AppContext.shared
     
+    let welcomeView = WelcomeView()
+    let btScanningView = BTScanningView()
+    let pinView = PinView()
+    let menuView = MenuView()
+    let pinChangeView = PinChangeView()
+    
     var body: some Scene {
         return WindowGroup {
             switch (appContext.appState) {
                 case .START:
-                    WelcomeView().environmentObject(appContext)
+                    welcomeView.environmentObject(appContext)
                 case .DISCONNECTED:
-                    BTScanningView().environmentObject(appContext)
+                    btScanningView.environmentObject(appContext)
                 case .CONNECTED:
-                    PinView().environmentObject(appContext)
+                    pinView.environmentObject(appContext)
                 case .LOGGEDIN, .MENU:
-                    MenuView().environmentObject(appContext)
+                    menuView.environmentObject(appContext)
                 case .PINCHANGE:
-                    PinChangeView().environmentObject(appContext)
+                    pinChangeView.environmentObject(appContext)
             }
         }
     }

@@ -13,15 +13,35 @@ import SwiftUI
 extension String {
     static func ~= (lhs: String, rhs: String) -> Bool {
         guard let regex = try? NSRegularExpression(pattern: rhs) else { return false }
-        let range = NSRange(location: 0, length: lhs.utf8.count)
+        let range = NSRange(location: 0, length: lhs.count)
         return regex.firstMatch(in: lhs, options: [], range: range) != nil
     }
 
+    var numberOfLines: Int {
+            return self.components(separatedBy: "\n").count
+    }
+}
+
+protocol CommandResponse {
+    func id() -> String;
+    func successful(_ message: String);
+    func failed(_ message: String);
+}
+
+extension CommandResponse {
+    func id() -> String {
+        return ""
+    }
+    
+    func successful(_ message: String = "") {}
+    func failed(_ message: String = "") {}
 }
 
 class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     private let viewContext = PersistenceController.shared.container.viewContext
     
+    private var timerCount: [ String: Int ] = [:]
+    private var timers: [ String: Timer ] = [:]
     var hm10Bluetooth: HM10Bluetooth!
     
     var centralManager: CBCentralManager!
@@ -34,19 +54,14 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     
     private var writeType: CBCharacteristicWriteType = .withoutResponse
     
-    private let pinDelegate: PinDelegate = PinDelegate()
-    private let lockDelegate: LockDelegate = LockDelegate()
-    private let pinChangeDelegate: PinChangeDelegate = PinChangeDelegate()
-    private let encryptDelegate: EncryptDelegate = EncryptDelegate()
-    private let resetBluetoothDelegate: ResetBluetoothDelegate = ResetBluetoothDelegate()
-    
+    private var responseListeners: [CommandResponse] = [];
+
     private let responseHandler: ResponseHandler = ResponseHandler.shared
     
     override init() {
         super.init()
         hm10Bluetooth = HM10Bluetooth(self)
         centralManager = CBCentralManager(delegate: hm10Bluetooth, queue: nil)
-        pinDelegate.mainDelegate = self.hm10Bluetooth
     }
     
     func retriveCBPeripheral(_ btPeripheral: BTPeripheral) -> CBPeripheral? {
@@ -161,12 +176,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         writeType = characteristic.properties.contains(.write) ? .withResponse : .withoutResponse
         print("charateristic write type is \(writeType)")
     }
-    
-    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
-        print("receiving: \(message)")
-        responseHandler.handleMessage(message)
-    }
-    
+        
     // MARK: Persistence
     private func fetch(_ identifier: UUID) -> Peripheral? {
         let request: NSFetchRequest<Peripheral> = Peripheral.fetchRequest()
@@ -233,30 +243,34 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         }
     }
     
+    func sendStatusRequest() {
+        print("sending status request")
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2+0", observer: nil)
+    }
+    
     func sendPin(_ pin: String, observer: CommandResponse) {
         print("sending pin: \(pin)")
-        pinDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, pin: encrypt(pin), observer: observer)
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2PIN+" + encrypt(pin), observer: observer)
     }
     
     func sendLock(observer: CommandResponse) {
         print("sending lock command")
-        lockDelegate.lock(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
-        
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2+1", observer: observer)
     }
 
     func sendChangePin(oldPin: String, newPin: String, confirmPin: String, observer: CommandResponse) {
         print("sending change pin command")
-        pinChangeDelegate.pin(peripheral: connectedPeripheral, characteristic: characteristic, oldPin: encrypt(oldPin), newPin: encrypt(newPin), confirmPin: encrypt(confirmPin), observer: observer)
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2+3+\(encrypt(oldPin))+\(encrypt(newPin))+\(encrypt(confirmPin))", observer: observer)
     }
 
     func sendEncrypt(observer: CommandResponse) {
         print("sending encrypt/decrypt command")
-        encryptDelegate.encrypt(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2+2", observer: observer)
     }
 
     func sendResetBluetooth(observer: CommandResponse) {
         print("sending reset command")
-        resetBluetoothDelegate.reset(peripheral: connectedPeripheral, characteristic: characteristic, observer: observer)
+        sendCommand(peripheral: connectedPeripheral, characteristic: characteristic, command: "C2+4", observer: observer)
     }
     
     private func encrypt(_ message: String) -> String {
@@ -265,10 +279,135 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
             for (index, c) in message.enumerated() {
                 encrypted += String(Character(UnicodeScalar(UInt8(Int(c.asciiValue!) + 1 + index))))
             }
+            print("encrypted: \(encrypted)")
         } else {
             encrypted = message
+            print("decrypted: \(encrypted)")
         }
-        print("encrypted: \(encrypted)")
         return encrypted
+    }
+    
+    // MARK: BluetoothListener
+    private func sendCommand(peripheral: CBPeripheral, characteristic: CBCharacteristic, command: String, observer: CommandResponse?) {
+        addListener(observer);
+        peripheral.delegate = hm10Bluetooth
+        if let data = command.data(using: String.Encoding.ascii) {
+            print("sending command: \(command)")
+            ResponseHandler.shared.notify("sending: \(command)")
+            write(peripheral: peripheral, characteristic: characteristic, value: data)
+            if self.timerCount[command] == nil {
+                self.timerCount[command] = 0
+                
+                self.timers[command] = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                    if timer.isValid {
+                        if self.timerCount[command] != nil && self.timerCount[command]! < 3 {
+                            self.timerCount[command] = self.timerCount[command]! + 1
+                            print("sending \(command) \(self.timerCount[command]!) times")
+                            self.write(peripheral: peripheral, characteristic: characteristic, value: data)
+                        } else if AppContext.shared.btManager.connectedPeripheral != nil {
+                            if self.timerCount[command] != nil {
+                                timer.invalidate()
+                            }
+                            self.timerCount[command] = nil
+                            AppContext.shared.btManager.disconnectCurrentConnect(false)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func receiveMessage(peripheral: CBPeripheral, characteristic: CBCharacteristic, message: String) {
+        if !message.isEmpty {
+            print("Receiving response: \(message)")
+            if message ~= "^C2OK\\+E[01]\\+[LU]$" && message.count == 9 {
+                let _ = invalidateTime("C2+0")
+                AppContext.shared.encrypted = message[message.index(message.startIndex, offsetBy: 6)] == "1"
+                AppContext.shared.locked = message[message.index(message.startIndex, offsetBy: 8)] == "L"
+            } else if message ~= "^C2OK\\+S[LU]$" {
+                let _ = invalidateTime("C2+1")
+                AppContext.shared.locked = message.last == "L"
+                if AppContext.shared.locked {
+                    notifySuccess(message: "lock:lock")
+                } else {
+                    notifySuccess(message: "lock:unlock")
+                }
+            } else if message == "C2OK+CP" {
+                let _ = invalidateTime("C2+3+")
+                notifySuccess(message: "pin:cpok")
+            } else if message == "C2NOK+CP" {
+                let _ = invalidateTime("C2+3+")
+                notifyFailure(message: "pin:cpnok")
+            } else if "C2OK+PIN" == message {
+                let _ = invalidateTime("C2PIN+")
+                notifySuccess(message: "login:ok")
+            } else if "C2NOK+PIN" == message {
+                let _ = invalidateTime("C2PIN+")
+                notifyFailure(message: "login:nok")
+            } else if message ~= "^C2OK\\+E[01]$" {
+                let _ = invalidateTime("C2+2")
+                AppContext.shared.encrypted = message.last == "1"
+                switch message.last {
+                case "0":
+                    AppContext.shared.encrypted = false
+                    notifySuccess(message: "encrypt:decrypt")
+                case "1":
+                    AppContext.shared.encrypted = true
+                    notifySuccess(message: "encrypt:encrypt")
+                default:
+                    notifyFailure(message: "encrypt:nok")
+                }
+            } else if message == "C2OK+RBT" {
+                let _ = invalidateTime("C2+4")
+                notifySuccess(message: "rbt:ok")
+            } else {
+                notifyFailure(message: "Unknown response")
+            }
+        } else {
+            notifyFailure()
+        }
+    }
+    
+    private func invalidateTime(_ command: String, toNotify: Bool = false) -> Bool {
+        var toNotifyResponse = false
+        for (cmd, timer) in self.timers {
+            if cmd.starts(with: command) {
+                print("found timer with \(cmd) for \(command) to invalidate")
+                if !(toNotify && self.timerCount[cmd] != nil && self.timerCount[cmd]! < 3) || !toNotify {
+                    timer.invalidate();
+                    self.timers[cmd] = nil
+                    self.timerCount[cmd] = nil
+                } else {
+                    toNotifyResponse = true
+                }
+                break
+            }
+        }
+        return toNotifyResponse
+    }
+    
+    func write(peripheral: CBPeripheral, characteristic: CBCharacteristic, value: Data) {
+        peripheral.writeValue(value, for: characteristic, type: .withResponse)
+    }
+    
+    func notifySuccess(message: String = "") {
+        responseListeners.forEach { response in
+            response.successful(message)
+        }
+    }
+
+    func notifyFailure(message: String = "") {
+        responseListeners.forEach { response in
+            response.failed(message)
+        }
+    }
+
+    func addListener(_ listener: CommandResponse? = nil) {
+        if listener != nil {
+            if  responseListeners.contains(where: { $0.id() == listener?.id()}) {
+                responseListeners.removeAll(where: { $0.id() == listener?.id()})
+            }
+            responseListeners.append(listener!)
+        }
     }
 }
