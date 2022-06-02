@@ -141,6 +141,7 @@ void main(void) {
                 resetPinHolders();
                 delayInMs(500);
                 askForChangePin(currP, newP, confP);
+                delayInMs(500);
             case '6':
                 disableInterrupt();
                 clearCommandString();
@@ -148,13 +149,21 @@ void main(void) {
                     sendString(C2OKCP);
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Pin changed!");
-                    delayInMs(500);
-                    LCD_Clear();
+                    pinCount = 0;
                 } else {
                     sendString(C2NOKCP);
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Pin unchanged!");
+                    setSevenSegment(pinCount);
                     buzzOnAndOff(1000);
+                    pinCount++;
+                    if (pinCount == 3) {
+                        systemLocked();
+                    }
+                    if (pinCount >= 3) {
+                        pinCount = 0;
+                    }
+
                 }
                 LCD_Clear();
                 enableInterrupt();
@@ -267,6 +276,7 @@ void handleCommand(void) {
                 sendAppStatus();
             } else {
                 sendString(C2NOK);
+                command = '0';
             }
             break;
         case 4:
@@ -274,8 +284,8 @@ void handleCommand(void) {
             handleConfirmPin(checkPin(currP), &pinCount);
             if (pinCount == 3) {
                 systemLocked();
-                pinCount = 0;
-            } else if (pinCount >= 4) {
+            }
+            if (pinCount >= 3) {
                 pinCount = 0;
             }
             break;
@@ -309,10 +319,20 @@ void parseChangePin(void) {
     currP[3] = 0;
     newP[3] = 0;
     confP[3] = 0;
+    LCD_Clear();
+    LCD_String_xy(1, 0, currP);
+    LCD_String_xy(1, 5, newP);
+    LCD_String_xy(2, 0, confP);
+    delayInMs(1000);
     if (encrypted) {
         decrypt(currP);
         decrypt(newP);
         decrypt(confP);
+        LCD_Clear();
+        LCD_String_xy(1, 0, currP);
+        LCD_String_xy(1, 5, newP);
+        LCD_String_xy(2, 0, confP);
+        delayInMs(1000);
     }
 }
 
@@ -320,9 +340,6 @@ void parseChangePin(void) {
  * a -> 0, b -> 1, ... j -> 9 
  */
 void decrypt(char toDecrypt[4]) {
-    LCD_Clear();
-    LCD_String_xy(1, 0, "Decrypting: ");
-    LCD_String(toDecrypt);
     char tmp[4] = "";
     for (int i = 0; i < 3; i++) {
         tmp[i] = toDecrypt[i] - 1 - i;
