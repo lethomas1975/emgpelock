@@ -54,22 +54,26 @@ void displayMenu(void) {
     }
     
     LCD_String_xy(1, 0, message);
-    LCD_String_xy(2, 0, "3-Chg PIN 4-RS BT");
+    LCD_String_xy(2, 0, "3-Chg PIN 4-RST");
 }
 
 void resetPinHolders(void) {
+    disableInterrupt();
     for (int i = 0; i < 4; i++) {
         currP[i] = 0;
         newP[i] = 0;
         confP[i] = 0;
     }
+    enableInterrupt();
 }
 
 void clearCommandString(void) {
+    disableInterrupt();
     for (int i = 0; i < 17; i++) {
         commandBT[i] = 0;
     }
     index = 0;
+    enableInterrupt();
 }
 
 void main(void) {
@@ -272,8 +276,9 @@ void handleCommand(void) {
         case 4:
             parsePin();
             handleConfirmPin(checkPin(currP), &pinCount);
-            if (pinCount == 3) {
+            if (pinCount >= 3) {
                 systemLocked();
+                pinCount = 0;
             }
             break;
         default:
