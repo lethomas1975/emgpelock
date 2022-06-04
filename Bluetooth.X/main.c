@@ -9,8 +9,6 @@
 #include "../eLock.X/common.h"
 #include "../eLock.X/bluetooth.h"
 #include "../eLock.X/lcd.h"
-#include <plib/usart.h>
-#include <string.h>
 
 char out = '\0';
 
@@ -22,7 +20,9 @@ void main(void) {
     while(1) {
         sendCharacter('a');
         LCD_Char('a');
-        delayInMs(10);
+        //delayInMs(10);
+        char c = receiveChar();
+        LCD_Char(c);
     }
     /*char received[256] = "";
     int i = 0;
