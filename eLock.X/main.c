@@ -76,7 +76,6 @@ void main(void) {
     LCD_Init();
     OSCCON = 0x72;
 
-    savePinToEeprom("000");
     setupPin();
     setupEncrypt();
     LCD_Clear();
