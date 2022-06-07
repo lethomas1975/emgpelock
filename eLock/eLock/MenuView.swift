@@ -146,6 +146,9 @@ struct MenuView: View, CommandResponse, MessageObserver {
             } else if message == "login:nok" {
                 toggleViewIfFalse("Logged in!")
                 toggleProgressViewWithTimer("Logged in!")
+            } else if message == "C2NOK" {
+                toggleViewIfFalse("Command not understood!")
+                toggleProgressViewWithTimer("Command not understood!")
             }
         }
     }
@@ -162,6 +165,9 @@ struct MenuView: View, CommandResponse, MessageObserver {
             if message == "login:nok" {
                 toggleViewIfFalse("Login failed!")
                 toggleProgressViewWithTimer("Login failed!")
+            } else if message == "C2NOK" {
+                toggleViewIfFalse("Command not understood!")
+                toggleProgressViewWithTimer("Command not understood!")
             } else {
                 toggleViewIfFalse(message.isEmpty ? "Command failed!" : message)
                 toggleProgressViewWithTimer(message.isEmpty ? "Command failed!" : message)
