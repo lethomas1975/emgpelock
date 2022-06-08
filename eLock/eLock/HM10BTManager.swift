@@ -360,6 +360,8 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
             } else if message == "C2OK+RBT" {
                 let _ = invalidateTime("C2+4")
                 notifySuccess(message: "rbt:ok")
+            } else if message == "C2NOK" {
+                notifyFailure(message: message)
             } else {
                 notifyFailure(message: "Unknown response")
             }
