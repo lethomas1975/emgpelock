@@ -28,6 +28,15 @@ void buzzOff(void) {
     BUZZOut = 0;
 }
 
+/**
+ * buzzOnAndOff()
+ * turn on and off the buzzer with a delay
+ * 
+ * Parameters:
+ *  delay: time to delay
+ *
+ * Author: Thomas Le 23/05/2022
+ */
 void buzzOnAndOff(int delay) {
     buzz();
     delayInMs(delay);

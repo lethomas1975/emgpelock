@@ -4,6 +4,7 @@
  *
  * Created on 14 May 2022, 20:03
  */
+#include "../eLock.X/init.h"
 #include "../eLock.X/eeprom.h"
 
 

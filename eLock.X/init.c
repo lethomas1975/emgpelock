@@ -9,6 +9,7 @@
 
 void init_usart(void);
 void init_interrupt(void);
+void init_lcd(void);
 
 void init_usart(void) {
     TRISC6 = 0;                       /*Make Tx pin as output*/
@@ -23,10 +24,22 @@ void init_interrupt(void) {
     IPEN = 1;               // enable Interrupt
     INTCON = 0b11001000;    // enable High and Low Priority (BT and Keypad accordingy) and enable RB interrupt
     INTCON2bits.RBIP = 0;   // Keypad Interrupt low priority
-    PIE1 = 0x20;            // enable RX Interrupt
-    IPR1 = 0x20;            // High priority on RX Interrupt
+    PIE1 = 0x20;            // enable RX Interrupt, use 0x30 to enable both RX and TX interrupt
+    IPR1 = 0x20;            // High priority on RX and TX Interrupt
     RBIF = 0;
     RCIF = 0;
+    TXIF = 0;
+    TXIE = 0;               // disable TX interrupt. to be enabled before transmitting
+}
+
+void init_lcd(void) {
+    delayInMs(15);         /* 15ms,16x2 LCD Power on delay */
+    LCDOut = 0;
+    LCDTrisOut = 0;
+    LCDA0Out = 0;
+    LCDA0TrisOut = 0;
+    LCDA1Out = 0;
+    LCDA1TrisOut = 0;
 }
 
 void init(void) {
@@ -76,6 +89,7 @@ void init(void) {
     BTResetOut = 1;
     BTResetTrisOut = 0;
 
+    init_lcd();
     init_usart();
 #ifdef INTEGRATED
     init_interrupt();

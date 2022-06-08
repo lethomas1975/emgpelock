@@ -139,6 +139,20 @@
 #define F_CPU 8000000
 #define baudValue(baud_rate) (((float)(F_CPU)/(64.0f*(float)baud_rate))-1)
 
+#define MAX_PIN_SIZE 4
+#define MAX_COMMAND_SIZE 17
+
+int index = 0;
+int pinCount = 0;
+char command = '0';
+
+char commandBT[MAX_COMMAND_SIZE] = "";
+char currP[MAX_PIN_SIZE] = "";
+char newP[MAX_PIN_SIZE] = "";
+char confP[MAX_PIN_SIZE] = "";
+
+char *txString = 0;     // used for TX interrupt
+
 void init(void);
 #endif
 

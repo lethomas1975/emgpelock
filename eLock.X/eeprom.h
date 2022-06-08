@@ -27,7 +27,6 @@
  */
 #ifndef EEPROM_H
 #define	EEPROM_H
-const int MAX_PIN_SIZE = 4;
 const int PIN_START_ADDRESS = 0;
 const int ENCRYPT_START_ADDRESS = 6;
 

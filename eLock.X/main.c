@@ -16,66 +16,12 @@
 #include "common.h"
 #include "bluetooth.h"
 
-char command = '0';
-char currP[4] = "";
-char newP[4] = "";
-char confP[4] = "";
-
-char commandBT[17] = "";
-char index = 0;
-int pinCount = 0;
-
-int parseCommand(const char * recv);
-void parseChangePin(void);
-void parsePin(void);
-void handleCommand(void);
-void decrypt(char toDecrypt[4]);
-
-void displayMenu(void);
-void resetPinHolders(void);
-void clearCommandString(void);
-
-void displayMenu(void) {
-    char locked = isLocked();
-    char encrypted = readEncryptFromEeprom() == '1';
-    
-    char message[16] = "1-";
-    
-    if (locked) {
-        strcat(message, "ULck ");
-    } else {
-        strcat(message, "Lck ");
-    }
-    strcat(message, "2-");
-    if (encrypted) {
-        strcat(message, "Decrypt");        
-    } else {
-        strcat(message, "Encrypt");
-    }
-    
-    LCD_String_xy(1, 0, message);
-    LCD_String_xy(2, 0, "3-Chg PIN 4-RST");
-}
-
-void resetPinHolders(void) {
-    for (int i = 0; i < 4; i++) {
-        currP[i] = 0;
-        newP[i] = 0;
-        confP[i] = 0;
-    }
-}
-
-void clearCommandString(void) {
-    for (int i = 0; i < 17; i++) {
-        commandBT[i] = 0;
-    }
-    index = 0;
-}
-
 void main(void) {
+    init();
     LCD_Init();
     OSCCON = 0x72;
 
+    savePinToEeprom("000");
     setupPin();
     setupEncrypt();
     LCD_Clear();
@@ -83,104 +29,74 @@ void main(void) {
     clearCommandString();
     
     while (1) {
-        handleCommand();
+        handleBTCommand();
         switch (command) {
             case '0':
-                LCD_String_xy(1, 0, "eLock by Team C2");
-                LCD_String_xy(2, 1, "Press any key");
+                displayInstruction();
                 break;
             case '1':
                 disableInterrupt();
-                clearCommandString();
-                char confirmed = login();
+                resetPinHolders();
+                LCD_Clear();
+                askPin("PIN: ", currP);
+            case '2':
+                disableInterrupt();
+                char confirmed = checkPin(currP);
+                handleConfirmPin(confirmed, &pinCount);
                 LCD_Clear();
                 enableInterrupt();
                 if (confirmed) {
-                    command = '2';
+                    if (command == '1') {
+                        command = '3';
+                    } else {
+                        command = '0';
+                    }
                 } else {
-                    command = '0';                    
+                    if (pinCount == 3) {
+                        command = '0';
+                    }
+                    systemLocked();
+                    if (command == '2') {
+                        command = '0';
+                    }
                 }
-                break;
-            case '2':
-                displayMenu();
                 break;
             case '3':
-                disableInterrupt();
-                clearCommandString();
-                if (isLocked()) {
-                    unlock();
-                    sendString(C2OKSU);
-                    LCD_Clear();
-                    LCD_String_xy(1, 0, "Unlocked!");
-                } else {
-                    lock();
-                    sendString(C2OKSL);
-                    LCD_Clear();
-                    LCD_String_xy(1, 0, "Locked!");
-                }
-                delayInMs(500);
-                LCD_Clear();
-                enableInterrupt();
-                command = '0';
+                displayMenu();
                 break;
             case '4':
                 disableInterrupt();
-                clearCommandString();
-                toggleEncrypt();
-                sendEncryptStatus();
-                LCD_Clear();
-                LCD_String_xy(1, 0, readEncryptFromEeprom() == 0 ? "Encrypt disabled" : "Encrypt enabled");
-                delayInMs(500);
-                LCD_Clear();
+                toggleLock();
                 enableInterrupt();
                 command = '0';
                 break;
             case '5':
                 disableInterrupt();
+                toggleEncrypt();
+                enableInterrupt();
+                command = '0';
+                break;
+            case '6':
+                disableInterrupt();
                 resetPinHolders();
                 delayInMs(500);
                 askForChangePin(currP, newP, confP);
                 delayInMs(500);
-            case '6':
+            case '7':
                 disableInterrupt();
-                clearCommandString();
-                if (changePin(currP, newP, confP)) {
-                    sendString(C2OKCP);
-                    LCD_Clear();
-                    LCD_String_xy(1, 0, "Pin changed!");
-                    pinCount = 0;
-                } else {
-                    sendString(C2NOKCP);
-                    LCD_Clear();
-                    LCD_String_xy(1, 0, "Pin unchanged!");
-                    setSevenSegment(pinCount);
-                    buzzOnAndOff(1000);
-                    pinCount++;
-                    if (pinCount == 3) {
-                        systemLocked();
-                    }
-                    if (pinCount >= 3) {
-                        pinCount = 0;
-                    }
-
-                }
-                LCD_Clear();
+                handleChangePin();
                 enableInterrupt();
                 command = '0';
                 break;
-            case '7':
+            case '8':
                 disableInterrupt();
-                clearCommandString();
                 sendString(C2OKRBT);
-                delayInMs(50);
+                delayInMs(100);
+                pinCount = 3;
                 systemLocked();
                 LCD_Clear();
                 enableInterrupt();
                 command = '0';
-                break;
-            default:
-                enableInterrupt();
-                command = '0';     
                 break;
         }
     }
@@ -195,21 +111,21 @@ void interrupt low_priority keypad(void) {
         if (command == '0') {
             LCD_Clear();
             command = '1';
-        } else if (command == '2') {
+        } else if (command == '3') {
             char c = keyPressed();
             if (c != NULL && c != '#' && c != '*') {
                 if (c == '4') {
-                    command = '7';
+                    command = '8';
                 } else {
-                    command = c + 2;
+                    command = c + 3;
                 }
-                if (command < '3' || command > '7') {
+                if (command < '4' || command > '8') {
                     LCD_Clear();
                     LCD_String_xy(1, 0, "Wrong choice!");
                     buzzOnAndOff(1000);
                     buzzOff();
                     LCD_Clear();
-                    command = '2';
+                    command = '3';
                 }
             }
         }
@@ -224,125 +140,11 @@ void interrupt low_priority keypad(void) {
 void interrupt usart(void) {
     if (RCIF == 1) {
         disableInterrupt();
-        RCIP = 0;
-        char c = receiveChar();
-        commandBT[index] = c;
+        commandBT[index] = receiveChar();
+        commandBT[index + 1] = 0;
         index = (index + 1) % 16;
         RCIF = 0;
         enableInterrupt();
-        RCIP = 1;
+        RCIF = 0;
     }
-    RCIF = 0;
-}
-
-int parseCommand(const char * recv) {
-    if (isOkConn(recv)) {
-        return 1;
-    }
-    if (isOkLost(recv)) {
-        return 2;
-    }
-    if (isC2Command(recv)) {
-        return 3;
-    }
-    if (isC2Pin(recv)) {
-        return 4;
-    }
-    return 0;
-}
-
-void handleCommand(void) {
-    if (commandBT[0] == 0) {
-        return;
-    }
-    int cmd = parseCommand(commandBT);
-    switch (cmd) {
-        case 1:
-            sendAppStatus();
-            break;
-        case 2:
-            break;
-        case 3:
-            command = commandBT[3];
-            if (command == '3') {
-                parseChangePin();
-                command = '6';
-            } else if (command == '4') {
-                command = '7';
-            } else if (command >= '1' && command <= '5') {
-                command = command + 2;
-            } else if (command == '0') {
-                sendAppStatus();
-            } else {
-                sendString(C2NOK);
-                command = '0';
-            }
-            break;
-        case 4:
-            parsePin();
-            handleConfirmPin(checkPin(currP), &pinCount);
-            if (pinCount == 3) {
-                systemLocked();
-            }
-            if (pinCount >= 3) {
-                pinCount = 0;
-            }
-            break;
-        default:
-            command = '0';
-            break;
-    }
-    clearCommandString();
-}
-
-void parsePin(void) {
-    resetPinHolders();
-    char encrypted = readEncryptFromEeprom() == '1';
-    for (int i = 0; i < 3; i++) {
-        currP[i] = commandBT[6 + i];
-    }
-    currP[3] = 0;
-    if (encrypted) {
-        decrypt(currP);
-    }    
-}
-
-void parseChangePin(void) {
-    resetPinHolders();
-    char encrypted = readEncryptFromEeprom() == '1';
-    for (int i = 0; i < 3; i++) {
-        currP[i] = commandBT[5 + i];
-        newP[i] = commandBT[9 + i];
-        confP[i] = commandBT[13 + i];
-    }
-    currP[3] = 0;
-    newP[3] = 0;
-    confP[3] = 0;
-    LCD_Clear();
-    LCD_String_xy(1, 0, currP);
-    LCD_String_xy(1, 5, newP);
-    LCD_String_xy(2, 0, confP);
-    delayInMs(1000);
-    if (encrypted) {
-        decrypt(currP);
-        decrypt(newP);
-        decrypt(confP);
-        LCD_Clear();
-        LCD_String_xy(1, 0, currP);
-        LCD_String_xy(1, 5, newP);
-        LCD_String_xy(2, 0, confP);
-        delayInMs(1000);
-    }
-}
-
-/* simple decryption: only the pin is encrypted
- * a -> 0, b -> 1, ... j -> 9 
- */
-void decrypt(char toDecrypt[4]) {
-    char tmp[4] = "";
-    for (int i = 0; i < 3; i++) {
-        tmp[i] = toDecrypt[i] - 1 - i;
-    }
-    tmp[3] = 0;
-    strcpy(toDecrypt, tmp);
 }

@@ -34,18 +34,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <xc.h> // include processor files - each processor file is guarded.  
-#include <pic18f4550.h>
+#include <pic18fMAX_PIN_SIZE550.h>
 #endif	/* XC_HEADER_TEMPLATE_H */
 
 #ifndef ELOCK_H
 #define ELOCK_H
-void askPin(const char* message, char pin[4]);
-char checkPin(char pin[4]);
-char login(void);
+void askPin(const char* message, char pin[MAX_PIN_SIZE]);
+char checkPin(char pin[MAX_PIN_SIZE]);
+//char login(void);
 
-void askForChangePin(char currPin[4], char newPin[4], char confPin[4]);
-char changePin(const char oldP[4], const char newP[4], const char conP[4]);
-char confirmPin(const char pin1[4], const char pin2[4]);
+void handleChangePin(void);
+void askForChangePin(char currPin[MAX_PIN_SIZE], char newPin[MAX_PIN_SIZE], char confPin[MAX_PIN_SIZE]);
+char changePin(const char oldP[MAX_PIN_SIZE], const char newP[MAX_PIN_SIZE], const char conP[MAX_PIN_SIZE]);
+char confirmPin(const char pin1[MAX_PIN_SIZE], const char pin2[MAX_PIN_SIZE]);
 void handleConfirmPin(char confirmed, int *count);
 
 void systemLocked(void);
@@ -60,4 +61,18 @@ void resetBT(void);
 
 void sendEncryptStatus(void);
 void sendAppStatus(void);
+
+void displayInstruction(void);
+void displayMenu(void);
+
+void toggleLock(void);
+
+void resetPinHolders(void);
+void clearCommandString(void);
+
+void parseChangePin(char cmd[MAX_COMMAND_SIZE]);
+void parsePin(void);
+void handleBTCommand(void);
+int parseCommand(const char * recv);
+
 #endif

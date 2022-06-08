@@ -12,20 +12,17 @@
 #include "common.h"
 #include "7seg.h"
 
-char connected = 0;
-
 void sendCharacter(char c) {
-    while (TXIF == 0);
     TXREG = c;
-    while (TRMT == 0);
-    //TXIF = 0;
+    while (!TRMT);
 }
 
 void sendString(const char *out) {
+    TRMT = 1;
     while (*out != '\0') {
         sendCharacter(*out);
         out++;
-    }    
+    }
 }
 
 char receiveChar() {
@@ -42,30 +39,11 @@ char receiveChar() {
 }
 
 char isOkConn(const char * recv) {
-    if (strstartwith(recv, OKCONN) == 1 || strcmp(recv, OK) == 0) {
-        setConnected();
-        return 1;
-    }
-    return 0;
+    return (strstartwith(recv, OKCONN) == 1 || strcmp(recv, OK) == 0);
 }
 
 char isOkLost(const char * recv) {
-    if (strstartwith(recv, OKLOST) == 1) {
-        setDisconnected();
-        return 1;
-    }
-    return 0;    
-}
-
-char isConnected(void) {
-    return connected;
-}
-void setConnected(void) {
-    connected = 1;
-}
-
-void setDisconnected(void) {
-    connected = 0;
+    return (strstartwith(recv, OKLOST) == 1);    
 }
 
 char isC2Command(const char * recv) {

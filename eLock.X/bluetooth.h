@@ -34,9 +34,6 @@ char receiveChar();
 
 char isOkConn(const char *);
 char isOkLost(const char *);
-char isConnected(void);
-void setConnected(void);
-void setDisconnected(void);
 
 char isC2Command(const char *);
 char isC2Pin(const char *);

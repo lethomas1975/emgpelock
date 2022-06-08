@@ -48,3 +48,20 @@ char strstartwith(const char* source, const char* startwith) {
     }
     return 1;
 }
+
+void clearString(char* source, int length) {
+    if (source != NULL) {
+        for (int i = 0; i < length; i++) {
+            source[i] = 0;
+        }
+    }
+}
+
+void decrypt(char toDecrypt[4]) {
+    char tmp[4] = "";
+    for (int i = 0; i < 3; i++) {
+        tmp[i] = toDecrypt[i] - 97 - i;
+    }
+    tmp[3] = 0;
+    strcpy(toDecrypt, tmp);
+}

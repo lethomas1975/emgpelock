@@ -34,6 +34,10 @@ void delayInMs(int ms);
 void delayInUs(int us);
 
 char strstartwith(const char* source, const char* startwith);
+void clearString(char* source, int length);
+
+void decrypt(char toDecrypt[4]);
+
 #endif
 
 // This is a guard condition so that contents of this file are not included

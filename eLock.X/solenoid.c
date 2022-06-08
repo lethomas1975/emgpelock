@@ -5,7 +5,6 @@
  * Created on 22 May 2022, 22:18
  */
 #include "init.h"
-#include "common.h"
 #include "solenoid.h"
 
 char isLocked(void) {

@@ -11,15 +11,6 @@
 #include "../eLock.X/lcd.h"
 
 void LCD_Init() {
-    init();
-    
-    delayInMs(20);         /* 15ms,16x2 LCD Power on delay */
-    LCDOut = 0;
-    LCDTrisOut = 0;
-    LCDA0Out = 0;
-    LCDA0TrisOut = 0;
-    LCDA1Out = 0;
-    LCDA1TrisOut = 0;
     LCD_Command(0x38);     /* uses 2 line and initialize 5*8 matrix of LCD */
     LCD_Command(0x01);     /* clear display screen */
     LCD_Command(0x0c);     /* display on cursor off */
@@ -41,9 +32,9 @@ void LCD_Command(char cmd) {
 	delayInMs(5);
 }
 
-void LCD_Char(char dat)
+void LCD_Char(char data)
 {
-	LCDOut = dat;            /* Send data to LCD */  
+	LCDOut = data;            /* Send data to LCD */  
 	LCDA0Out = 1;            /* Data Register is selected */
 	LCDA1Out = 1;            /* High-to-Low pulse on Enable pin to latch data */   
 	NOP();
