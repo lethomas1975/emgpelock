@@ -129,6 +129,9 @@ struct PinView: View, CommandResponse {
         if self.appContext.appState == .CONNECTED && message == "login:nok" {
             toggleViewIfFalse("Login failed!");
             self.toggleProgressViewWithTimer("Login failed!", success: false)
+        } else {
+            toggleViewIfFalse(message);
+            self.toggleProgressViewWithTimer(message, success: false)
         }
     }
 

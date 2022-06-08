@@ -277,7 +277,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
         var encrypted = ""
         if AppContext.shared.encrypted {
             for (index, c) in message.enumerated() {
-                encrypted += String(Character(UnicodeScalar(UInt8(Int(c.asciiValue!) + 1 + index))))
+                encrypted += String(data: Data([UInt8(Int(c.asciiValue!) + 97 + index)]), encoding: String.Encoding.windowsCP1252)!
             }
             print("encrypted: \(encrypted)")
         } else {
@@ -291,7 +291,7 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
     private func sendCommand(peripheral: CBPeripheral, characteristic: CBCharacteristic, command: String, observer: CommandResponse?) {
         addListener(observer);
         peripheral.delegate = hm10Bluetooth
-        if let data = command.data(using: String.Encoding.ascii) {
+        if let data = command.data(using: String.Encoding.windowsCP1252) {
             print("sending command: \(command)")
             ResponseHandler.shared.notify("sending: \(command)")
             write(peripheral: peripheral, characteristic: characteristic, value: data)
@@ -314,6 +314,8 @@ class HM10BTManager: NSObject, BluetoothListener, ObservableObject {
                     }
                 }
             }
+        } else {
+            notifyFailure(message: "Could not convert to ASCII")
         }
     }
 
