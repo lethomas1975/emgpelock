@@ -10,6 +10,7 @@
 #include "../eLock.X/lcd.h"
 
 void main(void) {
+    init();
     LCD_Init();
     while (1) {
         char pin[] = "123";

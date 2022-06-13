@@ -13,7 +13,9 @@
 char out = '\0';
 
 void main(void) {
+    init();
     LCD_Init();
+    OSCCON = 0x72;
     LCD_Clear();
     LCD_String_xy(1,0,"Receive: ");
     LCD_Command(0xC0);

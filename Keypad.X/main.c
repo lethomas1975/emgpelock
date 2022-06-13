@@ -11,6 +11,7 @@
 #include "../eLock.X/lcd.h"
 
 void main(void) {
+    init();
     LCD_Init();
     OSCCON = 0x72;
     LCD_String_xy(1, 0, "Hello: ");
