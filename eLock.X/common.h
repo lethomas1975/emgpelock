@@ -33,7 +33,7 @@
 void delayInMs(int ms);
 void delayInUs(int us);
 
-char strstartwith(const char* source, const char* startwith);
+char strstartwith(char* source, char* startwith);
 void clearString(char* source, int length);
 
 void decrypt(char toDecrypt[4]);

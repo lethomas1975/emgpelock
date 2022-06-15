@@ -15,6 +15,15 @@ void EEPROM_WriteString(int, const char*);	/* Write String to EEPROM */
 const char CHECK_PIN_DELIM[] = "P=";
 const char ENCRYPT[] = "E=";
 
+/**
+ * readPinFromEeprom()
+ * read a 3 digit pin from the EEPROM
+ * 
+ * Parameters:
+ *  pin: PIN holder where the PIN is returned
+ * 
+ * Author: Thomas Le 24/05/2022
+ */
 void readPinFromEeprom(char pin[4]) {
     int i = 0;
     char checkPinDelimiter[3] = "";
@@ -34,6 +43,15 @@ void readPinFromEeprom(char pin[4]) {
     }
 }
 
+/**
+ * savePinToEeprom()
+ * save a 3 digit pin to the EEPROM
+ * 
+ * Parameters:
+ *  pin: PIN to save to EEPROM
+ * 
+ * Author: Thomas Le 24/05/2022
+ */
 void savePinToEeprom(const char pin[4]) {
     char toSave[6] = ""; 
     strcpy(toSave, CHECK_PIN_DELIM);
@@ -41,6 +59,16 @@ void savePinToEeprom(const char pin[4]) {
     EEPROM_WriteString(PIN_START_ADDRESS, toSave);
 }
 
+/**
+ * readEncryptFromEeprom()
+ * read encryption state from EEPROM
+ * 
+ * Return:
+ *  0 for decryption
+ *  1 for encryption
+ * 
+ * Author: Thomas Le 24/05/2022
+ */
 char readEncryptFromEeprom(void) {
     int i = 0;
     char checkEncrypt[3] = "";
@@ -56,6 +84,16 @@ char readEncryptFromEeprom(void) {
     return NULL;
 }
 
+/**
+ * saveEncryptToEeprom()
+ * save encryption state to EEPROM
+ * 
+ * Return:
+ *  0 for decryption
+ *  1 for encryption
+ * 
+ * Author: Thomas Le 24/05/2022
+ */
 void saveEncryptToEeprom(const char encrypt) {
     char toSave[4] = "";
     strcpy(toSave, ENCRYPT);
@@ -67,6 +105,17 @@ void saveEncryptToEeprom(const char encrypt) {
 }
 
 // Basic functions
+
+/**
+ * EEPROM_Write()
+ * write a character to an address in the EEPROM
+ * 
+ * Parameters:
+ *  address: where to write the character to
+ *  data: character to write to
+ * 
+ * Author: provided by electronicwings
+ */
 void EEPROM_Write (int address, char data)
 {
     /*Write Operation*/
@@ -90,6 +139,16 @@ void EEPROM_Write (int address, char data)
     
 }
 
+/**
+ * EEPROM_WriteString()
+ * write a string to an address in the EEPROM
+ * 
+ * Parameters:
+ *  address: where to write the character to
+ *  data: string to write to
+ * 
+ * Author: provided by electronicwings
+ */
 void EEPROM_WriteString(int address, const char *data) {
     /*Write Operation for String*/
     while (*data != 0)
@@ -100,6 +159,15 @@ void EEPROM_WriteString(int address, const char *data) {
     }    
 }
 
+/**
+ * EEPROM_Read()
+ * read a character from an address in the EEPROM
+ * 
+ * Parameters:
+ *  address: where to read the character from
+ * 
+ * Author: provided by electronicwings
+ */
 char EEPROM_Read (int address)
 {
     /*Read operation*/

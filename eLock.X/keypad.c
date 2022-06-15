@@ -11,6 +11,16 @@
 const int ROW = 4;
 const int COLUMN = 3;
 
+/**
+ * keyPressed()
+ * reading the keypad
+ * 
+ * Return:
+ *  return the key pressed
+ * 
+ * Author: Soon Lee Teo 14/05/2022
+ * Author: Thomas Le 15/05/2022
+ */
 char keyPressed() {
     char mask = 0xfe;
     char result = NULL;

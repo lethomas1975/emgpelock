@@ -16,6 +16,12 @@
 #include "common.h"
 #include "bluetooth.h"
 
+/**
+ * main()
+ * Main loop of the application
+ * 
+ * Author: Thomas Le 13/04/2022
+ */
 void main(void) {
     init();
     LCD_Init();
@@ -102,6 +108,12 @@ void main(void) {
     }
 }
 
+/**
+ * keypad()
+ * low priority interrupt for the keypad handling
+ * 
+ * Author: Thomas Le 20/05/2022
+ */
 void interrupt low_priority keypad(void) {
     if (RBIF == 1) {
         disableInterrupt();
@@ -137,6 +149,12 @@ void interrupt low_priority keypad(void) {
     RBIF = 0;        
 }
 
+/**
+ * usart()
+ * high priority interrupt for the UART/Bluetooth handling
+ * 
+ * Author: Thomas Le 20/05/2022
+ */
 void interrupt usart(void) {
     if (RCIF == 1) {
         disableInterrupt();

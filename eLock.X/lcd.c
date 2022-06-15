@@ -10,6 +10,12 @@
 #include "../eLock.X/common.h"
 #include "../eLock.X/lcd.h"
 
+/**
+ * LCD_Init()
+ * LCD init
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_Init() {
     LCD_Command(0x38);     /* uses 2 line and initialize 5*8 matrix of LCD */
     LCD_Command(0x01);     /* clear display screen */
@@ -19,10 +25,25 @@ void LCD_Init() {
     LCD_Command(0x06);     /* increment cursor (shift cursor to right) */
 }
 
+/**
+ * LCD_Clear()
+ * clear the LCD display
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_Clear() {
     LCD_Command(0x01); /* clear display screen */
 }
 
+/**
+ * LCD_Command()
+ * execute the command for the LCD
+ * 
+ * Parameters:
+ *  cmd: command to execute
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_Command(char cmd) {
 	LCDOut = cmd;            /* Send data to PORT as a command for LCD */   
 	LCDA0Out = 0;            /* Command Register is selected */
@@ -32,6 +53,15 @@ void LCD_Command(char cmd) {
 	delayInMs(5);
 }
 
+/**
+ * LCD_Char()
+ * display a character on the LCD at the current position
+ * 
+ * Parameters:
+ *  data: character to display
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_Char(char data)
 {
 	LCDOut = data;            /* Send data to LCD */  
@@ -43,6 +73,15 @@ void LCD_Char(char data)
 }
 
 
+/**
+ * LCD_String()
+ * display a string on the LCD at the current position
+ * 
+ * Parameters:
+ *  msg: string to display
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_String(const char *msg) {
 	while( *msg != 0) {		
         LCD_Char(*msg);
@@ -50,6 +89,17 @@ void LCD_String(const char *msg) {
     }
 }
 
+/**
+ * LCD_String_xy()
+ * display a string on the LCD
+ * 
+ * Parameters:
+ *  row: which row to display the first character
+ *  pos: position on the row to display the first charater
+ *  msg: string to display
+ * 
+ * Author: provided by electronicwings
+ */
 void LCD_String_xy(char row, char pos, const char *msg) {
     char location = 0;
     if(row <= 1) {

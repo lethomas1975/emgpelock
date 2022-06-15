@@ -17,6 +17,13 @@
 #include "rgb.h"
 #include "solenoid.h"
 
+/**
+ * resetPinHolders()
+ * reset all PIN holders.
+ * we have 3 global strings for the current PIN, new PIN and confirmation PIN
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void resetPinHolders(void) {
     for (int i = 0; i < MAX_PIN_SIZE; i++) {
         currP[i] = 0;
@@ -25,16 +32,34 @@ void resetPinHolders(void) {
     }
 }
 
+/**
+ * clearCommandString()
+ * reset commandBT global variable.
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void clearCommandString(void) {
     clearString(commandBT, MAX_COMMAND_SIZE);
     index = 0;
 }
 
+/**
+ * displayInstruction()
+ * disable the welcome message and instruction
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void displayInstruction(void) {
     LCD_String_xy(1, 0, "eLock by Team C2");
     LCD_String_xy(2, 1, "Press any key");    
 }
 
+/**
+ * displayMenu()
+ * disable the menu
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void displayMenu(void) {
     char locked = isLocked();
     char encrypted = readEncryptFromEeprom() == '1';
@@ -57,6 +82,12 @@ void displayMenu(void) {
     LCD_String_xy(2, 0, "3-Chg PIN 4-RST");
 }
 
+/**
+ * toggleLock()
+ * toggle the lock status. Lock/Unlock
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void toggleLock(void) {
     if (isLocked()) {
         unlock();
@@ -73,6 +104,16 @@ void toggleLock(void) {
     LCD_Clear();
 }
 
+/**
+ * askPin()
+ * request the PIN
+ * 
+ * Parameter:
+ *  message: message to display on LCD
+ *  pin: holder for the input PIN
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void askPin(const char* message, char pin[MAX_PIN_SIZE]) {
     LCD_String_xy(1, 0, message);    
     int count = 0;
@@ -88,12 +129,37 @@ void askPin(const char* message, char pin[MAX_PIN_SIZE]) {
     pin[3] = 0;
 }
 
+/**
+ * checkPin()
+ * check PIN against the PIN saved in EEPROM
+ * 
+ * Parameter:
+ *  pin: pin to check against EEPROM
+ * 
+ * Return:
+ *  0 is not good
+ *  1 if good
+ * Author: Thomas Le 30/05/2022
+ */
 char checkPin(char pin[MAX_PIN_SIZE]) {
     char savedPin[MAX_PIN_SIZE] = "";
     readPinFromEeprom(savedPin);
     return strcmp(savedPin, pin) == 0;
 }
 
+/**
+ * handleConfirmPin()
+ * handle the confirmed check and set accordingly system flags:
+ * - pinCount
+ * - 7Segment
+ * - buzzer
+ * 
+ * Parameter:
+ *  confirmed: flag returned by checkPin()
+ *  count: address to a counter to increment or reset
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void handleConfirmPin(char confirmed, int *count) {
     if (!confirmed) {
         sendString(C2NOKPIN);
@@ -119,6 +185,15 @@ void handleConfirmPin(char confirmed, int *count) {
     }
 }
 
+/**
+ * handleChangePin()
+ * handle the PIN change
+ * 
+ * Display a message accordingly (successful or fail)
+ * and set the 7Segment, Buzzer and system lock if needed
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void handleChangePin(void) {
     if (changePin(currP, newP, confP)) {
         sendString(C2OKCP);
@@ -138,6 +213,18 @@ void handleChangePin(void) {
     LCD_Clear();
 }
 
+/**
+ * askForChangePin()
+ * ask for the 3 PINs (current Pin, new Pin and confirmation Pin)
+ * this does not do any check, just prompting the user for the PINs
+ * 
+ * out Parameters:
+ *  currPin: current Pin
+ *  newPin: new Pin
+ *  confPin: confirmation PIN
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void askForChangePin(char currPin[MAX_PIN_SIZE], char newPin[MAX_PIN_SIZE], char confPin[MAX_PIN_SIZE]) {
     LCD_Clear();
     askPin("Curr PIN: ", currPin);
@@ -147,10 +234,25 @@ void askForChangePin(char currPin[MAX_PIN_SIZE], char newPin[MAX_PIN_SIZE], char
     askPin("Conf PIN: ", confPin);
 }
 
+/**
+ * confirmPin()
+ * check if 2 PINs are identical
+ * 
+ * Parameters:
+ *  pin1: first PIN
+ *  pin2: second Pin
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 char confirmPin(const char pin1[MAX_PIN_SIZE], const char pin2[MAX_PIN_SIZE]) {
     return strcmp(pin1, pin2) == 0;
 }
 
+/**
+ * setupPin()
+ * set the PIN to 000 to the EEPROM if not previously set up
+ * Author: Thomas Le 30/05/2022
+ */
 void setupPin(void) {
     char sPin[MAX_PIN_SIZE] = ""; 
     readPinFromEeprom(sPin);
@@ -159,6 +261,21 @@ void setupPin(void) {
     }
 }
 
+/**
+ * changePin()
+ * do checks and if all good set the new Pin in EEPROM
+ * 
+ * Parameters:
+ *  oldP: current Pin
+ *  newP: new Pin
+ *  conP: confirmation PIN
+ * 
+ * Return:
+ *  1 if new Pin saved
+ *  0 if check fails
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 char changePin(const char oldP[MAX_PIN_SIZE], const char newP[MAX_PIN_SIZE], const char conP[MAX_PIN_SIZE]) {
     char sPin[MAX_PIN_SIZE] = "";
     readPinFromEeprom(sPin);
@@ -172,6 +289,12 @@ char changePin(const char oldP[MAX_PIN_SIZE], const char newP[MAX_PIN_SIZE], con
     return 0;
 }
 
+/**
+ * parsePin()
+ * parse the commandBT for Pin for login and set it to currP (global variable)
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void parsePin(void) {
     if (strlen(commandBT) != MAX_COMMAND_SIZE) {
         resetPinHolders();
@@ -186,6 +309,14 @@ void parsePin(void) {
     }
 }
 
+/**
+ * parsePin()
+ * parse the commandBT for PINs for change pin
+ * and set the respective global variable (currP, newP, confP)
+ * also decrypt the PIN if status is encrypted (from EEPROM)
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void parseChangePin(char cmd[MAX_COMMAND_SIZE]) {
     resetPinHolders();
     char encrypted = readEncryptFromEeprom() == '1';
@@ -204,6 +335,13 @@ void parseChangePin(char cmd[MAX_COMMAND_SIZE]) {
     }
 }
 
+/**
+ * systemLocked()
+ * system to lock, meaning that after 3 wrong PIN,
+ * the system is lock for 5 seconds
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void systemLocked(void) {
     if (pinCount == 3) {
         sendString(C2SYSTLOCK);
@@ -219,10 +357,22 @@ void systemLocked(void) {
     }
 }
 
+/**
+ * disableInterrupt()
+ * disable all interrupts via the global switch
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void disableInterrupt(void) {
     GIE = 0;
 }
 
+/**
+ * enableInterrupt()
+ * enable all interrupts
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void enableInterrupt(void) {
     LATB = 0xf0;
     RBIF = 0;
@@ -232,6 +382,12 @@ void enableInterrupt(void) {
     RCIF = 0;
 }
 
+/**
+ * setupEncrypt()
+ * set decrypted if not previously set in EEPROM
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void setupEncrypt(void) {
     char sEncrypt = readEncryptFromEeprom();
     if (sEncrypt == NULL) {
@@ -239,6 +395,12 @@ void setupEncrypt(void) {
     }
 }
 
+/**
+ * toggleEncrypt()
+ * toggle between encryption and decryption and save to EEPROM
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void toggleEncrypt(void) {
     char sEncrypt = readEncryptFromEeprom() == '1';
     if (!sEncrypt) {
@@ -253,6 +415,14 @@ void toggleEncrypt(void) {
     LCD_Clear();
 }
 
+/**
+ * sendEncryptStatus()
+ * sending the encryption status via UART
+ * 
+ * C2OK+E[0|1]
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void sendEncryptStatus(void) {
     char encrp = readEncryptFromEeprom();
     char enc_status[8] = "";
@@ -261,6 +431,14 @@ void sendEncryptStatus(void) {
     sendString(enc_status);
 }
 
+/**
+ * sendAppStatus()
+ * sending the encryption status via UART
+ * 
+ * C2OK+E[0|1]+[L|U]
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void sendAppStatus(void) {
     char encrp = readEncryptFromEeprom();
     char app_status[10] = "";
@@ -272,6 +450,23 @@ void sendAppStatus(void) {
     sendString(app_status);    
 }
 
+/**
+ * parseCommand()
+ * helper for commandBT parsing.
+ * 
+ * Parameters:
+ *  recv: string to parse
+ * 
+ * Return:
+ *  category of the command:
+ *  0 - Unknown
+ *  1 - Connection OK
+ *  2 - Connection Lost
+ *  3 - C2+ command
+ *  4 - C2PIN+ command
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 int parseCommand(const char * recv) {
     if (isOkConn(recv)) {
         return 1;
@@ -288,6 +483,12 @@ int parseCommand(const char * recv) {
     return 0;
 }
 
+/**
+ * handleBTCommand()
+ * parsing of the BT command and setting the right command for the main loop
+ * 
+ * Author: Thomas Le 30/05/2022
+ */
 void handleBTCommand(void) {
     if (commandBT[0] == 0) {
         return;

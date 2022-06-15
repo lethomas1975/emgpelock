@@ -1,5 +1,6 @@
 #ifndef SEVEN_SEG_H
 #define	SEVEN_SEG_H
+
 void setSevenSegment(int count);
 void clearSevenSegment(void);
 #endif

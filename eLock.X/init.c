@@ -11,6 +11,12 @@ void init_usart(void);
 void init_interrupt(void);
 void init_lcd(void);
 
+/**
+ * init_usart()
+ * UART initialisation
+ * 
+ * Author: Thomas Le 13/04/2022
+ */
 void init_usart(void) {
     TRISC6 = 0;                       /*Make Tx pin as output*/
     TRISC7 = 1;                       /*Make Rx pin as input*/
@@ -20,6 +26,12 @@ void init_usart(void) {
     BAUDCONbits.BRG16 = 0;
 }
 
+/**
+ * init_interrupt()
+ * Interrupt initialisation
+ * 
+ * Author: Thomas Le 13/04/2022
+ */
 void init_interrupt(void) {
     IPEN = 1;               // enable Interrupt
     INTCON = 0b11001000;    // enable High and Low Priority (BT and Keypad accordingy) and enable RB interrupt
@@ -32,6 +44,12 @@ void init_interrupt(void) {
     TXIE = 0;               // disable TX interrupt. to be enabled before transmitting
 }
 
+/**
+ * init_lcd()
+ * LCD initialisation
+ * 
+ * Author: Thomas Le 13/04/2022
+ */
 void init_lcd(void) {
     delayInMs(15);         /* 15ms,16x2 LCD Power on delay */
     LCDOut = 0;
@@ -42,6 +60,12 @@ void init_lcd(void) {
     LCDA1TrisOut = 0;
 }
 
+/**
+ * init()
+ * main initialisation
+ * 
+ * Author: Thomas Le 13/04/2022
+ */
 void init(void) {
     // disabling ADC
     ADCON0bits.GO = 0;

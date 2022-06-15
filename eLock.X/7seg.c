@@ -61,6 +61,11 @@ void setSevenSegment(int display) {
     }
 }
 
+/**
+ * clearSevenSegment()
+ * clearing the 7-segment from displaying anything
+ * Author: Thomas Le 30/05/2022
+ */
 void clearSevenSegment(void) {
     setSegmentByBit(0, 0, 0);    
 }
