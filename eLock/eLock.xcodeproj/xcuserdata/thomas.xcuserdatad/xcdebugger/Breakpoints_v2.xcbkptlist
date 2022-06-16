@@ -721,7 +721,7 @@
             startingLineNumber = "324"
             endingLineNumber = "324"
             landmarkName = "receiveMessage(peripheral:characteristic:message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -737,7 +737,7 @@
             startingLineNumber = "323"
             endingLineNumber = "323"
             landmarkName = "receiveMessage(peripheral:characteristic:message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -769,7 +769,7 @@
             startingLineNumber = "338"
             endingLineNumber = "338"
             landmarkName = "receiveMessage(peripheral:characteristic:message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -817,7 +817,7 @@
             startingLineNumber = "399"
             endingLineNumber = "399"
             landmarkName = "notifySuccess(message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -881,7 +881,7 @@
             startingLineNumber = "341"
             endingLineNumber = "341"
             landmarkName = "receiveMessage(peripheral:characteristic:message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -897,7 +897,7 @@
             startingLineNumber = "347"
             endingLineNumber = "347"
             landmarkName = "receiveMessage(peripheral:characteristic:message:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -993,7 +993,7 @@
             startingLineNumber = "377"
             endingLineNumber = "377"
             landmarkName = "invalidateTime(_:toNotify:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1009,7 +1009,7 @@
             startingLineNumber = "298"
             endingLineNumber = "298"
             landmarkName = "sendCommand(peripheral:characteristic:command:observer:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1025,7 +1025,7 @@
             startingLineNumber = "303"
             endingLineNumber = "303"
             landmarkName = "sendCommand(peripheral:characteristic:command:observer:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1041,7 +1041,7 @@
             startingLineNumber = "302"
             endingLineNumber = "302"
             landmarkName = "sendCommand(peripheral:characteristic:command:observer:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1089,7 +1089,7 @@
             startingLineNumber = "294"
             endingLineNumber = "294"
             landmarkName = "sendCommand(peripheral:characteristic:command:observer:)"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1104,8 +1104,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "287"
             endingLineNumber = "287"
-            landmarkName = "HM10BTManager"
-            landmarkType = "3">
+            landmarkName = "encrypt(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
