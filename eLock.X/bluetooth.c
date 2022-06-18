@@ -4,8 +4,6 @@
  *
  * Created on 13 April 2022, 00:51
  */
-
-
 #include "init.h"
 #include "common.h"
 #include "bluetooth.h"

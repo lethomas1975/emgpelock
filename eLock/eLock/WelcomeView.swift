@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+/**
+ * WelcomeView
+ *
+ * simple view displaying the team information
+ *
+ * author: Thomas Le 26/05/2002
+ */
 struct WelcomeView: View {
     @EnvironmentObject var appContext: AppContext
     @State var appeared = false

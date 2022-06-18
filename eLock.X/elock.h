@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <xc.h> // include processor files - each processor file is guarded.  
-#include <pic18fMAX_PIN_SIZE550.h>
+#include <pic18f4550.h>
 #endif	/* XC_HEADER_TEMPLATE_H */
 
 #ifndef ELOCK_H
